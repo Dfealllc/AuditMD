@@ -14,7 +14,7 @@ dfeal-health/
 ├── thank-you.html    ← Form submission confirmation
 ├── 404.html          ← Custom error page
 ├── favicon.svg       ← Brand favicon (navy D + gold accent)
-├── dfeal-logo.png    ← ⚠️  ADD THIS — place your logo PNG here
+├── dfeal-logo.svg    ← ⚠️  ADD THIS — place your logo SVG here
 ├── robots.txt        ← Search engine directives
 ├── sitemap.xml       ← SEO sitemap (update domain if needed)
 ├── netlify.toml      ← Netlify deploy config + security headers
@@ -28,7 +28,7 @@ dfeal-health/
 
 ### 1. Add Your Logo
 
-Place `dfeal-logo.png` in this folder alongside `index.html`.  
+Place `dfeal-logo.svg` in this folder alongside `index.html`.  
 The site uses it in the navbar and footer. If the file is missing, the SVG text fallback shows automatically.
 
 ### 2. Update Your Domain
