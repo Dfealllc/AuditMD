@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Navy background square with rounded corners -->
+  <rect width="64" height="64" rx="14" fill="#0B1B6E"/>
+  <!-- "D" lettermark -->
+  <text x="10" y="46" font-family="Inter, Arial, sans-serif" font-weight="900" font-size="38" fill="#FFFFFF" letter-spacing="-2">D</text>
+  <!-- Gold accent dot -->
+  <rect x="39" y="16" width="12" height="12" rx="2" fill="#F5C200"/>
+</svg>

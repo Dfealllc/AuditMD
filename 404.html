@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Page Not Found | DFEAL Health IT</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1B6E; --navy-dark: #080F40; --gold: #F5C200;
+    --white: #FFFFFF; --slate: #5B6490; --border: #E2E6F3;
+    --font: 'Inter', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); color: var(--navy-dark); background: var(--white); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+  a { text-decoration: none; color: inherit; }
+
+  nav { background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; }
+  .nav-logo span { font-size: 0.8rem; font-weight: 700; color: var(--slate); letter-spacing: 0.05em; border-left: 1px solid var(--border); padding-left: 0.6rem; text-transform: uppercase; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; border: 2px solid transparent; }
+  .btn-navy { background: var(--navy); color: var(--white); }
+  .btn-navy:hover { background: #132090; }
+  .btn-outline { background: transparent; color: var(--navy); border-color: var(--border); }
+  .btn-outline:hover { border-color: var(--navy); }
+
+  main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 4rem 1.5rem; background: linear-gradient(135deg, #F0F3FF 0%, #FFFFFF 100%); }
+  .err-card { max-width: 520px; width: 100%; text-align: center; }
+  .err-num { font-size: clamp(5rem, 15vw, 9rem); font-weight: 900; color: var(--navy); line-height: 1; letter-spacing: -0.04em; margin-bottom: 0.25rem; }
+  .err-num span { color: var(--gold); }
+  .err-card h1 { font-size: 1.6rem; font-weight: 800; color: var(--navy-dark); margin-bottom: 0.75rem; }
+  .err-card p { color: var(--slate); font-size: 1rem; margin-bottom: 2rem; }
+
+  .err-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+
+  .err-nav { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+  .err-nav a { font-size: 0.85rem; color: var(--slate); border: 1px solid var(--border); border-radius: 100px; padding: 0.35rem 1rem; transition: all 0.2s; }
+  .err-nav a:hover { border-color: var(--navy); color: var(--navy); }
+
+  footer { background: #05102E; color: rgba(255,255,255,0.5); padding: 1.5rem; text-align: center; font-size: 0.8rem; }
+  footer a { color: rgba(255,255,255,0.6); margin: 0 0.75rem; }
+  footer a:hover { color: var(--white); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="dfeal-logo.png" alt="DFEAL" height="32" style="height:32px;width:auto;display:block;"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+      <svg style="display:none" width="80" height="28" viewBox="0 0 110 36" fill="none">
+        <text x="0" y="28" font-family="Inter,sans-serif" font-weight="900" font-size="28" fill="#0B1B6E" letter-spacing="-1">DFEAL</text>
+      </svg>
+      <span>Health IT</span>
+    </div>
+    <a href="/" class="btn btn-navy">← Back to Home</a>
+  </div>
+</nav>
+
+<main>
+  <div class="err-card">
+    <div class="err-num">4<span>0</span>4</div>
+    <h1>Page Not Found</h1>
+    <p>The page you're looking for doesn't exist or may have been moved. Let's get you back on track.</p>
+
+    <div class="err-links">
+      <a href="/" class="btn btn-navy">Go to Home</a>
+      <a href="/#contact" class="btn btn-outline">Contact DFEAL</a>
+    </div>
+
+    <div class="err-nav">
+      <a href="/#how-it-works">How It Works</a>
+      <a href="/#domains">12 Domains</a>
+      <a href="/#deliverables">Deliverables</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#contact">Get Started</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 DFEAL LLC · All rights reserved ·
+    <a href="/">Home</a>
+    <a href="mailto:intake@dfeal.com">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+# ──────────────────────────────────────────────────────
+# DFEAL Health IT — Netlify Deployment Configuration
+# Deploy: drag this folder into app.netlify.com/drop
+# ──────────────────────────────────────────────────────
+
+[build]
+  publish = "."          # root of this folder is the site
+
+# ── Custom 404 page ───────────────────────────────────
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404
+
+# ── Security headers ──────────────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options        = "DENY"
+    X-XSS-Protection       = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy        = "strict-origin-when-cross-origin"
+    Permissions-Policy     = "camera=(), microphone=(), geolocation=()"
+
+# ── Cache static assets ───────────────────────────────
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Form notifications (optional — set in Netlify UI) -
+# Netlify Forms will automatically detect the form named
+# "ai-readiness-intake" and process submissions.
+# Configure email notifications in:
+#   app.netlify.com → Site → Forms → ai-readiness-intake → Notifications
