@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DFEAL Health | AI Health IT Readiness Audit™</title>
+<title>AuditMD | AI Health IT Readiness Audit™</title>
 <meta name="description" content="Enterprise-grade AI compliance and Health IT audit system. Clarity. Compliance. Control. Powered by DFEAL LLC. 12-domain assessment delivered in 14 days." />
 
 <!-- Favicon -->
@@ -12,23 +12,23 @@
 
 <!-- Open Graph / Social -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://health.dfeal.com/" />
-<meta property="og:title" content="DFEAL Health | AI Health IT Readiness Audit™" />
+<meta property="og:url" content="https://auditmd.xyz/" />
+<meta property="og:title" content="AuditMD | AI Health IT Readiness Audit™" />
 <meta property="og:description" content="Enterprise-grade AI compliance and Health IT audit delivered in 14 days. 12 critical domains. Board-ready findings. Powered by DFEAL LLC." />
-<meta property="og:image" content="https://health.dfeal.com/og-image.png" />
-<meta property="og:site_name" content="DFEAL Health IT" />
+<meta property="og:image" content="https://auditmd.xyz/og-image.png" />
+<meta property="og:site_name" content="AuditMD" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content="https://health.dfeal.com/" />
-<meta name="twitter:title" content="DFEAL Health | AI Health IT Readiness Audit™" />
+<meta name="twitter:url" content="https://auditmd.xyz/" />
+<meta name="twitter:title" content="AuditMD | AI Health IT Readiness Audit™" />
 <meta name="twitter:description" content="Enterprise-grade AI compliance and Health IT audit delivered in 14 days. 12 critical domains. Board-ready findings." />
-<meta name="twitter:image" content="https://health.dfeal.com/og-image.png" />
+<meta name="twitter:image" content="https://auditmd.xyz/og-image.png" />
 
 <!-- SEO -->
 <meta name="robots" content="index, follow" />
 <meta name="author" content="DFEAL LLC" />
-<link rel="canonical" href="https://health.dfeal.com/" />
+<link rel="canonical" href="https://auditmd.xyz/" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -255,6 +255,7 @@
   .pricing-price .amount { font-size: 2.5rem; font-weight: 900; color: var(--navy); line-height: 1; }
   .pricing-price .period { font-size: 0.85rem; color: var(--slate); }
   .pricing-price .note { font-size: 0.75rem; color: var(--slate-light); margin-top: 0.25rem; }
+  .pricing-value-prop { font-size: 0.95rem; font-weight: 700; color: var(--navy); line-height: 1.4; margin: 1rem 0; padding: 0.75rem 1rem; background: var(--section-alt); border-radius: 8px; border-left: 3px solid var(--gold); }
   .pricing-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
   .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
   .pricing-features li { font-size: 0.85rem; color: var(--slate); display: flex; align-items: flex-start; gap: 0.6rem; }
@@ -376,11 +377,80 @@
     .form-row { grid-template-columns: 1fr; }
     .cta-section { padding: 3.5rem 0; }
   }
+
+  /* ── TIER SELECTED BANNER ────────────────────── */
+  .tier-selected-banner { background: linear-gradient(90deg,var(--navy),var(--navy-mid)); color:var(--white); padding:0.75rem 1.5rem; display:flex; align-items:center; justify-content:space-between; font-size:0.875rem; position:sticky; top:68px; z-index:900; border-bottom:2px solid var(--gold); }
+  .tier-selected-banner strong { color:var(--gold); }
+  .tier-banner-actions { display:flex; gap:0.75rem; align-items:center; }
+  .tier-banner-proceed { background:var(--gold); color:var(--navy-dark); border:none; padding:0.4rem 1rem; border-radius:6px; font-size:0.8rem; font-weight:700; cursor:pointer; transition:var(--transition); }
+  .tier-banner-proceed:hover { background:var(--gold-light); }
+  .tier-banner-clear { background:transparent; color:rgba(255,255,255,0.5); border:none; cursor:pointer; font-size:1.1rem; line-height:1; padding:0 0.25rem; }
+
+  /* ── STRIPE MODAL ────────────────────────────── */
+  .modal-overlay { position:fixed; inset:0; background:rgba(8,15,64,0.75); backdrop-filter:blur(4px); z-index:2000; display:none; align-items:center; justify-content:center; padding:1rem; }
+  .modal-overlay.open { display:flex; }
+  .modal-box { background:var(--white); border-radius:var(--radius-lg); padding:2.5rem; max-width:480px; width:100%; box-shadow:var(--shadow-xl); position:relative; animation:fadeInUp 0.3s ease; }
+  .modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; cursor:pointer; color:var(--slate); font-size:1.5rem; line-height:1; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .modal-close:hover { background:var(--section-alt); color:var(--navy); }
+  .modal-eyebrow { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
+  .modal-tier-name { font-size:1.5rem; font-weight:900; color:var(--navy-dark); margin-bottom:0.25rem; }
+  .modal-tier-price { font-size:1rem; color:var(--slate); margin-bottom:1.5rem; }
+  .modal-divider { border:none; border-top:1px solid var(--border); margin:1.25rem 0; }
+  .modal-info { font-size:0.875rem; color:var(--slate); margin-bottom:1.5rem; }
+  .modal-actions { display:flex; flex-direction:column; gap:0.75rem; }
+  .modal-btn-stripe { background:var(--navy); color:var(--white); border:none; border-radius:8px; padding:0.85rem 1.5rem; font-size:0.95rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:var(--transition); }
+  .modal-btn-stripe:hover { background:var(--navy-mid); transform:translateY(-1px); box-shadow:var(--shadow-lg); }
+  .modal-btn-form { background:transparent; color:var(--navy); border:2px solid var(--navy); border-radius:8px; padding:0.8rem 1.5rem; font-size:0.875rem; font-weight:600; cursor:pointer; transition:var(--transition); }
+  .modal-btn-form:hover { background:var(--section-alt); }
+  .modal-note { font-size:0.72rem; color:var(--slate-light); text-align:center; margin-top:0.5rem; }
+
+  /* ── DEEPSEEK CHATBOT ────────────────────────── */
+  .chat-bubble { position:fixed; bottom:1.5rem; right:1.5rem; z-index:1500; width:56px; height:56px; border-radius:50%; background:var(--navy); color:var(--white); border:none; cursor:pointer; box-shadow:0 4px 24px rgba(11,27,110,0.35); display:flex; align-items:center; justify-content:center; font-size:1.5rem; transition:var(--transition); }
+  .chat-bubble:hover { background:var(--navy-mid); transform:scale(1.08); }
+  .chat-bubble .chat-badge { position:absolute; top:-2px; right:-2px; width:16px; height:16px; background:var(--gold); border-radius:50%; border:2px solid var(--white); font-size:0.55rem; font-weight:800; color:var(--navy-dark); display:flex; align-items:center; justify-content:center; }
+  .chat-panel { position:fixed; bottom:5rem; right:1.5rem; z-index:1500; width:360px; max-height:520px; background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-xl); display:none; flex-direction:column; border:1px solid var(--border); overflow:hidden; animation:fadeInUp 0.25s ease; }
+  .chat-panel.open { display:flex; }
+  .chat-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); color:var(--white); padding:1rem 1.25rem; display:flex; align-items:center; gap:0.75rem; }
+  .chat-avatar { width:36px; height:36px; border-radius:50%; background:rgba(245,194,0,0.2); border:1px solid rgba(245,194,0,0.4); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+  .chat-header-info .chat-name { font-size:0.9rem; font-weight:700; }
+  .chat-header-info .chat-status { font-size:0.72rem; color:rgba(255,255,255,0.6); }
+  .chat-close-btn { margin-left:auto; background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; font-size:1.2rem; line-height:1; padding:0.25rem; border-radius:4px; }
+  .chat-close-btn:hover { color:var(--white); background:rgba(255,255,255,0.1); }
+  .chat-messages { flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:0.75rem; }
+  .chat-msg { max-width:85%; padding:0.65rem 0.875rem; border-radius:12px; font-size:0.85rem; line-height:1.5; }
+  .chat-msg.bot { background:var(--section-alt); color:var(--navy-dark); align-self:flex-start; border-bottom-left-radius:4px; }
+  .chat-msg.user { background:var(--navy); color:var(--white); align-self:flex-end; border-bottom-right-radius:4px; }
+  .chat-msg a { color:var(--gold); text-decoration:underline; }
+  .chat-typing { display:flex; gap:4px; align-items:center; padding:0.65rem 0.875rem; }
+  .chat-typing span { width:6px; height:6px; background:var(--slate-light); border-radius:50%; animation:bounce 1.2s infinite; }
+  .chat-typing span:nth-child(2) { animation-delay:0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay:0.4s; }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)} }
+  .chat-input-row { display:flex; gap:0.5rem; padding:0.75rem; border-top:1px solid var(--border); background:var(--white); }
+  .chat-input { flex:1; border:1px solid var(--border); border-radius:8px; padding:0.55rem 0.75rem; font-size:0.85rem; font-family:var(--font); outline:none; resize:none; color:var(--navy-dark); }
+  .chat-input:focus { border-color:var(--navy); }
+  .chat-send { background:var(--navy); color:var(--white); border:none; border-radius:8px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:var(--transition); font-size:1rem; }
+  .chat-send:hover { background:var(--navy-mid); }
+  .chat-quick-replies { display:flex; flex-wrap:wrap; gap:0.5rem; padding:0 1rem 0.75rem; }
+  .chat-qr { background:var(--section-alt); color:var(--navy); border:1px solid var(--border); border-radius:100px; padding:0.3rem 0.75rem; font-size:0.75rem; font-weight:500; cursor:pointer; transition:var(--transition); white-space:nowrap; }
+  .chat-qr:hover { background:var(--navy); color:var(--white); border-color:var(--navy); }
+  @media(max-width:420px){ .chat-panel{width:calc(100vw - 3rem);right:1.5rem;} }
+
 </style>
 </head>
 <body>
 
 <!-- ══ NAVIGATION ══════════════════════════════ -->
+
+<!-- ══ TIER SELECTED BANNER ═══════════════════════════════════════ -->
+<div class="tier-selected-banner" id="tier-banner" style="display:none" role="status">
+  <span>✅ Selected: <strong id="tier-banner-name"></strong> — <span id="tier-banner-price"></span></span>
+  <div class="tier-banner-actions">
+    <button class="tier-banner-proceed" onclick="goToStripe()">Proceed to Payment ↗</button>
+    <button class="tier-banner-clear" onclick="clearTier()" title="Clear selection">×</button>
+  </div>
+</div>
+
 <nav>
   <div class="container">
     <div class="nav-inner">
@@ -394,7 +464,7 @@
           <rect x="32" y="10" width="9" height="9" fill="#F5C200" rx="1"/>
           <text x="96" y="12" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="9" fill="#0B1B6E">TM</text>
         </svg>
-        <span>Health IT</span>
+        <span>AuditMD</span>
       </div>
       <ul class="nav-links">
         <li><a href="#how-it-works">How It Works</a></li>
@@ -402,7 +472,7 @@
         <li><a href="#deliverables">Deliverables</a></li>
         <li><a href="#who">Who It's For</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="https://dfeal.com" target="_blank">dfeal.com ↗</a></li>
+        <li><a href="https://auditmd.xyz" target="_blank">auditmd.xyz ↗</a></li>
       </ul>
       <div class="nav-cta">
         <a href="#contact" class="btn btn-navy">Start Audit</a>
@@ -937,11 +1007,7 @@
       <div class="pricing-card">
         <div class="pricing-tag">Layer 1 · One-Time Engagement</div>
         <div class="pricing-name">AI Health IT Readiness Audit™</div>
-        <div class="pricing-price">
-          <div class="amount" style="font-size:1.75rem">$4,500<span style="font-size:1rem;color:var(--slate)">–$15,000</span></div>
-          <div class="period">per engagement · fixed price</div>
-          <div class="note">Scoped to organizational size &amp; complexity</div>
-        </div>
+        <div class="pricing-value-prop">Scoped to organizational size &amp; complexity</div>
         <hr class="pricing-divider" />
         <ul class="pricing-features">
           <li><span class="check">✓</span> Full 12-domain assessment</li>
@@ -953,18 +1019,14 @@
           <li><span class="x">–</span> PMO Optimization Plan</li>
           <li><span class="x">–</span> Ongoing regulatory monitoring</li>
         </ul>
-        <a href="#contact" class="btn btn-navy" style="width:100%;justify-content:center">Request a Quote</a>
+        <a href="/forms/pre-call.html" class="btn btn-navy" style="width:100%;justify-content:center;font-size:0.9rem;text-decoration:none;display:flex">Schedule a Discovery Call ↗</a>
       </div>
 
       <!-- LAYER 2: Compliance Monitoring Retainer -->
       <div class="pricing-card featured">
         <div class="pricing-tag">Layer 2 · Monthly Retainer</div>
         <div class="pricing-name">Ongoing Compliance Monitoring</div>
-        <div class="pricing-price">
-          <div class="amount" style="font-size:1.75rem">$1,500<span style="font-size:1rem;color:var(--slate)">–$3,500</span></div>
-          <div class="period">/ month · ongoing</div>
-          <div class="note">Continuous oversight as regulations evolve</div>
-        </div>
+        <div class="pricing-value-prop">Continuous oversight as regulations evolve</div>
         <hr class="pricing-divider" />
         <ul class="pricing-features">
           <li><span class="check">✓</span> Monthly AI-powered HIPAA posture review</li>
@@ -976,18 +1038,14 @@
           <li><span class="check">✓</span> Annual full re-audit included</li>
           <li><span class="check">✓</span> Priority scheduling</li>
         </ul>
-        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center">Schedule Discovery Call</a>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;font-size:0.9rem;text-decoration:none;display:flex">Request a Quote ↗</a>
       </div>
 
       <!-- LAYER 3: Fractional PMO AI Service -->
       <div class="pricing-card">
         <div class="pricing-tag">Layer 3 · Monthly Retainer</div>
         <div class="pricing-name">Fractional PMO AI Service</div>
-        <div class="pricing-price">
-          <div class="amount" style="font-size:1.75rem">$3,000<span style="font-size:1rem;color:var(--slate)">–$10,000</span></div>
-          <div class="period">/ month · ongoing</div>
-          <div class="note">Your outsourced Health IT governance department</div>
-        </div>
+        <div class="pricing-value-prop">Your outsourced Health IT governance department</div>
         <hr class="pricing-divider" />
         <ul class="pricing-features">
           <li><span class="check">✓</span> AI-generated project portfolio dashboards</li>
@@ -999,10 +1057,10 @@
           <li><span class="check">✓</span> Available as add-on to Layer 2</li>
           <li><span class="check">✓</span> Priority scheduling</li>
         </ul>
-        <a href="#contact" class="btn btn-navy" style="width:100%;justify-content:center">Learn More</a>
+        <a href="#contact" class="btn btn-navy" style="width:100%;justify-content:center;font-size:0.9rem;text-decoration:none;display:flex">Learn More ↗</a>
       </div>
     </div>
-    <p style="text-align:center;font-size:0.8rem;color:var(--slate-light);margin-top:1.5rem">All engagements include Net 14 payment terms. 50% upfront, 50% on delivery. Fixed-price — no open-ended billing, ever. Contact us for an exact quote within 48 hours of your discovery call.</p>
+    <p style="text-align:center;font-size:0.8rem;color:var(--slate-light);margin-top:1.5rem">All engagements are custom-scoped and quoted based on your organization's size, complexity, and needs. No open-ended billing — ever. Receive your exact quote within 48 hours of your discovery call.</p>
   </div>
 </section>
 
@@ -1019,7 +1077,7 @@
         <ul class="cta-contact-list">
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <a href="mailto:intake@dfeal.com">intake@dfeal.com</a>
+            <a href="mailto:intake@auditmd.xyz">intake@auditmd.xyz</a>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -1043,8 +1101,14 @@
         <h3>AI Readiness Assessment Intake</h3>
         <p class="form-sub">We'll review your information and follow up within 24 hours.</p>
 
-        <form name="ai-readiness-intake" method="POST" action="/thank-you.html"
+        <form name="ai-readiness-intake" method="POST" action="/thank-you"
               data-netlify="true" netlify-honeypot="bot-field" id="intake-form">
+
+
+          <!-- Hidden: populated by tier selection & Zapier -->
+          <input type="hidden" name="selected_tier" id="selected_tier" value="" />
+          <input type="hidden" name="source" value="auditmd.xyz" />
+          <input type="hidden" name="form-name" value="ai-readiness-intake" />
 
           <!-- Honeypot spam protection (hidden) -->
           <p class="form-honeypot">
@@ -1146,7 +1210,7 @@
           <rect x="32" y="10" width="9" height="9" fill="#F5C200" rx="1"/>
           <text x="96" y="12" font-family="Inter,Arial,sans-serif" font-weight="700" font-size="9" fill="rgba(255,255,255,0.6)">TM</text>
         </svg>
-        <p>Bridging the gap between complex AI technology and the specialized needs of healthcare compliance. Powered by DFEAL LLC.</p>
+        <p>Bridging the gap between complex AI technology and the specialized needs of healthcare compliance. AuditMD is powered by DFEAL LLC.</p>
         <div class="footer-credentials">
           <span class="cred-pill">CAGE Code: 15RT3</span>
           <span class="cred-pill">UEI: G1XCPA2ANMC3</span>
@@ -1160,7 +1224,7 @@
           <li><a href="#deliverables">Deliverables</a></li>
           <li><a href="#pricing">PMO Optimization</a></li>
           <li><a href="#pricing">Monthly Retainer</a></li>
-          <li><a href="https://dfeal.com/health">Full Assessment</a></li>
+          <li><a href="https://auditmd.xyz/#pricing">Full Assessment</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1185,7 +1249,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 DFEAL LLC. All rights reserved. AI Health IT Readiness Audit™ is a trademark of DFEAL LLC.</p>
+      <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. AI Health IT Readiness Audit™ is a trademark of DFEAL LLC.</p>
       <div class="footer-bottom-links">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
@@ -1197,7 +1261,251 @@
 
 <!-- ══ SCRIPTS ═══════════════════════════════════ -->
 <script>
-  // Scroll animations
+  // ── CONFIG ────────────────────────────────────────────────────────
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/42m9m34/';
+  // Stripe links: replace placeholders after creating products in Stripe dashboard
+  // REPLACE_LAYER1_LINK  → Layer 1 one-time audit payment link
+  // REPLACE_LAYER2_LINK  → Layer 2 monthly retainer payment link
+  // REPLACE_LAYER3_LINK  → Layer 3 fractional PMO payment link
+
+  // ── SCROLL ANIMATIONS ─────────────────────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Animate progress bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.progress-fill').forEach(el => {
+        const target = el.style.width;
+        el.style.width = '0';
+        setTimeout(() => { el.style.width = target; }, 100);
+      });
+    }, 600);
+  });
+
+  // ── MOBILE MENU ───────────────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => {
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    navLinks.style.flexDirection = 'column';
+    navLinks.style.position = 'absolute';
+    navLinks.style.top = '68px';
+    navLinks.style.left = '0';
+    navLinks.style.right = '0';
+    navLinks.style.background = '#fff';
+    navLinks.style.padding = '1.5rem';
+    navLinks.style.borderBottom = '1px solid #E2E6F3';
+    navLinks.style.zIndex = '999';
+    navLinks.style.gap = '1rem';
+  });
+
+  // Active nav highlighting
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+  });
+
+  // Animate stat numbers on scroll
+  const statNums = document.querySelectorAll('.stat-num');
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        statsObserver.unobserve(el);
+        el.style.animation = 'fadeInUp 0.5s ease forwards';
+      }
+    });
+  }, { threshold: 0.5 });
+  statNums.forEach(el => statsObserver.observe(el));
+
+  // ── STRIPE TIER MODAL ─────────────────────────────────────────────
+  let _selectedTier = null;
+
+  function openTierModal(btn) {
+    _selectedTier = {
+      tier: btn.dataset.tier,
+      name: btn.dataset.tierName,
+      price: btn.dataset.tierPrice,
+      stripeLink: btn.dataset.stripeLink
+    };
+    document.getElementById('modal-tier-name').textContent = _selectedTier.name;
+    document.getElementById('modal-tier-price').textContent = _selectedTier.price;
+    document.getElementById('tier-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTierModal() {
+    document.getElementById('tier-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function goToStripe() {
+    if (_selectedTier && _selectedTier.stripeLink && !_selectedTier.stripeLink.includes('REPLACE')) {
+      closeTierModal();
+      window.open(_selectedTier.stripeLink, '_blank');
+    } else {
+      alert('Stripe payment link not yet configured. Please contact intake@auditmd.xyz or fill out the intake form below.');
+      closeTierModal();
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    }
+  }
+
+  function selectTierAndClose() {
+    if (!_selectedTier) return;
+    // Set hidden field in form
+    const field = document.getElementById('selected_tier');
+    if (field) field.value = _selectedTier.name + ' (' + _selectedTier.price + ')';
+    // Show banner
+    document.getElementById('tier-banner-name').textContent = _selectedTier.name;
+    document.getElementById('tier-banner-price').textContent = _selectedTier.price;
+    document.getElementById('tier-banner').style.display = 'flex';
+    closeTierModal();
+    // Scroll to form
+    setTimeout(() => document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 200);
+  }
+
+  function clearTier() {
+    _selectedTier = null;
+    const field = document.getElementById('selected_tier');
+    if (field) field.value = '';
+    document.getElementById('tier-banner').style.display = 'none';
+  }
+
+  // Close modal on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTierModal(); });
+
+  // ── INTAKE FORM + ZAPIER WEBHOOK ──────────────────────────────────
+  const intakeForm = document.getElementById('intake-form');
+  if (intakeForm) {
+    intakeForm.addEventListener('submit', async function(e) {
+      // Let Netlify handle the normal POST — we just also fire to Zapier
+      const formData = new FormData(intakeForm);
+      const payload = {};
+      formData.forEach((v, k) => { payload[k] = v; });
+      // Non-blocking Zapier call
+      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+        fetch(ZAPIER_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        }).catch(() => {}); // fail silently — Netlify form still goes through
+      }
+    });
+  }
+
+  // ── DEEPSEEK AI CHATBOT ───────────────────────────────────────────
+  const SYSTEM_PROMPT = `You are the AuditMD AI assistant for DFEAL LLC, a Health IT and AI compliance consultancy.
+
+AuditMD (auditmd.xyz) offers:
+1. Layer 1 – AI Health IT Readiness Audit™: One-time engagement, $4,500–$15,000. Full 12-domain assessment, Executive Summary, Compliance Scorecard, Risk Register, Remediation Roadmap. Delivered in 14 days.
+2. Layer 2 – Ongoing Compliance Monitoring: Monthly retainer, $1,500–$3,500/mo. Continuous HIPAA posture review, regulatory alerts, monthly expert call, annual full re-audit.
+3. Layer 3 – Fractional PMO AI Service: Monthly retainer, $3,000–$10,000/mo. AI-generated project dashboards, OPM3/CMMI frameworks, board reporting.
+
+Process: Fill intake form → 24hr response → 45-min discovery call → proposal within 48hrs.
+Contact: intake@auditmd.xyz | +1 (844) 442-0529 | calendly.com/dfealllc/30min
+Address: 254 Chapman Rd, Ste 208, Newark, DE 19702
+Credentials: CAGE Code 15RT3, UEI G1XCPA2ANMC3, NAICS 541611/541618/541714
+
+You help prospects understand services, answer compliance questions (HIPAA, ONC, 21st Century Cures Act, AI governance), and guide them to fill the intake form. Be professional, concise, and direct. For complex intake questions, direct users to the form. Never provide legal advice — always recommend consulting a legal professional for specific legal questions.`;
+
+  let chatHistory = [];
+  let chatOpen = false;
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    const panel = document.getElementById('chat-panel');
+    panel.classList.toggle('open', chatOpen);
+    if (chatOpen) document.getElementById('chat-input').focus();
+  }
+
+  function sendQuick(text) {
+    document.getElementById('chat-qrs').style.display = 'none';
+    appendMsg('user', text);
+    callDeepSeek(text);
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    input.style.height = 'auto';
+    document.getElementById('chat-qrs').style.display = 'none';
+    appendMsg('user', text);
+    callDeepSeek(text);
+  }
+
+  function appendMsg(role, text) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + role;
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    if (role === 'user') chatHistory.push({role:'user', content:text});
+    else chatHistory.push({role:'assistant', content:text});
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot chat-typing';
+    div.id = 'chat-typing-indicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('chat-typing-indicator');
+    if (el) el.remove();
+  }
+
+  async function callDeepSeek(userMessage) {
+    showTyping();
+    try {
+      const response = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          messages: [
+            {role:'system', content:SYSTEM_PROMPT},
+            ...chatHistory.slice(-8) // last 8 turns for context
+          ]
+        })
+      });
+      removeTyping();
+      if (!response.ok) throw new Error('API error');
+      const data = await response.json();
+      const reply = data.content || data.choices?.[0]?.message?.content || 'I apologize, I had trouble responding. Please email intake@auditmd.xyz directly.';
+      appendMsg('bot', reply);
+    } catch (err) {
+      removeTyping();
+      appendMsg('bot', 'I'm having a technical issue right now. Please email intake@auditmd.xyz or call +1 (844) 442-0529 — our team will respond within 24 hours.');
+    }
+  }
+
+  // Auto-resize textarea
+  const chatInput = document.getElementById('chat-input');
+  if (chatInput) {
+    chatInput.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+    });
+  }
+</script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
       if (el.isIntersecting) { el.target.classList.add('visible'); }
@@ -1259,5 +1567,59 @@
   }, { threshold: 0.5 });
   statNums.forEach(el => statsObserver.observe(el));
 </script>
+
+<!-- ══ STRIPE TIER MODAL ════════════════════════════════════════════ -->
+<div class="modal-overlay" id="tier-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeTierModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeTierModal()" aria-label="Close">×</button>
+    <div class="modal-eyebrow">You Selected</div>
+    <div class="modal-tier-name" id="modal-tier-name"></div>
+    <div class="modal-tier-price" id="modal-tier-price"></div>
+    <hr class="modal-divider" />
+    <p class="modal-info">You have two options to get started. Pay now via Stripe for immediate engagement scheduling, or fill out our intake form first and we'll send you a scoped proposal within 48 hours.</p>
+    <div class="modal-actions">
+      <button class="modal-btn-stripe" onclick="goToStripe()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Pay Now via Stripe
+      </button>
+      <button class="modal-btn-form" onclick="selectTierAndClose()">
+        Fill Out Intake Form First
+      </button>
+    </div>
+    <p class="modal-note">50% deposit to start · Net 14 payment terms · Fixed-price guarantee</p>
+  </div>
+</div>
+
+
+<!-- ══ DEEPSEEK AI ASSISTANT ══════════════════════════════════════ -->
+<button class="chat-bubble" id="chat-bubble" onclick="toggleChat()" aria-label="Chat with AuditMD Assistant">
+  💬
+  <span class="chat-badge">AI</span>
+</button>
+
+<div class="chat-panel" id="chat-panel" role="complementary" aria-label="AI Assistant">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info">
+      <div class="chat-name">AuditMD Assistant</div>
+      <div class="chat-status">AI-powered · Answers instantly</div>
+    </div>
+    <button class="chat-close-btn" onclick="toggleChat()" aria-label="Close chat">×</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Hi! I'm your AuditMD AI assistant. I can answer questions about our services, help you understand what's included in each audit tier, or guide you through starting an engagement. How can I help you today?</div>
+  </div>
+  <div class="chat-quick-replies" id="chat-qrs">
+    <button class="chat-qr" onclick="sendQuick('What does the audit include?')">What's included?</button>
+    <button class="chat-qr" onclick="sendQuick('How much does it cost?')">Pricing</button>
+    <button class="chat-qr" onclick="sendQuick('How long does the audit take?')">Timeline</button>
+    <button class="chat-qr" onclick="sendQuick('How do I get started?')">Get started</button>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-input" id="chat-input" placeholder="Ask anything about our services…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+    <button class="chat-send" onclick="sendMessage()" aria-label="Send">➤</button>
+  </div>
+</div>
+
 </body>
 </html>

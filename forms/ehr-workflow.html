@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EHR Workflow Domain Questionnaire | AuditMD</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+    --section-alt:#F0F3FF;--card-bg:#FFFFFF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);--shadow-lg:0 8px 40px rgba(11,27,110,0.14);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  /* NAV */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+  .btn-navy:hover{background:var(--navy-mid);}
+  .btn-outline{background:transparent;color:var(--navy);border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--navy);}
+  .btn-primary{background:var(--gold);color:var(--navy-dark);}
+  .btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-lg{padding:0.85rem 1.75rem;font-size:0.95rem;border-radius:10px;}
+
+  /* HERO BANNER */
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;}
+  .form-hero-meta{display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;}
+  .form-meta-pill{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.75);}
+
+  /* MAIN CONTAINER */
+  .form-container{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem;flex:1;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.5rem;}
+  .form-section-header{background:var(--section-alt);padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+  .form-section-header h2{font-size:1rem;font-weight:700;color:var(--navy-dark);}
+  .form-section-header p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;}
+  .form-section-body{padding:1.75rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{font-size:0.75rem;font-weight:700;color:var(--navy-dark);letter-spacing:0.04em;text-transform:uppercase;}
+  .form-group .helper{font-size:0.75rem;color:var(--slate-light);margin-top:0.2rem;}
+  .form-group input,.form-group select,.form-group textarea{
+    background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;
+    padding:0.7rem 0.9rem;font-size:0.875rem;font-family:var(--font);
+    color:var(--navy-dark);transition:var(--transition);outline:none;width:100%;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(11,27,110,0.08);
+  }
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-group select option{background:var(--white);color:var(--navy-dark);}
+  .radio-group,.checkbox-group{display:flex;flex-direction:column;gap:0.6rem;}
+  .radio-item,.checkbox-item{display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;transition:var(--transition);}
+  .radio-item:hover,.checkbox-item:hover{border-color:var(--navy);background:var(--section-alt);}
+  .radio-item input,.checkbox-item input{margin-top:2px;accent-color:var(--navy);flex-shrink:0;width:16px;height:16px;}
+  .radio-item label,.checkbox-item label{font-size:0.875rem;color:var(--navy-dark);cursor:pointer;font-weight:500;}
+  .radio-item .sub,.checkbox-item .sub{font-size:0.75rem;color:var(--slate);display:block;margin-top:1px;}
+
+  /* FORM SUBMIT */
+  .form-submit-area{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);padding:2rem 1.75rem;box-shadow:var(--shadow);text-align:center;}
+  .form-submit-area h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
+  .form-submit-area p{font-size:0.875rem;color:var(--slate);margin-bottom:1.5rem;}
+  .form-legal{font-size:0.72rem;color:var(--slate-light);margin-top:1rem;}
+  .form-honeypot{display:none;}
+
+  /* SUCCESS */
+  .form-success{display:none;background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.3);border-radius:var(--radius);padding:1.5rem;text-align:center;margin-top:1.5rem;}
+  .form-success .fs-icon{font-size:2.5rem;margin-bottom:0.75rem;}
+  .form-success h4{color:var(--navy-dark);margin-bottom:0.4rem;}
+  .form-success p{font-size:0.875rem;}
+
+  /* FOOTER */
+  footer{background:#05102E;color:rgba(255,255,255,0.5);padding:1.5rem;text-align:center;font-size:0.8rem;}
+  footer a{color:rgba(255,255,255,0.6);margin:0 0.75rem;transition:var(--transition);}
+  footer a:hover{color:var(--white);}
+
+  @media(max-width:640px){
+    .form-row{grid-template-columns:1fr;}
+    .form-hero{padding:1.75rem 0;}
+    .form-container{padding:1.5rem 1rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<span class="dot"></span>
+      <span>by DFEAL LLC</span>
+    </div>
+    <a href="https://auditmd.xyz" class="btn btn-navy">← Back to Site</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Domain Assessment — EHR Workflow</span>
+    <h1>EHR Workflow Domain Questionnaire</h1>
+    <p>This questionnaire assesses your EHR system configuration, integration architecture, and clinical workflow readiness for AI.</p>
+    <div class="form-hero-meta">
+      <span class="form-meta-pill">🔒 Confidential</span>
+      <span class="form-meta-pill">⏱ ~10–15 min</span>
+      <span class="form-meta-pill">📋 Stage-Gated</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  <form name="auditmd-ehr-workflow" method="POST" action="/thank-you"
+        data-netlify="true" netlify-honeypot="bot-field" id="form-ehr-workflow">
+
+    <input type="hidden" name="form-name" value="auditmd-ehr-workflow" />
+    <input type="hidden" name="source" value="auditmd.xyz/forms" />
+    <p class="form-honeypot"><label>Leave blank: <input name="bot-field" /></label></p>
+
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>EHR System Overview</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-row">
+        <div class="form-group">
+          <label>Primary EHR System *</label>
+          <select name="primary_ehr" required>
+          <option value="" disabled selected>Select…</option>
+          <option>Epic</option>
+          <option>Cerner / Oracle Health</option>
+          <option>Meditech</option>
+          <option>Allscripts / Veradigm</option>
+          <option>athenahealth</option>
+          <option>eClinicalWorks</option>
+          <option>NextGen</option>
+          <option>PointClickCare</option>
+          <option>Other / Multiple</option>
+        </select>
+        </div>
+        <div class="form-group">
+          <label>EHR Version / Release</label>
+          <input type="text" name="ehr_version" placeholder="e.g., Epic February 2024" />
+        </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group">
+          <label>EHR Go-Live Date (approx.)</label>
+          <input type="text" name="ehr_go_live" placeholder="e.g., 2018" />
+        </div>
+        <div class="form-group">
+          <label>Number of active EHR users</label>
+          <select name="ehr_user_count">
+          <option value="" disabled selected>Select…</option>
+          <option>Under 100</option>
+          <option>100–500</option>
+          <option>501–2,000</option>
+          <option>2,001–10,000</option>
+          <option>Over 10,000</option>
+        </select>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Secondary or departmental EHR/clinical systems</label>
+          <textarea name="secondary_ehr" placeholder="List any specialty-specific or departmental clinical systems…" rows="2"></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Integration & Interoperability</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>FHIR API status</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="fhir_status" value="FHIR R4 fully implemented" />
+            <span>FHIR R4 fully implemented</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="fhir_status" value="FHIR partially implemented" />
+            <span>FHIR partially implemented</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="fhir_status" value="FHIR in planning/development" />
+            <span>FHIR in planning/development</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="fhir_status" value="Not implemented" />
+            <span>Not implemented</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="fhir_status" value="Unsure" />
+            <span>Unsure</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>How does your EHR exchange data with other systems?</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="HL7 v2 interfaces" />
+            <span>HL7 v2 interfaces</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="FHIR APIs" />
+            <span>FHIR APIs</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="Direct messaging (Direct Trust)" />
+            <span>Direct messaging (Direct Trust)</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="CommonWell / Carequality" />
+            <span>CommonWell / Carequality</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="Manual exports / imports" />
+            <span>Manual exports / imports</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="No structured exchange" />
+            <span>No structured exchange</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="data_exchange_methods[]" value="Other" />
+            <span>Other</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Current interoperability pain points</label>
+          <textarea name="interoperability_issues" placeholder="Describe your biggest data exchange challenges — silos, duplicates, gaps…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Clinical Workflow & AI Integration</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>AI/ML tools embedded in your EHR or clinical workflows</label>
+          <textarea name="ehr_ai_tools" placeholder="List any AI-powered features or third-party tools integrated with your EHR…" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Clinical decision support (CDS) tools in use</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="EHR-native CDS alerts" />
+            <span>EHR-native CDS alerts</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="Third-party CDS (e.g., Wolters Kluwer)" />
+            <span>Third-party CDS (e.g., Wolters Kluwer)</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="AI-based diagnostic support" />
+            <span>AI-based diagnostic support</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="Medication reconciliation AI" />
+            <span>Medication reconciliation AI</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="Sepsis/deterioration alerts" />
+            <span>Sepsis/deterioration alerts</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="Natural language processing (NLP)" />
+            <span>Natural language processing (NLP)</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="cds_tools[]" value="None currently" />
+            <span>None currently</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>How are EHR alerts / CDS recommendations validated?</label>
+          <textarea name="cds_validation" placeholder="Describe your governance process for approving and monitoring CDS rules…" rows="2"></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Compliance & Audit Readiness</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-row">
+        <div class="form-group">
+          <label>Last EHR audit / review</label>
+          <select name="last_ehr_audit">
+          <option value="" disabled selected>Select…</option>
+          <option>Within 6 months</option>
+          <option>6–12 months</option>
+          <option>1–2 years</option>
+          <option>2+ years</option>
+          <option>Never formally audited</option>
+        </select>
+        </div>
+        <div class="form-group">
+          <label>21st Century Cures Act compliance status</label>
+          <select name="cures_act_status">
+          <option value="" disabled selected>Select…</option>
+          <option>Fully compliant</option>
+          <option>Partially compliant</option>
+          <option>Assessment in progress</option>
+          <option>Not yet assessed</option>
+          <option>Unsure</option>
+        </select>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Known EHR-related compliance gaps or incidents</label>
+          <textarea name="ehr_compliance_gaps" placeholder="Describe any known issues, findings from prior audits, or ongoing concerns…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="form-submit-area">
+      <h3>Ready to Submit?</h3>
+      <p>Your responses are confidential and will be reviewed by your DFEAL engagement team before your next stage call.</p>
+      <button type="submit" class="btn btn-primary btn-lg" style="min-width:240px;justify-content:center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Submit Questionnaire
+      </button>
+      <p class="form-legal">This questionnaire is confidential. Responses are used solely for your AuditMD engagement. DFEAL LLC does not share your information with third parties.</p>
+    </div>
+
+  </form>
+
+  <div class="form-success" id="form-success">
+    <div class="fs-icon">✅</div>
+    <h4>Questionnaire Submitted</h4>
+    <p>Your responses have been received. Your DFEAL engagement team will review them and follow up with next steps.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:intake@auditmd.xyz">intake@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/427ukjx/';
+  const frm = document.getElementById('form-ehr-workflow');
+  if (frm) {
+    frm.addEventListener('submit', function(e) {
+      const formData = new FormData(frm);
+      const payload = {};
+      formData.forEach((v,k) => payload[k]=v);
+      payload['service'] = 'EHR Workflow Assessment';
+      payload['zapier_event'] = 'ehr_workflow_questionnaire_submitted';
+      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+        fetch(ZAPIER_WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
+      }
+    });
+  }
+</script>
+</body>
+</html>

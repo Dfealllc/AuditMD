@@ -1,10 +1,43 @@
 # ──────────────────────────────────────────────────────
-# DFEAL Health IT — Netlify Deployment Configuration
+# AuditMD (DFEAL LLC) — Netlify Deployment Configuration
 # Deploy: drag this folder into app.netlify.com/drop
 # ──────────────────────────────────────────────────────
 
 [build]
-  publish = "."          # root of this folder is the site
+  publish = "."                     # root of this folder is the site
+  functions = "netlify/functions"   # DeepSeek AI proxy + any future functions
+
+# ── Clean URL: /thank-you → thank-you.html ────────────
+[[redirects]]
+  from   = "/thank-you"
+  to     = "/thank-you.html"
+  status = 200
+
+# ── Gated form pages ──────────────────────────────────
+[[redirects]]
+  from   = "/forms/pre-call"
+  to     = "/forms/pre-call.html"
+  status = 200
+
+[[redirects]]
+  from   = "/forms/governance"
+  to     = "/forms/governance.html"
+  status = 200
+
+[[redirects]]
+  from   = "/forms/ehr-workflow"
+  to     = "/forms/ehr-workflow.html"
+  status = 200
+
+[[redirects]]
+  from   = "/forms/pmo-maturity"
+  to     = "/forms/pmo-maturity.html"
+  status = 200
+
+[[redirects]]
+  from   = "/forms/hipaa-compliance"
+  to     = "/forms/hipaa-compliance.html"
+  status = 200
 
 # ── Custom 404 page ───────────────────────────────────
 [[redirects]]

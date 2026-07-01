@@ -1,5 +1,6 @@
 User-agent: *
+Disallow: /forms/
+Disallow: /netlify/
 Allow: /
-Disallow: /thank-you.html
 
-Sitemap: https://health.dfeal.com/sitemap.xml
+Sitemap: https://auditmd.xyz/sitemap.xml

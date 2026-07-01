@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PMO Maturity Domain Questionnaire | AuditMD</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+    --section-alt:#F0F3FF;--card-bg:#FFFFFF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);--shadow-lg:0 8px 40px rgba(11,27,110,0.14);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  /* NAV */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+  .btn-navy:hover{background:var(--navy-mid);}
+  .btn-outline{background:transparent;color:var(--navy);border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--navy);}
+  .btn-primary{background:var(--gold);color:var(--navy-dark);}
+  .btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-lg{padding:0.85rem 1.75rem;font-size:0.95rem;border-radius:10px;}
+
+  /* HERO BANNER */
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;}
+  .form-hero-meta{display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;}
+  .form-meta-pill{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.75);}
+
+  /* MAIN CONTAINER */
+  .form-container{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem;flex:1;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.5rem;}
+  .form-section-header{background:var(--section-alt);padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+  .form-section-header h2{font-size:1rem;font-weight:700;color:var(--navy-dark);}
+  .form-section-header p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;}
+  .form-section-body{padding:1.75rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{font-size:0.75rem;font-weight:700;color:var(--navy-dark);letter-spacing:0.04em;text-transform:uppercase;}
+  .form-group .helper{font-size:0.75rem;color:var(--slate-light);margin-top:0.2rem;}
+  .form-group input,.form-group select,.form-group textarea{
+    background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;
+    padding:0.7rem 0.9rem;font-size:0.875rem;font-family:var(--font);
+    color:var(--navy-dark);transition:var(--transition);outline:none;width:100%;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(11,27,110,0.08);
+  }
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-group select option{background:var(--white);color:var(--navy-dark);}
+  .radio-group,.checkbox-group{display:flex;flex-direction:column;gap:0.6rem;}
+  .radio-item,.checkbox-item{display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;transition:var(--transition);}
+  .radio-item:hover,.checkbox-item:hover{border-color:var(--navy);background:var(--section-alt);}
+  .radio-item input,.checkbox-item input{margin-top:2px;accent-color:var(--navy);flex-shrink:0;width:16px;height:16px;}
+  .radio-item label,.checkbox-item label{font-size:0.875rem;color:var(--navy-dark);cursor:pointer;font-weight:500;}
+  .radio-item .sub,.checkbox-item .sub{font-size:0.75rem;color:var(--slate);display:block;margin-top:1px;}
+
+  /* FORM SUBMIT */
+  .form-submit-area{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);padding:2rem 1.75rem;box-shadow:var(--shadow);text-align:center;}
+  .form-submit-area h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
+  .form-submit-area p{font-size:0.875rem;color:var(--slate);margin-bottom:1.5rem;}
+  .form-legal{font-size:0.72rem;color:var(--slate-light);margin-top:1rem;}
+  .form-honeypot{display:none;}
+
+  /* SUCCESS */
+  .form-success{display:none;background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.3);border-radius:var(--radius);padding:1.5rem;text-align:center;margin-top:1.5rem;}
+  .form-success .fs-icon{font-size:2.5rem;margin-bottom:0.75rem;}
+  .form-success h4{color:var(--navy-dark);margin-bottom:0.4rem;}
+  .form-success p{font-size:0.875rem;}
+
+  /* FOOTER */
+  footer{background:#05102E;color:rgba(255,255,255,0.5);padding:1.5rem;text-align:center;font-size:0.8rem;}
+  footer a{color:rgba(255,255,255,0.6);margin:0 0.75rem;transition:var(--transition);}
+  footer a:hover{color:var(--white);}
+
+  @media(max-width:640px){
+    .form-row{grid-template-columns:1fr;}
+    .form-hero{padding:1.75rem 0;}
+    .form-container{padding:1.5rem 1rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<span class="dot"></span>
+      <span>by DFEAL LLC</span>
+    </div>
+    <a href="https://auditmd.xyz" class="btn btn-navy">← Back to Site</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Domain Assessment — PMO Maturity</span>
+    <h1>PMO Maturity Domain Questionnaire</h1>
+    <p>This questionnaire assesses your Program Management Office capability, methodology, and readiness for AI-driven program delivery.</p>
+    <div class="form-hero-meta">
+      <span class="form-meta-pill">🔒 Confidential</span>
+      <span class="form-meta-pill">⏱ ~10–15 min</span>
+      <span class="form-meta-pill">📋 Stage-Gated</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  <form name="auditmd-pmo-maturity" method="POST" action="/thank-you"
+        data-netlify="true" netlify-honeypot="bot-field" id="form-pmo-maturity">
+
+    <input type="hidden" name="form-name" value="auditmd-pmo-maturity" />
+    <input type="hidden" name="source" value="auditmd.xyz/forms" />
+    <p class="form-honeypot"><label>Leave blank: <input name="bot-field" /></label></p>
+
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>PMO Structure & Staffing</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Does your organization have a formal PMO?</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="has_pmo" value="Yes — enterprise-level PMO" />
+            <span>Yes — enterprise-level PMO</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="has_pmo" value="Yes — departmental / IT PMO only" />
+            <span>Yes — departmental / IT PMO only</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="has_pmo" value="Informal project management function" />
+            <span>Informal project management function</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="has_pmo" value="No — projects managed ad hoc" />
+            <span>No — projects managed ad hoc</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group">
+          <label>Number of dedicated project managers</label>
+          <select name="pm_count">
+          <option value="" disabled selected>Select…</option>
+          <option>0</option>
+          <option>1–3</option>
+          <option>4–10</option>
+          <option>11–25</option>
+          <option>Over 25</option>
+        </select>
+        </div>
+        <div class="form-group">
+          <label>PMO reporting structure</label>
+          <select name="pmo_reports_to">
+          <option value="" disabled selected>Select…</option>
+          <option>CIO</option>
+          <option>COO</option>
+          <option>CEO</option>
+          <option>CTO</option>
+          <option>VP of Operations</option>
+          <option>Decentralized (no central PMO)</option>
+          <option>Other</option>
+        </select>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Certifications held by PM staff (check all that apply)</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="PMP (PMI)" />
+            <span>PMP (PMI)</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="CAPM" />
+            <span>CAPM</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="CSM / Agile" />
+            <span>CSM / Agile</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="Prince2" />
+            <span>Prince2</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="ITIL" />
+            <span>ITIL</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="PgMP" />
+            <span>PgMP</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="No formal certifications" />
+            <span>No formal certifications</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_certifications[]" value="Other" />
+            <span>Other</span>
+          </label>
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Methodology & Tools</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Primary project management methodology</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="pm_methodology" value="Waterfall / Traditional" />
+            <span>Waterfall / Traditional</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pm_methodology" value="Agile / Scrum" />
+            <span>Agile / Scrum</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pm_methodology" value="Hybrid (Waterfall + Agile)" />
+            <span>Hybrid (Waterfall + Agile)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pm_methodology" value="PMBOK-based" />
+            <span>PMBOK-based</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pm_methodology" value="No formal methodology" />
+            <span>No formal methodology</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Project management tools in use (check all that apply)</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Microsoft Project" />
+            <span>Microsoft Project</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Smartsheet" />
+            <span>Smartsheet</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Jira" />
+            <span>Jira</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Asana" />
+            <span>Asana</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Monday.com" />
+            <span>Monday.com</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="ServiceNow" />
+            <span>ServiceNow</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Excel / manual tracking" />
+            <span>Excel / manual tracking</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pm_tools[]" value="Other / custom-built" />
+            <span>Other / custom-built</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Portfolio-level visibility</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="portfolio_visibility" value="Full real-time dashboard across all projects" />
+            <span>Full real-time dashboard across all projects</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="portfolio_visibility" value="Periodic reporting (weekly/monthly)" />
+            <span>Periodic reporting (weekly/monthly)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="portfolio_visibility" value="Project-by-project tracking only" />
+            <span>Project-by-project tracking only</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="portfolio_visibility" value="No portfolio-level view" />
+            <span>No portfolio-level view</span>
+          </label>
+        </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>AI & Technology Program Delivery</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Experience managing AI/technology implementation projects</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="ai_project_experience" value="Yes — multiple successful AI implementations" />
+            <span>Yes — multiple successful AI implementations</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="ai_project_experience" value="Yes — one AI implementation" />
+            <span>Yes — one AI implementation</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="ai_project_experience" value="In progress (first AI project)" />
+            <span>In progress (first AI project)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="ai_project_experience" value="No AI project experience yet" />
+            <span>No AI project experience yet</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Biggest challenges in delivering IT/AI projects</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Scope creep" />
+            <span>Scope creep</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Resource constraints" />
+            <span>Resource constraints</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Stakeholder alignment" />
+            <span>Stakeholder alignment</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Budget overruns" />
+            <span>Budget overruns</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Change management" />
+            <span>Change management</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Lack of technical expertise" />
+            <span>Lack of technical expertise</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Regulatory/compliance requirements" />
+            <span>Regulatory/compliance requirements</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Vendor delays" />
+            <span>Vendor delays</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="it_project_challenges[]" value="Other" />
+            <span>Other</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Describe your current biggest IT program in flight</label>
+          <textarea name="current_it_program" placeholder="What is the scope, timeline, and current status?" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>OPM3 / CMMI Maturity</h2>
+        
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Self-assessed PMO maturity level</label>
+          <div class="radio-group">
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Level 1 — Initial (ad hoc, unpredictable)" />
+            <span>Level 1 — Initial (ad hoc, unpredictable)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Level 2 — Managed (project-level discipline)" />
+            <span>Level 2 — Managed (project-level discipline)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Level 3 — Defined (org-wide standards)" />
+            <span>Level 3 — Defined (org-wide standards)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Level 4 — Quantitatively Managed" />
+            <span>Level 4 — Quantitatively Managed</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Level 5 — Optimizing (continuous improvement)" />
+            <span>Level 5 — Optimizing (continuous improvement)</span>
+          </label>
+          <label class="radio-item">
+            <input type="radio" name="pmo_maturity_self" value="Unsure" />
+            <span>Unsure</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>Key PMO improvement priorities</label>
+          <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Standardize project intake process" />
+            <span>Standardize project intake process</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Improve resource management" />
+            <span>Improve resource management</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Build portfolio dashboards" />
+            <span>Build portfolio dashboards</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Implement risk management framework" />
+            <span>Implement risk management framework</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Enhance change management" />
+            <span>Enhance change management</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Adopt AI-assisted project tools" />
+            <span>Adopt AI-assisted project tools</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Develop PMO talent pipeline" />
+            <span>Develop PMO talent pipeline</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="pmo_improvement_priorities[]" value="Improve executive reporting" />
+            <span>Improve executive reporting</span>
+          </label>
+        </div>
+        </div>
+        <div class="form-group">
+          <label>What does PMO success look like for your organization in 12 months?</label>
+          <textarea name="pmo_success_vision" placeholder="Describe your target state…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="form-submit-area">
+      <h3>Ready to Submit?</h3>
+      <p>Your responses are confidential and will be reviewed by your DFEAL engagement team before your next stage call.</p>
+      <button type="submit" class="btn btn-primary btn-lg" style="min-width:240px;justify-content:center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Submit Questionnaire
+      </button>
+      <p class="form-legal">This questionnaire is confidential. Responses are used solely for your AuditMD engagement. DFEAL LLC does not share your information with third parties.</p>
+    </div>
+
+  </form>
+
+  <div class="form-success" id="form-success">
+    <div class="fs-icon">✅</div>
+    <h4>Questionnaire Submitted</h4>
+    <p>Your responses have been received. Your DFEAL engagement team will review them and follow up with next steps.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:intake@auditmd.xyz">intake@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/427ukjx/';
+  const frm = document.getElementById('form-pmo-maturity');
+  if (frm) {
+    frm.addEventListener('submit', function(e) {
+      const formData = new FormData(frm);
+      const payload = {};
+      formData.forEach((v,k) => payload[k]=v);
+      payload['service'] = 'PMO Maturity Assessment';
+      payload['zapier_event'] = 'pmo_maturity_questionnaire_submitted';
+      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+        fetch(ZAPIER_WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
+      }
+    });
+  }
+</script>
+</body>
+</html>
