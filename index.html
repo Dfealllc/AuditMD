@@ -1077,7 +1077,7 @@
         <ul class="cta-contact-list">
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <a href="mailto:intake@auditmd.xyz">intake@auditmd.xyz</a>
+            <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -1153,6 +1153,29 @@
 
           <div class="form-row">
             <div class="form-group">
+              <label for="num-providers">Number of Providers (MDs, NPs, PAs) *</label>
+              <select id="num-providers" name="num_providers" required>
+                <option value="" disabled selected>Select range…</option>
+                <option>1–5</option>
+                <option>6–15</option>
+                <option>16–50</option>
+                <option>50+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="annual-budget">Annual Operating Budget *</label>
+              <select id="annual-budget" name="annual_budget" required>
+                <option value="" disabled selected>Select range…</option>
+                <option>Under $1M</option>
+                <option>$1M–$5M</option>
+                <option>$5M–$20M</option>
+                <option>$20M+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
               <label for="ehr-system">Primary EHR System</label>
               <select id="ehr-system" name="ehr_system">
                 <option value="" disabled selected>Select EHR…</option>
@@ -1167,21 +1190,41 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="hipaa-review">Last HIPAA Review</label>
-              <select id="hipaa-review" name="hipaa_last_reviewed">
-                <option value="" disabled selected>Select…</option>
-                <option>Within the last 6 months</option>
-                <option>6–12 months ago</option>
-                <option>1–2 years ago</option>
-                <option>2+ years ago</option>
-                <option>Never / Unknown</option>
-              </select>
+              <label for="ehr-year">EHR Implementation Year</label>
+              <input type="text" id="ehr-year" name="ehr_implementation_year" placeholder="e.g., 2019" />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="challenge">Biggest Compliance Challenge</label>
-            <textarea id="challenge" name="biggest_challenge" placeholder="Briefly describe your top AI or Health IT compliance concern…"></textarea>
+            <label for="hipaa-review">HIPAA Compliance Last Reviewed *</label>
+            <select id="hipaa-review" name="hipaa_last_reviewed" required>
+              <option value="" disabled selected>Select…</option>
+              <option>Within 6 months</option>
+              <option>6–18 months ago</option>
+              <option>1–2 years ago</option>
+              <option>2+ years ago</option>
+              <option>Never / Unknown</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ai-tools">Current AI or Automation Tools in Use *</label>
+            <textarea id="ai-tools" name="ai_tools_in_use" placeholder="List tools in use, or type 'None'…" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="stakeholders">Key Stakeholders for the Discovery Call *</label>
+            <textarea id="stakeholders" name="key_stakeholders" placeholder="Names and titles of people who should be on the call…" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="success-outcome">What outcome would make this engagement a success for you? *</label>
+            <textarea id="success-outcome" name="success_outcome" placeholder="Describe your goals…" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="additional-notes">Anything else we should know before the call?</label>
+            <textarea id="additional-notes" name="additional_notes" placeholder="Any context, concerns, or questions…"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">
@@ -1356,7 +1399,7 @@
       closeTierModal();
       window.open(_selectedTier.stripeLink, '_blank');
     } else {
-      alert('Stripe payment link not yet configured. Please contact intake@auditmd.xyz or fill out the intake form below.');
+      alert('Stripe payment link not yet configured. Please contact support@auditmd.xyz or fill out the intake form below.');
       closeTierModal();
       document.getElementById('contact').scrollIntoView({behavior:'smooth'});
     }
@@ -1414,7 +1457,7 @@ AuditMD (auditmd.xyz) offers:
 3. Layer 3 – Fractional PMO AI Service: Monthly retainer, $3,000–$10,000/mo. AI-generated project dashboards, OPM3/CMMI frameworks, board reporting.
 
 Process: Fill intake form → 24hr response → 45-min discovery call → proposal within 48hrs.
-Contact: intake@auditmd.xyz | +1 (844) 442-0529 | calendly.com/dfealllc/30min
+Contact: support@auditmd.xyz | +1 (844) 442-0529 | calendly.com/dfealllc/30min
 Address: 254 Chapman Rd, Ste 208, Newark, DE 19702
 Credentials: CAGE Code 15RT3, UEI G1XCPA2ANMC3, NAICS 541611/541618/541714
 
@@ -1489,11 +1532,11 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
       removeTyping();
       if (!response.ok) throw new Error('API error');
       const data = await response.json();
-      const reply = data.content || data.choices?.[0]?.message?.content || 'I apologize, I had trouble responding. Please email intake@auditmd.xyz directly.';
+      const reply = data.content || data.choices?.[0]?.message?.content || 'I apologize, I had trouble responding. Please email support@auditmd.xyz directly.';
       appendMsg('bot', reply);
     } catch (err) {
       removeTyping();
-      appendMsg('bot', 'I'm having a technical issue right now. Please email intake@auditmd.xyz or call +1 (844) 442-0529 — our team will respond within 24 hours.');
+      appendMsg('bot', "I'm having a technical issue right now. Please email support@auditmd.xyz or call +1 (844) 442-0529 — our team will respond within 24 hours.");
     }
   }
 
