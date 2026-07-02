@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Readiness Stakeholder Survey | AuditMD</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+    --section-alt:#F0F3FF;--card-bg:#FFFFFF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);--shadow-lg:0 8px 40px rgba(11,27,110,0.14);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  /* NAV */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+  .btn-navy:hover{background:var(--navy-mid);}
+  .btn-outline{background:transparent;color:var(--navy);border-color:var(--border);}
+  .btn-outline:hover{border-color:var(--navy);}
+  .btn-primary{background:var(--gold);color:var(--navy-dark);}
+  .btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-lg{padding:0.85rem 1.75rem;font-size:0.95rem;border-radius:10px;}
+
+  /* HERO */
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;}
+  .form-hero-meta{display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;}
+  .form-meta-pill{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.75);}
+
+  /* CONTAINER */
+  .form-container{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem;flex:1;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.5rem;}
+  .form-section-header{background:var(--section-alt);padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+  .form-section-header h2{font-size:1rem;font-weight:700;color:var(--navy-dark);}
+  .form-section-header p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;}
+  .form-section-body{padding:1.75rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{font-size:0.75rem;font-weight:700;color:var(--navy-dark);letter-spacing:0.04em;text-transform:uppercase;}
+  .form-group .helper{font-size:0.75rem;color:var(--slate-light);margin-top:0.2rem;}
+  .required-star{color:var(--danger);}
+  .form-group input,.form-group select,.form-group textarea{
+    background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;
+    padding:0.7rem 0.9rem;font-size:0.875rem;font-family:var(--font);
+    color:var(--navy-dark);transition:var(--transition);outline:none;width:100%;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(11,27,110,0.08);
+  }
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-group select option{background:var(--white);color:var(--navy-dark);}
+
+  /* RADIO & CHECKBOX */
+  .radio-group,.checkbox-group{display:flex;flex-direction:column;gap:0.6rem;}
+  .radio-item,.checkbox-item{display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;padding:0.65rem 0.85rem;border:1.5px solid var(--border);border-radius:8px;transition:var(--transition);}
+  .radio-item:hover,.checkbox-item:hover{border-color:var(--navy);background:var(--section-alt);}
+  .radio-item input,.checkbox-item input{margin-top:2px;accent-color:var(--navy);flex-shrink:0;width:16px;height:16px;}
+  .radio-item label,.checkbox-item label{font-size:0.875rem;color:var(--navy-dark);cursor:pointer;font-weight:500;line-height:1.5;}
+  .radio-item .sub,.checkbox-item .sub{font-size:0.75rem;color:var(--slate);display:block;margin-top:1px;}
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap{background:var(--border);border-radius:100px;height:6px;margin-bottom:1.5rem;overflow:hidden;}
+  .progress-bar{background:linear-gradient(90deg,var(--navy) 0%,var(--gold) 100%);height:100%;border-radius:100px;transition:width 0.4s ease;}
+  .progress-label{font-size:0.75rem;color:var(--slate);margin-bottom:0.5rem;display:flex;justify-content:space-between;}
+
+  /* SUBMIT */
+  .submit-zone{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);padding:2rem 1.75rem;margin-bottom:1.5rem;}
+  .submit-zone p{font-size:0.85rem;color:var(--slate);margin-bottom:1.25rem;}
+  .btn-submit{width:100%;padding:1rem;font-size:1rem;font-weight:700;border-radius:10px;border:none;background:var(--gold);color:var(--navy-dark);cursor:pointer;transition:var(--transition);}
+  .btn-submit:hover:not(:disabled){background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-submit:disabled{opacity:0.6;cursor:not-allowed;}
+
+  /* SUCCESS */
+  #form-success{display:none;text-align:center;padding:3rem 2rem;}
+  .success-icon{width:64px;height:64px;background:rgba(34,197,94,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;}
+  .success-icon svg{width:32px;height:32px;color:#16a34a;}
+  #form-success h2{font-size:1.5rem;font-weight:800;color:var(--navy-dark);margin-bottom:0.5rem;}
+  #form-success p{color:var(--slate);max-width:480px;margin:0 auto;}
+
+  footer{background:var(--navy-dark);color:rgba(255,255,255,0.5);text-align:center;padding:1.25rem;font-size:0.8rem;margin-top:auto;}
+  footer a{color:rgba(255,255,255,0.6);}
+  .form-honeypot{display:none;}
+
+  /* CLIENT BANNER */
+  .client-banner{background:rgba(245,194,0,0.08);border:1px solid rgba(245,194,0,0.3);border-radius:10px;padding:0.85rem 1.1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}
+  .client-banner svg{width:18px;height:18px;flex-shrink:0;color:var(--gold);}
+  .client-banner p{font-size:0.8rem;color:var(--navy-dark);margin:0;}
+  .client-banner strong{font-weight:700;}
+  #client-banner-wrap{display:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<div class="dot"></div>
+      <span>Confidential</span>
+    </div>
+    <a href="https://auditmd.xyz" class="btn btn-outline btn-sm">← Back to AuditMD</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Stage 3 of 5 — AI Readiness Assessment</span>
+    <h1>Stakeholder Perspective Survey</h1>
+    <p>Your department-level perspective is essential to ensuring our audit recommendations are actionable and relevant. This survey takes approximately 8–10 minutes.</p>
+    <div class="form-hero-meta">
+      <span class="form-meta-pill">⏱ 8–10 minutes</span>
+      <span class="form-meta-pill">🔒 Confidential</span>
+      <span class="form-meta-pill">📋 15 questions</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+
+  <!-- Client org banner (shown when ?org= param is present) -->
+  <div id="client-banner-wrap">
+    <div class="client-banner">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+      <p>This survey has been sent to you as part of the AuditMD engagement for <strong id="client-org-label">[Organisation]</strong>. Your responses will remain confidential within the DFEAL team.</p>
+    </div>
+  </div>
+
+  <div class="progress-label">
+    <span>Survey progress</span>
+    <span id="progress-pct">0% complete</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+
+  <form id="form-stakeholder" novalidate>
+    <input type="hidden" name="bot-field" class="form-honeypot" />
+
+    <!-- ── SECTION 1: About You ─────────────────────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 1 — About You</h2>
+        <p>This information allows us to understand each stakeholder's role and context.</p>
+      </div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="full_name">Full Name <span class="required-star">*</span></label>
+            <input type="text" id="full_name" name="full_name" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Work Email <span class="required-star">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jane@yourorg.com" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="job_title">Job Title <span class="required-star">*</span></label>
+            <input type="text" id="job_title" name="job_title" placeholder="Director of Nursing" required />
+          </div>
+          <div class="form-group">
+            <label for="department">Department / Function <span class="required-star">*</span></label>
+            <select id="department" name="department" required>
+              <option value="">Select your department…</option>
+              <option>Clinical Operations</option>
+              <option>Health Information Management</option>
+              <option>Information Technology</option>
+              <option>Compliance &amp; Legal</option>
+              <option>Finance &amp; Revenue Cycle</option>
+              <option>Quality &amp; Patient Safety</option>
+              <option>Human Resources</option>
+              <option>Administration / Executive</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: AI in Your Department ───────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 2 — AI &amp; Technology in Your Department</h2>
+        <p>Help us understand your current exposure to AI and technology decision-making.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>How involved are you in AI or technology decisions at your organization? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="ai_involvement" value="Decision maker — I approve or reject AI and technology initiatives" required />
+              <span><span>Decision maker</span><span class="sub">I approve or reject AI and technology initiatives</span></span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_involvement" value="Key influencer — My input shapes decisions but I don't have final authority" />
+              <span><span>Key influencer</span><span class="sub">My input shapes decisions but I don't have final authority</span></span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_involvement" value="Sometimes consulted — I am asked for input occasionally" />
+              <span><span>Sometimes consulted</span><span class="sub">I am asked for input occasionally</span></span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_involvement" value="Informed after decisions — I learn about decisions once they are made" />
+              <span><span>Informed after decisions</span><span class="sub">I learn about decisions once they are made</span></span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_involvement" value="Not involved — AI and technology decisions happen above or outside my role" />
+              <span><span>Not involved</span><span class="sub">AI and technology decisions happen above or outside my role</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1.5rem;">
+          <label>Are AI tools currently being used in your department? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="ai_tools_in_use" value="Yes — actively using AI tools in day-to-day work" required />
+              <span>Yes — actively using AI tools in day-to-day work</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_tools_in_use" value="Yes — piloting or testing AI tools" />
+              <span>Yes — piloting or testing AI tools</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_tools_in_use" value="No — but considering adoption in the next 12 months" />
+              <span>No — but considering adoption in the next 12 months</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_tools_in_use" value="No — no current plans for AI adoption" />
+              <span>No — no current plans for AI adoption</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: Challenges & Risk ───────────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 3 — Operational Challenges &amp; Risk</h2>
+        <p>Understanding your pain points helps us focus the audit where it will have the most impact.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label for="pain_points">What are your biggest operational pain points related to data, compliance, or technology? <span class="required-star">*</span></label>
+          <textarea id="pain_points" name="pain_points" placeholder="Describe your key challenges — e.g. data silos, manual processes, compliance gaps, EHR issues…" required></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top:0.5rem;">
+          <label>What risks concern you most about AI adoption in your organization? <span class="sub" style="text-transform:none;font-size:0.75rem;color:var(--slate-light);font-weight:400;">(Select all that apply)</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Patient privacy and HIPAA compliance" />
+              <span>Patient privacy and HIPAA compliance</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Data quality and accuracy of AI outputs" />
+              <span>Data quality and accuracy of AI outputs</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Staff resistance or lack of training" />
+              <span>Staff resistance or lack of training</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Lack of vendor accountability and transparency" />
+              <span>Lack of vendor accountability and transparency</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Unclear return on investment" />
+              <span>Unclear return on investment</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Regulatory uncertainty" />
+              <span>Regulatory uncertainty</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="Algorithmic bias or disparate impact on patients" />
+              <span>Algorithmic bias or disparate impact on patients</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="ai_adoption_risks[]" value="No significant concerns at this time" />
+              <span>No significant concerns at this time</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: Governance & Compliance ─────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 4 — Governance &amp; Compliance Awareness</h2>
+        <p>These questions assess your department's familiarity with data governance and compliance practices.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Does your department have visibility into how AI systems make decisions affecting your work? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="ai_visibility" value="Yes — fully transparent; we understand how AI decisions are made" required />
+              <span>Yes — fully transparent; we understand how AI decisions are made</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_visibility" value="Partially — we have some visibility but not the full picture" />
+              <span>Partially — we have some visibility but not the full picture</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_visibility" value="Limited — we know AI is involved but not how" />
+              <span>Limited — we know AI is involved but not how</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_visibility" value="No visibility — AI decisions affecting us are a black box" />
+              <span>No visibility — AI decisions affecting us are a black box</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_visibility" value="Not applicable — we do not use or interact with AI systems" />
+              <span>Not applicable — we do not use or interact with AI systems</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1.5rem;">
+          <label>Does your department follow documented data handling or privacy procedures? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="data_privacy_procedures" value="Yes — formally documented and consistently followed" required />
+              <span>Yes — formally documented and consistently followed</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="data_privacy_procedures" value="Yes — informally practiced but not always documented" />
+              <span>Yes — informally practiced but not always documented</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="data_privacy_procedures" value="Partially — some procedures exist but compliance gaps remain" />
+              <span>Partially — some procedures exist but compliance gaps remain</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="data_privacy_procedures" value="No — we rely on general organisation-wide guidance only" />
+              <span>No — we rely on general organisation-wide guidance only</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1.5rem;">
+          <label>In the past 12 months, has your department received training on AI ethics, data privacy, or HIPAA? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="ai_ethics_training" value="Yes — formal training programme completed by all staff" required />
+              <span>Yes — formal training programme completed by all staff</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_ethics_training" value="Yes — informal or ad-hoc sessions for some staff" />
+              <span>Yes — informal or ad-hoc sessions for some staff</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_ethics_training" value="No — but training is planned in the next 12 months" />
+              <span>No — but training is planned in the next 12 months</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="ai_ethics_training" value="No — no training has been provided or planned" />
+              <span>No — no training has been provided or planned</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 5: Priorities & Outcomes ───────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 5 — Your Priorities &amp; Desired Outcomes</h2>
+        <p>Tell us what you need from this engagement so we can tailor our recommendations.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label for="workflows_to_examine">Are there specific workflows, processes, or systems in your area you would like the audit to examine?</label>
+          <textarea id="workflows_to_examine" name="workflows_to_examine" placeholder="e.g. Patient scheduling workflow, EHR data entry, billing reconciliation, vendor onboarding process…"></textarea>
+          <span class="helper">Optional — the more detail you provide, the more targeted our audit scope can be.</span>
+        </div>
+
+        <div class="form-group" style="margin-top:0.25rem;">
+          <label for="desired_outcomes">What outcomes would make this AI readiness assessment most valuable to you and your team? <span class="required-star">*</span></label>
+          <textarea id="desired_outcomes" name="desired_outcomes" placeholder="e.g. A clear risk register for our department, a roadmap for responsible AI adoption, training recommendations…" required></textarea>
+        </div>
+
+        <div class="form-group" style="margin-top:0.25rem;">
+          <label>After the audit, what would your priority action be? <span class="required-star">*</span></label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Develop or update our AI and data governance policy" required />
+              <span>Develop or update our AI and data governance policy</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Launch a staff training and awareness programme" />
+              <span>Launch a staff training and awareness programme</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Conduct a formal vendor and third-party risk review" />
+              <span>Conduct a formal vendor and third-party risk review</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Remediate specific compliance gaps identified in the audit" />
+              <span>Remediate specific compliance gaps identified in the audit</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Implement new technology or upgrade existing systems" />
+              <span>Implement new technology or upgrade existing systems</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="priority_action" value="Share findings with leadership and board for strategic planning" />
+              <span>Share findings with leadership and board for strategic planning</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 6: Additional Context ──────────────────────── -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Section 6 — Additional Context</h2>
+        <p>Anything else the DFEAL audit team should know before the engagement begins.</p>
+      </div>
+      <div class="form-section-body">
+        <div class="form-group">
+          <label for="additional_comments">Any additional comments, concerns, or context you would like to share with the DFEAL audit team?</label>
+          <textarea id="additional_comments" name="additional_comments" placeholder="Share anything that would help us understand your situation, concerns, or expectations…" style="min-height:110px;"></textarea>
+          <span class="helper">Optional — all responses are treated as confidential.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUBMIT ──────────────────────────────────────────────── -->
+    <div class="submit-zone">
+      <p>By submitting this survey you confirm that your responses are accurate to the best of your knowledge. All data is handled in accordance with DFEAL LLC's confidentiality policy.</p>
+      <button type="submit" class="btn-submit" id="submit-btn">Submit Stakeholder Survey</button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS STATE -->
+  <div id="form-success" class="form-card">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h2>Survey Submitted</h2>
+    <p>Thank you for completing the AI Readiness Stakeholder Survey. Your responses have been securely recorded and will inform our audit findings. The DFEAL team will be in touch as the engagement progresses.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  // ── Webhook — replace with your new Zapier Catch Hook URL ──────────────
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/https://hooks.zapier.com/hooks/catch/28015444/42vcymz//';
+
+  // ── Read client identity from URL params passed by Zap 6 dispatch ───────
+  // e.g. .../stakeholder-survey.html?org=Acme+Health&email=jane@acme.com
+  const _p = new URLSearchParams(window.location.search);
+  const _org   = _p.get('org')   || '';
+  const _email = _p.get('email') || '';
+
+  // Show client banner if org is present
+  if (_org) {
+    document.getElementById('client-org-label').textContent = _org;
+    document.getElementById('client-banner-wrap').style.display = 'block';
+  }
+
+  // ── Progress bar ─────────────────────────────────────────────────────────
+  const requiredFields = document.querySelectorAll('[required]');
+  function updateProgress() {
+    let filled = 0;
+    const seen = new Set();
+    requiredFields.forEach(el => {
+      const name = el.name;
+      if (seen.has(name)) return;
+      seen.add(name);
+      if (el.type === 'radio' || el.type === 'checkbox') {
+        if (document.querySelector(`[name="${name}"]:checked`)) filled++;
+      } else if (el.value.trim()) filled++;
+    });
+    const total = seen.size;
+    const pct = total ? Math.round((filled / total) * 100) : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '% complete';
+  }
+  document.getElementById('form-stakeholder').addEventListener('input', updateProgress);
+  document.getElementById('form-stakeholder').addEventListener('change', updateProgress);
+
+  // ── Form submit ──────────────────────────────────────────────────────────
+  const frm = document.getElementById('form-stakeholder');
+  if (frm) {
+    frm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Basic HTML5 validation
+      if (!frm.checkValidity()) {
+        frm.reportValidity();
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+      // Build payload — handle multi-select checkboxes as comma-separated string
+      const formData = new FormData(frm);
+      const payload = {};
+      formData.forEach(function(v, k) {
+        const key = k.replace('[]', ''); // normalise bracket names
+        if (payload[key] !== undefined) {
+          payload[key] = payload[key] + '; ' + v;
+        } else {
+          payload[key] = v;
+        }
+      });
+
+      // Inject org identity from URL so Zap can look up PIPELINE row
+      payload['organization_name'] = _org || payload['organization_name'] || '';
+      payload['client_email']      = _email || '';  // primary contact email from F2
+
+      // Fixed metadata
+      payload['service']      = 'AI Readiness Stakeholder Survey';
+      payload['zapier_event'] = 'stakeholder_survey_submitted';
+      payload['source']       = 'AuditMD Stakeholder Survey Form';
+
+      try {
+        if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+          await fetch(ZAPIER_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+      } catch(err) {}
+
+      frm.style.display = 'none';
+      document.getElementById('client-banner-wrap').style.display = 'none';
+      document.querySelector('.progress-bar-wrap') && (document.querySelector('.progress-bar-wrap').parentElement.style.display = 'none');
+      const success = document.getElementById('form-success');
+      if (success) { success.style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    });
+  }
+</script>
+</body>
+</html>

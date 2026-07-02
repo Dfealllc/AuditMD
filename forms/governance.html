@@ -372,7 +372,17 @@
 </footer>
 
 <script>
-  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/427ukjx/';
+  // IMPORTANT: This must be a SEPARATE Zapier Catch Hook from the pre-call form.
+  // Create a new Catch Hook in Zapier for Zap 4 (F3b IT Governance Handler)
+  // and paste the URL here, then redeploy.
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/https://hooks.zapier.com/hooks/catch/28015444/42vcsu6//';
+
+  // Read client identity passed in URL by Zap 6 dispatch email
+  // e.g. .../governance.html?org=Acme+Health&email=jane@acme.com
+  const _urlParams = new URLSearchParams(window.location.search);
+  const _clientOrg   = _urlParams.get('org')   || '';
+  const _clientEmail = _urlParams.get('email')  || '';
+
   const frm = document.getElementById('form-governance');
   if (frm) {
     frm.addEventListener('submit', async function(e) {
@@ -382,9 +392,12 @@
       const formData = new FormData(frm);
       const payload = {};
       formData.forEach((v,k) => payload[k]=v);
-      payload['service'] = 'Governance Assessment';
-      payload['zapier_event'] = 'governance_questionnaire_submitted';
-      payload['source'] = 'AuditMD Governance Assessment Form';
+      payload['service']        = 'Governance Assessment';
+      payload['zapier_event']   = 'governance_questionnaire_submitted';
+      payload['source']         = 'AuditMD Governance Assessment Form';
+      // Inject client identity from URL params so Zap 4 can look up the PIPELINE row
+      if (_clientOrg)   payload['organization_name'] = _clientOrg;
+      if (_clientEmail) payload['email']              = _clientEmail;
       try {
         if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
           await fetch(ZAPIER_WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
