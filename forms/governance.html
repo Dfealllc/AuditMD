@@ -375,7 +375,7 @@
   // IMPORTANT: This must be a SEPARATE Zapier Catch Hook from the pre-call form.
   // Create a new Catch Hook in Zapier for Zap 4 (F3b IT Governance Handler)
   // and paste the URL here, then redeploy.
-  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/https://hooks.zapier.com/hooks/catch/28015444/42vcsu6//';
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/REPLACE_GOVERNANCE_WEBHOOK/';
 
   // Read client identity passed in URL by Zap 6 dispatch email
   // e.g. .../governance.html?org=Acme+Health&email=jane@acme.com
@@ -391,7 +391,15 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
       const formData = new FormData(frm);
       const payload = {};
-      formData.forEach((v,k) => payload[k]=v);
+      // Strip [] from checkbox names and join multiple selections with '; '
+      formData.forEach(function(v, k) {
+        const key = k.replace('[]', '');
+        if (payload[key] !== undefined) {
+          payload[key] = payload[key] + '; ' + v;
+        } else {
+          payload[key] = v;
+        }
+      });
       payload['service']        = 'Governance Assessment';
       payload['zapier_event']   = 'governance_questionnaire_submitted';
       payload['source']         = 'AuditMD Governance Assessment Form';
