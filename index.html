@@ -411,14 +411,16 @@
   .chat-panel { position:fixed; bottom:5rem; right:1.5rem; z-index:1500; width:360px; max-height:520px; background:var(--white); border-radius:var(--radius-lg); box-shadow:var(--shadow-xl); display:none; flex-direction:column; border:1px solid var(--border); overflow:hidden; animation:fadeInUp 0.25s ease; }
   .chat-panel.open { display:flex; }
   .chat-header { background:linear-gradient(135deg,var(--navy),var(--navy-mid)); color:var(--white); padding:1rem 1.25rem; display:flex; align-items:center; gap:0.75rem; }
-  .chat-avatar { width:36px; height:36px; border-radius:50%; background:rgba(245,194,0,0.2); border:1px solid rgba(245,194,0,0.4); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+  .chat-avatar { width:40px; height:40px; border-radius:50%; border:2px solid rgba(245,194,0,0.6); overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:#1a2d8a; }
+  .chat-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  .chat-avatar svg { width:28px; height:28px; }
   .chat-header-info .chat-name { font-size:0.9rem; font-weight:700; }
   .chat-header-info .chat-status { font-size:0.72rem; color:rgba(255,255,255,0.6); }
   .chat-close-btn { margin-left:auto; background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; font-size:1.2rem; line-height:1; padding:0.25rem; border-radius:4px; }
   .chat-close-btn:hover { color:var(--white); background:rgba(255,255,255,0.1); }
   .chat-messages { flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:0.75rem; }
   .chat-msg { max-width:85%; padding:0.65rem 0.875rem; border-radius:12px; font-size:0.85rem; line-height:1.5; }
-  .chat-msg.bot { background:var(--section-alt); color:var(--navy-dark); align-self:flex-start; border-bottom-left-radius:4px; }
+  .chat-msg.assistant { background:var(--section-alt); color:var(--navy-dark); align-self:flex-start; border-bottom-left-radius:4px; }
   .chat-msg.user { background:var(--navy); color:var(--white); align-self:flex-end; border-bottom-right-radius:4px; }
   .chat-msg a { color:var(--gold); text-decoration:underline; }
   .chat-typing { display:flex; gap:4px; align-items:center; padding:0.65rem 0.875rem; }
@@ -472,7 +474,7 @@
         <li><a href="#deliverables">Deliverables</a></li>
         <li><a href="#who">Who It's For</a></li>
         <li><a href="#pricing">Pricing</a></li>
-        <li><a href="https://auditmd.xyz" target="_blank">auditmd.xyz ↗</a></li>
+        <li><a href="https://dfeal.com" target="_blank">dfeal.com ↗</a></li>
       </ul>
       <div class="nav-cta">
         <a href="#contact" class="btn btn-navy">Start Audit</a>
@@ -1438,24 +1440,33 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span style="opacity:0.75">Submitting…</span>'; }
       const formData = new FormData(intakeForm);
       const payload = {};
-      formData.forEach((v, k) => { payload[k] = v; });
+      formData.forEach(function(v, k) {
+        var key = k.replace('[]', '');
+        payload[key] = (payload[key] !== undefined) ? payload[key] + '; ' + v : v;
+      });
       payload['source'] = 'AuditMD Intake Form';
-      try {
-        if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
-          await fetch(ZAPIER_WEBHOOK_URL, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-          });
+      var sent = false;
+      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+        for (var attempt = 1; attempt <= 3; attempt++) {
+          try {
+            // No Content-Type header — avoids CORS preflight; Zapier parses JSON body regardless
+            var res = await fetch(ZAPIER_WEBHOOK_URL, { method: 'POST', body: JSON.stringify(payload) });
+            if (res.ok || res.type === 'opaque') { sent = true; break; }
+          } catch (err) {
+            console.warn('[AuditMD] Intake webhook attempt ' + attempt + ' failed:', err);
+            if (attempt < 3) await new Promise(function(r){ setTimeout(r, 800 * attempt); });
+          }
         }
-      } catch(err) {}
+      } else {
+        sent = true;
+      }
       // Redirect to thank-you page regardless of webhook result
       window.location.href = '/thank-you';
     });
   }
 
   // ── DEEPSEEK AI CHATBOT ───────────────────────────────────────────
-  const SYSTEM_PROMPT = `You are the AuditMD AI assistant for DFEAL LLC, a Health IT and AI compliance consultancy.
+  const SYSTEM_PROMPT = `Your name is Aria. You are the virtual client advisor for AuditMD, the AI Health IT audit platform by DFEAL LLC — a Health IT and AI compliance consultancy. You are knowledgeable, warm, and professional. Respond in first person as Aria.
 
 AuditMD (auditmd.xyz) offers three custom-scoped service layers. All engagements are quoted based on the organization's size, complexity, and needs — there are no fixed list prices. Prospects receive their exact quote within 48 hours of a discovery call.
 
@@ -1511,7 +1522,7 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
   function showTyping() {
     const msgs = document.getElementById('chat-messages');
     const div = document.createElement('div');
-    div.className = 'chat-msg bot chat-typing';
+    div.className = 'chat-msg assistant chat-typing';
     div.id = 'chat-typing-indicator';
     div.innerHTML = '<span></span><span></span><span></span>';
     msgs.appendChild(div);
@@ -1540,10 +1551,10 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
       if (!response.ok) throw new Error('API error');
       const data = await response.json();
       const reply = data.content || data.choices?.[0]?.message?.content || 'I apologize, I had trouble responding. Please email intake@auditmd.xyz directly.';
-      appendMsg('bot', reply);
+      appendMsg('assistant', reply);
     } catch (err) {
       removeTyping();
-      appendMsg('bot', "I'm having a technical issue right now. Please email intake@auditmd.xyz or call +1 (844) 442-0529 — our team will respond within 24 hours.");
+      appendMsg('assistant', "I'm having a technical issue right now. Please email intake@auditmd.xyz or call +1 (844) 442-0529 — our team will respond within 24 hours.");
     }
   }
 
@@ -1556,6 +1567,7 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
     });
   }
 </script>
+<script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
       if (el.isIntersecting) { el.target.classList.add('visible'); }
@@ -1641,23 +1653,51 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
 </div>
 
 
-<!-- ══ DEEPSEEK AI ASSISTANT ══════════════════════════════════════ -->
-<button class="chat-bubble" id="chat-bubble" onclick="toggleChat()" aria-label="Chat with AuditMD Assistant">
-  💬
+<!-- ══ ARIA — VIRTUAL CLIENT ADVISOR ══════════════════════════════ -->
+<button class="chat-bubble" id="chat-bubble" onclick="toggleChat()" aria-label="Chat with Aria, AuditMD Advisor">
+  <!-- Woman-with-headset avatar SVG -->
+  <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;">
+    <!-- Head -->
+    <circle cx="28" cy="19" r="9" fill="#F5C5A3"/>
+    <!-- Hair -->
+    <path d="M19 18 Q19 8 28 8 Q37 8 37 18 Q37 14 33 13 Q28 11 23 13 Q19 14 19 18Z" fill="#3D2B1F"/>
+    <!-- Body / shoulders -->
+    <path d="M14 48 Q14 36 28 34 Q42 36 42 48" fill="#0B1B6E"/>
+    <!-- Headset band -->
+    <path d="M18 17 Q18 9 28 9 Q38 9 38 17" stroke="#222" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Headset ear left -->
+    <rect x="15" y="16" width="5" height="7" rx="2.5" fill="#222"/>
+    <!-- Headset ear right -->
+    <rect x="36" y="16" width="5" height="7" rx="2.5" fill="#222"/>
+    <!-- Mic boom -->
+    <path d="M20 21 Q16 26 18 30" stroke="#222" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <circle cx="18" cy="31" r="2" fill="#F5C200"/>
+  </svg>
   <span class="chat-badge">AI</span>
 </button>
 
-<div class="chat-panel" id="chat-panel" role="complementary" aria-label="AI Assistant">
+<div class="chat-panel" id="chat-panel" role="complementary" aria-label="Aria — AuditMD Virtual Advisor">
   <div class="chat-header">
-    <div class="chat-avatar">🤖</div>
+    <div class="chat-avatar">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="14" r="7" fill="#F5C5A3"/>
+        <path d="M13 13 Q13 6 20 6 Q27 6 27 13 Q27 10 24 9 Q20 8 16 9 Q13 10 13 13Z" fill="#3D2B1F"/>
+        <path d="M8 38 Q8 28 20 26 Q32 28 32 38" fill="#1a2d8a"/>
+        <path d="M12 12 Q12 6 20 6 Q28 6 28 12" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <rect x="9" y="11" width="4" height="5" rx="2" fill="#1a1a1a"/>
+        <rect x="27" y="11" width="4" height="5" rx="2" fill="#1a1a1a"/>
+        <path d="M13 15 Q10 19 12 22" stroke="#1a1a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="12" cy="22.5" r="1.5" fill="#F5C200"/>
+      </svg>
+    </div>
     <div class="chat-header-info">
-      <div class="chat-name">AuditMD Assistant</div>
-      <div class="chat-status">AI-powered · Answers instantly</div>
+      <div class="chat-name">Aria · AuditMD Advisor</div>
+      <div class="chat-status">Virtual assistant · Here to help</div>
     </div>
     <button class="chat-close-btn" onclick="toggleChat()" aria-label="Close chat">×</button>
   </div>
   <div class="chat-messages" id="chat-messages">
-    <div class="chat-msg bot">Hi! I'm your AuditMD AI assistant. I can answer questions about our services, help you understand what's included in each audit tier, or guide you through starting an engagement. How can I help you today?</div>
+    <div class="chat-msg assistant">Hi, I'm Aria — your AuditMD virtual advisor. I can help you understand our Health IT audit services, answer compliance questions, or guide you through starting an engagement. What can I help you with today?</div>
   </div>
   <div class="chat-quick-replies" id="chat-qrs">
     <button class="chat-qr" onclick="sendQuick('What does the audit include?')">What's included?</button>

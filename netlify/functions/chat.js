@@ -8,11 +8,23 @@
 //   3. Deploy — the function is live automatically
 // ─────────────────────────────────────────────────────────────────────
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 exports.handler = async function (event) {
+  // Handle CORS preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+  }
+
   // Only allow POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Method Not Allowed' }),
     };
   }
@@ -24,6 +36,7 @@ exports.handler = async function (event) {
   } catch {
     return {
       statusCode: 400,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Invalid JSON body' }),
     };
   }
@@ -32,6 +45,7 @@ exports.handler = async function (event) {
   if (!messages || !Array.isArray(messages)) {
     return {
       statusCode: 400,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'messages array is required' }),
     };
   }
@@ -42,6 +56,7 @@ exports.handler = async function (event) {
     console.error('DEEPSEEK_API_KEY environment variable is not set');
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'AI service not configured. Please contact intake@auditmd.xyz.' }),
     };
   }
@@ -70,6 +85,7 @@ exports.handler = async function (event) {
       console.error('DeepSeek API error:', response.status, errText);
       return {
         statusCode: 502,
+        headers: CORS_HEADERS,
         body: JSON.stringify({ error: 'AI service temporarily unavailable' }),
       };
     }
@@ -80,6 +96,7 @@ exports.handler = async function (event) {
     if (!content) {
       return {
         statusCode: 502,
+        headers: CORS_HEADERS,
         body: JSON.stringify({ error: 'No response from AI service' }),
       };
     }
@@ -87,9 +104,8 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       headers: {
+        ...CORS_HEADERS,
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({ content }),
     };
@@ -98,6 +114,7 @@ exports.handler = async function (event) {
     console.error('Function error:', err);
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Internal server error' }),
     };
   }
