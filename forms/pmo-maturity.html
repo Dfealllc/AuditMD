@@ -509,15 +509,24 @@
   const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/427ukjx/';
   const frm = document.getElementById('form-pmo-maturity');
   if (frm) {
-    frm.addEventListener('submit', function(e) {
+    frm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = frm.querySelector('[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
       const formData = new FormData(frm);
       const payload = {};
       formData.forEach((v,k) => payload[k]=v);
       payload['service'] = 'PMO Maturity Assessment';
       payload['zapier_event'] = 'pmo_maturity_questionnaire_submitted';
-      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
-        fetch(ZAPIER_WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
-      }
+      payload['source'] = 'AuditMD PMO Maturity Assessment Form';
+      try {
+        if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+          await fetch(ZAPIER_WEBHOOK_URL, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        }
+      } catch(err) {}
+      frm.style.display = 'none';
+      const success = document.getElementById('form-success');
+      if (success) { success.style.display = 'block'; success.scrollIntoView({behavior:'smooth',block:'center'}); }
     });
   }
 </script>
