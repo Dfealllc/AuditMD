@@ -3,13 +3,9 @@
 // Routes form submissions to the correct Zapier webhook based on the
 // "service" field in the payload. Keeps all webhook URLs server-side.
 //
-// Setup — add these in Netlify dashboard → Site → Environment Variables:
-//
-//   ZAPIER_WEBHOOK_PRECALL      = https://hooks.zapier.com/hooks/catch/28015444/427ukjx/
-//   ZAPIER_WEBHOOK_STAKEHOLDER  = https://hooks.zapier.com/hooks/catch/28015444/42vcymz/
-//   ZAPIER_WEBHOOK_GOVERNANCE   = https://hooks.zapier.com/hooks/catch/28015444/42vcsu6/
-//   ZAPIER_WEBHOOK_ASSESSMENT   = https://hooks.zapier.com/hooks/catch/28015444/4u2kgfe/
-//   ZAPIER_WEBHOOK_POSTAUDIT    = https://hooks.zapier.com/hooks/catch/28015444/42apbwf/
+// Setup — add these 5 keys in Netlify dashboard → Site → Environment Variables:
+//   ZAPIER_WEBHOOK_PRECALL, ZAPIER_WEBHOOK_STAKEHOLDER, ZAPIER_WEBHOOK_GOVERNANCE,
+//   ZAPIER_WEBHOOK_ASSESSMENT, ZAPIER_WEBHOOK_POSTAUDIT
 //
 // Note: HIPAA, EHR Workflow, and PMO Maturity all share ZAPIER_WEBHOOK_ASSESSMENT.
 // ─────────────────────────────────────────────────────────────────────────────
