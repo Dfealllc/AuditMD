@@ -1,0 +1,5 @@
+ZAPIER_WEBHOOK_PRECALL=https://hooks.zapier.com/hooks/catch/28015444/427ukjx/
+ZAPIER_WEBHOOK_STAKEHOLDER=https://hooks.zapier.com/hooks/catch/28015444/42vcymz/
+ZAPIER_WEBHOOK_GOVERNANCE=https://hooks.zapier.com/hooks/catch/28015444/42vcsu6/
+ZAPIER_WEBHOOK_ASSESSMENT=https://hooks.zapier.com/hooks/catch/28015444/4u2kgfe/
+ZAPIER_WEBHOOK_POSTAUDIT=https://hooks.zapier.com/hooks/catch/28015444/42apbwf/
