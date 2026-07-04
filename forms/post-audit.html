@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Post-Audit Debrief & Feedback | AuditMD</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+    --section-alt:#F0F3FF;--card-bg:#FFFFFF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);--shadow-lg:0 8px 40px rgba(11,27,110,0.14);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  /* NAV */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+  .btn-navy:hover{background:var(--navy-mid);}
+  .btn-primary{background:var(--gold);color:var(--navy-dark);}
+  .btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-lg{padding:0.85rem 1.75rem;font-size:0.95rem;border-radius:10px;}
+
+  /* HERO BANNER */
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:640px;}
+  .form-hero-meta{display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;}
+  .form-meta-pill{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.75);}
+
+  /* MAIN CONTAINER */
+  .form-container{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem;flex:1;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.5rem;}
+  .form-section-header{background:var(--section-alt);padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+  .form-section-header h2{font-size:1rem;font-weight:700;color:var(--navy-dark);}
+  .form-section-header p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;}
+  .form-section-body{padding:1.75rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{font-size:0.75rem;font-weight:700;color:var(--navy-dark);letter-spacing:0.04em;text-transform:uppercase;}
+  .form-group .helper{font-size:0.75rem;color:var(--slate-light);margin-top:0.2rem;}
+  .form-group input,.form-group select,.form-group textarea{
+    background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;
+    padding:0.7rem 0.9rem;font-size:0.875rem;font-family:var(--font);
+    color:var(--navy-dark);transition:var(--transition);outline:none;width:100%;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(11,27,110,0.08);
+  }
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-group select option{background:var(--white);color:var(--navy-dark);}
+  .radio-group,.checkbox-group{display:flex;flex-direction:column;gap:0.6rem;}
+  .radio-item,.checkbox-item{display:flex;align-items:flex-start;gap:0.75rem;cursor:pointer;padding:0.6rem 0.75rem;border:1.5px solid var(--border);border-radius:8px;transition:var(--transition);}
+  .radio-item:hover,.checkbox-item:hover{border-color:var(--navy);background:var(--section-alt);}
+  .radio-item input,.checkbox-item input{margin-top:2px;accent-color:var(--navy);flex-shrink:0;width:16px;height:16px;}
+  .radio-item label,.checkbox-item label{font-size:0.875rem;color:var(--navy-dark);cursor:pointer;font-weight:500;line-height:1.4;}
+  .radio-item .sub,.checkbox-item .sub{font-size:0.75rem;color:var(--slate);display:block;margin-top:2px;}
+
+  /* RATING SCALE */
+  .rating-scale{display:flex;gap:0.5rem;flex-wrap:wrap;}
+  .rating-scale input[type="radio"]{display:none;}
+  .rating-scale label{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:42px;height:42px;border-radius:8px;border:1.5px solid var(--border);
+    font-size:0.9rem;font-weight:700;color:var(--slate);cursor:pointer;
+    transition:var(--transition);background:var(--off-white);
+  }
+  .rating-scale input[type="radio"]:checked + label{
+    background:var(--navy);border-color:var(--navy);color:var(--white);
+  }
+  .rating-scale label:hover{border-color:var(--navy);color:var(--navy);background:var(--section-alt);}
+  .rating-labels{display:flex;justify-content:space-between;margin-top:0.4rem;}
+  .rating-labels span{font-size:0.7rem;color:var(--slate-light);}
+
+  /* NPS SCALE */
+  .nps-scale{display:flex;gap:0.35rem;flex-wrap:wrap;}
+  .nps-scale input[type="radio"]{display:none;}
+  .nps-scale label{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:38px;height:38px;border-radius:6px;border:1.5px solid var(--border);
+    font-size:0.8rem;font-weight:700;color:var(--slate);cursor:pointer;
+    transition:var(--transition);background:var(--off-white);
+  }
+  .nps-scale input[type="radio"]:checked + label{background:var(--navy);border-color:var(--navy);color:var(--white);}
+  .nps-scale label:hover{border-color:var(--navy);color:var(--navy);}
+  .nps-labels{display:flex;justify-content:space-between;margin-top:0.4rem;}
+  .nps-labels span{font-size:0.7rem;color:var(--slate-light);}
+
+  /* FORM SUBMIT */
+  .form-submit-area{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);padding:2rem 1.75rem;box-shadow:var(--shadow);text-align:center;}
+  .form-submit-area h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
+  .form-submit-area p{font-size:0.875rem;color:var(--slate);margin-bottom:1.5rem;}
+  .form-legal{font-size:0.72rem;color:var(--slate-light);margin-top:1rem;}
+  .form-honeypot{display:none;}
+
+  /* SUCCESS */
+  .form-success{display:none;background:rgba(34,197,94,0.06);border:1.5px solid rgba(34,197,94,0.3);border-radius:var(--radius);padding:2rem 1.75rem;text-align:center;margin-top:1.5rem;}
+  .form-success .fs-icon{font-size:3rem;margin-bottom:0.75rem;}
+  .form-success h4{color:var(--navy-dark);font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;}
+  .form-success p{font-size:0.9rem;}
+
+  /* FOOTER */
+  footer{background:#05102E;color:rgba(255,255,255,0.5);padding:1.5rem;text-align:center;font-size:0.8rem;}
+  footer a{color:rgba(255,255,255,0.6);margin:0 0.75rem;transition:var(--transition);}
+  footer a:hover{color:var(--white);}
+
+  @media(max-width:640px){
+    .form-row{grid-template-columns:1fr;}
+    .form-hero{padding:1.75rem 0;}
+    .form-container{padding:1.5rem 1rem;}
+    .rating-scale label{width:36px;height:36px;}
+    .nps-scale label{width:32px;height:32px;font-size:0.72rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<span class="dot"></span>
+      <span>by DFEAL LLC</span>
+    </div>
+    <a href="https://auditmd.xyz" class="btn btn-navy">← Back to Site</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Final Stage — Audit Completion</span>
+    <h1>Post-Audit Debrief & Feedback</h1>
+    <p>Thank you for completing your AuditMD engagement. Your candid feedback helps us continuously improve our service and ensures your next steps are set up for success.</p>
+    <div class="form-hero-meta">
+      <span class="form-meta-pill">🔒 Confidential</span>
+      <span class="form-meta-pill">⏱ ~8–10 min</span>
+      <span class="form-meta-pill">📋 Engagement Closing</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  <form id="form-post-audit">
+
+    <p class="form-honeypot"><label>Leave blank: <input name="bot-field" /></label></p>
+
+    <!-- SECTION 1: RESPONDENT INFO -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Your Information</h2>
+        <p>Confirm your details so we can match this feedback to your engagement record.</p>
+      </div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Organization Name</label>
+            <input type="text" name="organization_name" id="field-org" placeholder="Your organization" required />
+          </div>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="contact_name" placeholder="Full name" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" id="field-email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Your Role / Title</label>
+            <input type="text" name="contact_role" placeholder="e.g. CIO, HIPAA Compliance Officer" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: AUDIT QUALITY — 5 CORE EVALUATION QUESTIONS -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Audit Quality Evaluation</h2>
+        <p>Rate each dimension of your engagement on a scale of 1 (Poor) to 5 (Excellent).</p>
+      </div>
+      <div class="form-section-body">
+
+        <!-- Response 1: Overall Satisfaction -->
+        <div class="form-group">
+          <label>1. Overall satisfaction with the audit process</label>
+          <p class="helper">How would you rate your experience from kickoff through final delivery?</p>
+          <div class="rating-scale">
+            <input type="radio" name="overall_satisfaction" id="os1" value="1" /><label for="os1">1</label>
+            <input type="radio" name="overall_satisfaction" id="os2" value="2" /><label for="os2">2</label>
+            <input type="radio" name="overall_satisfaction" id="os3" value="3" /><label for="os3">3</label>
+            <input type="radio" name="overall_satisfaction" id="os4" value="4" /><label for="os4">4</label>
+            <input type="radio" name="overall_satisfaction" id="os5" value="5" /><label for="os5">5</label>
+          </div>
+          <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+        </div>
+
+        <!-- Response 2: Deliverable Quality -->
+        <div class="form-group">
+          <label>2. Quality of audit deliverables (report, risk register, executive summary)</label>
+          <p class="helper">Were the findings clear, accurate, and actionable?</p>
+          <div class="rating-scale">
+            <input type="radio" name="deliverable_quality" id="dq1" value="1" /><label for="dq1">1</label>
+            <input type="radio" name="deliverable_quality" id="dq2" value="2" /><label for="dq2">2</label>
+            <input type="radio" name="deliverable_quality" id="dq3" value="3" /><label for="dq3">3</label>
+            <input type="radio" name="deliverable_quality" id="dq4" value="4" /><label for="dq4">4</label>
+            <input type="radio" name="deliverable_quality" id="dq5" value="5" /><label for="dq5">5</label>
+          </div>
+          <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+        </div>
+
+        <!-- Response 3: Team Responsiveness -->
+        <div class="form-group">
+          <label>3. DFEAL team responsiveness and communication</label>
+          <p class="helper">Did the team respond promptly and keep you informed throughout?</p>
+          <div class="rating-scale">
+            <input type="radio" name="team_responsiveness" id="tr1" value="1" /><label for="tr1">1</label>
+            <input type="radio" name="team_responsiveness" id="tr2" value="2" /><label for="tr2">2</label>
+            <input type="radio" name="team_responsiveness" id="tr3" value="3" /><label for="tr3">3</label>
+            <input type="radio" name="team_responsiveness" id="tr4" value="4" /><label for="tr4">4</label>
+            <input type="radio" name="team_responsiveness" id="tr5" value="5" /><label for="tr5">5</label>
+          </div>
+          <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+        </div>
+
+        <!-- Response 4: Recommendation Clarity -->
+        <div class="form-group">
+          <label>4. Clarity and practicality of recommendations</label>
+          <p class="helper">Were the recommended next steps realistic and clearly explained?</p>
+          <div class="rating-scale">
+            <input type="radio" name="recommendation_clarity" id="rc1" value="1" /><label for="rc1">1</label>
+            <input type="radio" name="recommendation_clarity" id="rc2" value="2" /><label for="rc2">2</label>
+            <input type="radio" name="recommendation_clarity" id="rc3" value="3" /><label for="rc3">3</label>
+            <input type="radio" name="recommendation_clarity" id="rc4" value="4" /><label for="rc4">4</label>
+            <input type="radio" name="recommendation_clarity" id="rc5" value="5" /><label for="rc5">5</label>
+          </div>
+          <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+        </div>
+
+        <!-- Response 5: Overall Value -->
+        <div class="form-group" style="margin-bottom:0;">
+          <label>5. Overall value of the AuditMD engagement</label>
+          <p class="helper">Did the engagement deliver value relative to your investment of time and resources?</p>
+          <div class="rating-scale">
+            <input type="radio" name="overall_value" id="ov1" value="1" /><label for="ov1">1</label>
+            <input type="radio" name="overall_value" id="ov2" value="2" /><label for="ov2">2</label>
+            <input type="radio" name="overall_value" id="ov3" value="3" /><label for="ov3">3</label>
+            <input type="radio" name="overall_value" id="ov4" value="4" /><label for="ov4">4</label>
+            <input type="radio" name="overall_value" id="ov5" value="5" /><label for="ov5">5</label>
+          </div>
+          <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 3: OPEN FEEDBACK -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Qualitative Feedback</h2>
+        <p>Your written responses help us understand what's working and where we can grow.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>What went well during this engagement?</label>
+          <textarea name="what_went_well" placeholder="Specific aspects of the process, team, or deliverables that stood out positively…" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>What could we improve?</label>
+          <textarea name="areas_for_improvement" placeholder="Honest feedback on gaps, friction points, or anything that fell short of your expectations…" rows="3"></textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Were there any areas your organization expected us to cover that we did not?</label>
+          <textarea name="missed_scope" placeholder="Any topics, systems, or workflows you felt were outside our scope but should have been included…" rows="3"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 4: NPS + RECOMMENDATION -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Recommendation & Referral</h2>
+        <p>Understanding how likely you are to recommend AuditMD helps us measure impact.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group" style="margin-bottom:0;">
+          <label>How likely are you to recommend AuditMD to a peer or colleague?</label>
+          <p class="helper">0 = Not at all likely &nbsp;|&nbsp; 10 = Extremely likely</p>
+          <div class="nps-scale">
+            <input type="radio" name="nps_score" id="nps0" value="0" /><label for="nps0">0</label>
+            <input type="radio" name="nps_score" id="nps1" value="1" /><label for="nps1">1</label>
+            <input type="radio" name="nps_score" id="nps2" value="2" /><label for="nps2">2</label>
+            <input type="radio" name="nps_score" id="nps3" value="3" /><label for="nps3">3</label>
+            <input type="radio" name="nps_score" id="nps4" value="4" /><label for="nps4">4</label>
+            <input type="radio" name="nps_score" id="nps5" value="5" /><label for="nps5">5</label>
+            <input type="radio" name="nps_score" id="nps6" value="6" /><label for="nps6">6</label>
+            <input type="radio" name="nps_score" id="nps7" value="7" /><label for="nps7">7</label>
+            <input type="radio" name="nps_score" id="nps8" value="8" /><label for="nps8">8</label>
+            <input type="radio" name="nps_score" id="nps9" value="9" /><label for="nps9">9</label>
+            <input type="radio" name="nps_score" id="nps10" value="10" /><label for="nps10">10</label>
+          </div>
+          <div class="nps-labels"><span>Not at all likely</span><span>Extremely likely</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 5: UPSELL / FUTURE INTEREST -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Future Engagement Interest</h2>
+        <p>Let us know which services you'd like to explore next so we can tailor your follow-up.</p>
+      </div>
+      <div class="form-section-body">
+
+        <div class="form-group">
+          <label>Which of the following are you interested in? (select all that apply)</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="Ongoing Monthly Retainer — continuous compliance monitoring and advisory" />
+              <span>
+                Ongoing Monthly Retainer
+                <span class="sub">Continuous compliance monitoring, policy maintenance, and advisory support</span>
+              </span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="Additional Domain Audit — HIPAA, EHR Workflow, or PMO Maturity deep-dive" />
+              <span>
+                Additional Domain Audit
+                <span class="sub">Deep-dive into HIPAA, EHR Workflow, PMO Maturity, or a domain not covered in this engagement</span>
+              </span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="AI Governance & Policy Development — build or update AI governance frameworks" />
+              <span>
+                AI Governance & Policy Development
+                <span class="sub">Build or revise your organization's AI governance policies and decision frameworks</span>
+              </span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="Staff Training & Awareness — HIPAA and AI readiness training for clinical and admin staff" />
+              <span>
+                Staff Training & Awareness
+                <span class="sub">HIPAA compliance and AI readiness training sessions for clinical and administrative staff</span>
+              </span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="Vendor & BAA Management — third-party risk review and Business Associate Agreement support" />
+              <span>
+                Vendor & BAA Management
+                <span class="sub">Third-party risk review, BAA inventory, and vendor compliance tracking</span>
+              </span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="upsell_interest[]" value="None at this time" />
+              <span>
+                None at this time
+                <span class="sub">I don't have an immediate need for additional services</span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Preferred timeline for follow-up (if any)</label>
+          <div class="radio-group">
+            <label class="radio-item">
+              <input type="radio" name="followup_timeline" value="Immediately — I am ready to move forward now" />
+              <span>Immediately — I am ready to move forward now</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="followup_timeline" value="Within 30 days" />
+              <span>Within 30 days</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="followup_timeline" value="Within 90 days" />
+              <span>Within 90 days</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="followup_timeline" value="Not sure yet — check back in a few months" />
+              <span>Not sure yet — check back in a few months</span>
+            </label>
+            <label class="radio-item">
+              <input type="radio" name="followup_timeline" value="No follow-up needed at this time" />
+              <span>No follow-up needed at this time</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 6: ADDITIONAL COMMENTS -->
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Final Thoughts</h2>
+        <p>Any other feedback, questions, or context you'd like to share with the DFEAL team.</p>
+      </div>
+      <div class="form-section-body">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Additional comments</label>
+          <textarea name="additional_comments" placeholder="Anything else you'd like to share — open-ended feedback, questions about your roadmap, or a message to the team…" rows="4"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-submit-area">
+      <h3>Submit Your Debrief</h3>
+      <p>Your responses go directly to your DFEAL engagement team. We review every submission and will follow up within 48 hours.</p>
+      <button type="submit" class="btn btn-primary btn-lg" style="min-width:260px;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Submit Debrief & Feedback
+      </button>
+      <p class="form-legal">All responses are strictly confidential and used solely to improve your AuditMD engagement. DFEAL LLC does not share your information with third parties.</p>
+    </div>
+
+  </form>
+
+  <div class="form-success" id="form-success">
+    <div class="fs-icon">🎉</div>
+    <h4>Thank You — Feedback Received</h4>
+    <p>Your post-audit debrief has been submitted successfully. Your DFEAL engagement team will review your responses and reach out within 48 hours to discuss next steps and your roadmap.<br><br>
+    Questions in the meantime? Email us at <a href="mailto:support@auditmd.xyz" style="color:var(--navy);font-weight:600;">support@auditmd.xyz</a></p>
+  </div>
+
+  <div id="form-error" style="display:none;background:rgba(239,68,68,0.06);border:1.5px solid rgba(239,68,68,0.3);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem;">
+    <p style="color:#b91c1c;font-weight:600;margin-bottom:0.4rem;">Submission failed</p>
+    <p style="font-size:0.875rem;">Please check your connection and click <strong>Retry Submission</strong> above. If the problem persists, email <a href="mailto:intake@auditmd.xyz" style="color:#b91c1c;">intake@auditmd.xyz</a>.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:intake@auditmd.xyz">intake@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  // ─── CONFIGURATION ──────────────────────────────────────────────────────────
+  // Step 1: In Zapier, open ZAP 13 (Post-Audit Debrief & Upsell Handler).
+  //         Change the trigger from Google Sheets to Zapier Catch Hook.
+  //         Copy the new webhook URL and paste it below, then redeploy to Netlify.
+  // ────────────────────────────────────────────────────────────────────────────
+  const ZAPIER_WEBHOOK_URL = https://hooks.zapier.com/hooks/catch/28015444/42apbwf/;
+
+  // Pre-fill identity from URL params injected by the dispatch email
+  // e.g. .../post-audit.html?org=Acme+Health&email=jane@acme.com
+  const _urlParams = new URLSearchParams(window.location.search);
+  const _clientOrg   = _urlParams.get('org')   || '';
+  const _clientEmail = _urlParams.get('email')  || '';
+
+  // Pre-fill fields if params present
+  if (_clientOrg) {
+    var orgField = document.getElementById('field-org');
+    if (orgField) orgField.value = _clientOrg;
+  }
+  if (_clientEmail) {
+    var emailField = document.getElementById('field-email');
+    if (emailField) emailField.value = _clientEmail;
+  }
+
+  // ─── SUBMIT HANDLER ─────────────────────────────────────────────────────────
+  var frm = document.getElementById('form-post-audit');
+  if (frm) {
+    frm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      var submitBtn = frm.querySelector('[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+      var formData = new FormData(frm);
+      var payload = {};
+
+      // Strip [] from checkbox names; join multiple values with '; '
+      formData.forEach(function(v, k) {
+        var key = k.replace('[]', '');
+        if (payload[key] !== undefined) {
+          payload[key] = payload[key] + '; ' + v;
+        } else {
+          payload[key] = v;
+        }
+      });
+
+      // Inject static metadata
+      payload['service']      = 'Post-Audit Debrief';
+      payload['zapier_event'] = 'post_audit_debrief_submitted';
+      payload['source']       = 'AuditMD Post-Audit Debrief Form';
+
+      // Override identity with URL params if provided (prevents manual typos)
+      if (_clientOrg)   payload['organization_name'] = _clientOrg;
+      if (_clientEmail) payload['email']              = _clientEmail;
+
+      // ── Webhook send with 3-attempt retry ───────────────────────────────────
+      // Omit Content-Type so browser sends as text/plain (no CORS preflight).
+      // Zapier parses JSON regardless of Content-Type header.
+      var sent = false;
+      var errDiv = document.getElementById('form-error');
+      if (errDiv) errDiv.style.display = 'none';
+
+      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
+        for (var attempt = 1; attempt <= 3; attempt++) {
+          try {
+            var res = await fetch(ZAPIER_WEBHOOK_URL, { method: 'POST', body: JSON.stringify(payload) });
+            if (res.ok || res.type === 'opaque') { sent = true; break; }
+          } catch (err) {
+            console.warn('[AuditMD] F4 webhook attempt ' + attempt + ' failed:', err);
+            if (attempt < 3) await new Promise(function(r){ setTimeout(r, 800 * attempt); });
+          }
+        }
+      } else {
+        // Webhook not yet configured — show success anyway during development
+        sent = true;
+      }
+
+      if (sent) {
+        frm.style.display = 'none';
+        var success = document.getElementById('form-success');
+        if (success) {
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Retry Submission'; }
+        if (errDiv)    { errDiv.style.display = 'block'; errDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      }
+    });
+  }
+</script>
+</body>
+</html>
