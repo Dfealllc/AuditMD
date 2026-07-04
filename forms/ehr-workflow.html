@@ -380,7 +380,7 @@
 </footer>
 
 <script>
-  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/427ukjx/';
+  const PROXY_URL = '/.netlify/functions/zapier-proxy';
   const frm = document.getElementById('form-ehr-workflow');
   if (frm) {
     frm.addEventListener('submit', async function(e) {
@@ -404,18 +404,18 @@
       // Send to Zapier — omit Content-Type so browser uses text/plain (no CORS preflight)
       // Zapier parses JSON regardless of Content-Type. Retry up to 3x on network error.
       var sent = false;
-      if (ZAPIER_WEBHOOK_URL && !ZAPIER_WEBHOOK_URL.includes('REPLACE')) {
-        for (var attempt = 1; attempt <= 3; attempt++) {
-          try {
-            var res = await fetch(ZAPIER_WEBHOOK_URL, { method: 'POST', body: JSON.stringify(payload) });
-            if (res.ok || res.type === 'opaque') { sent = true; break; }
-          } catch (err) {
-            console.warn('[AuditMD] Webhook attempt ' + attempt + ' failed:', err);
-            if (attempt < 3) await new Promise(function(r){ setTimeout(r, 800 * attempt); });
-          }
+      for (var attempt = 1; attempt <= 3; attempt++) {
+        try {
+          var res = await fetch(PROXY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) { sent = true; break; }
+        } catch (err) {
+          console.warn('[AuditMD] Proxy attempt ' + attempt + ' failed:', err);
+          if (attempt < 3) await new Promise(function(r){ setTimeout(r, 800 * attempt); });
         }
-      } else {
-        sent = true;
       }
 
       if (sent) {
