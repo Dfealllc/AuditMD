@@ -57,7 +57,7 @@ exports.handler = async function (event) {
     return {
       statusCode: 500,
       headers: CORS_HEADERS,
-      body: JSON.stringify({ error: 'AI service not configured. Please contact intake@auditmd.xyz.' }),
+      body: JSON.stringify({ error: 'AI service not configured. Please contact support@auditmd.xyz.' }),
     };
   }
 
