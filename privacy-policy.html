@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AuditMD by DFEAL</title>
+  <meta name="description" content="AuditMD Privacy Policy — how we collect, use, protect, and never share your organization's data. HIPAA-aligned data handling for health IT compliance engagements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0A2540;
+      --gold: #F5C200;
+      --white: #FFFFFF;
+      --gray: rgba(255,255,255,0.65);
+      --gray-light: rgba(255,255,255,0.45);
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border); padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -1px; }
+    .nav-logo-mark span { color: var(--gold); }
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+      color: var(--gold); border: 1px solid var(--gold);
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .btn-nav {
+      background: var(--gold); color: var(--navy); padding: 8px 20px; border-radius: 8px;
+      font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: 0.9; color: var(--navy); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      padding: 5rem 2rem 3.5rem; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,194,0,0.06), transparent);
+    }
+    .hero-inner { max-width: 860px; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero .effective-date {
+      font-size: 0.85rem; color: var(--gray-light); margin-bottom: 1.5rem;
+    }
+    .hero p { font-size: 1rem; color: var(--gray); max-width: 640px; }
+    .commit-pills { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+    .commit-pill {
+      background: rgba(245,194,0,0.1); border: 1px solid rgba(245,194,0,0.25);
+      color: var(--gold); padding: 5px 14px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600;
+    }
+
+    /* LAYOUT */
+    .page-body { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem;
+    }
+    .toc h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { margin-bottom: 0.5rem; }
+    .toc a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .toc a:hover { color: var(--white); }
+
+    .policy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    .policy-section h2 {
+      font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .policy-section h2 .s-num {
+      font-size: 0.75rem; font-weight: 700; color: var(--gold);
+      border: 1px solid rgba(245,194,0,0.3); padding: 2px 8px; border-radius: 20px;
+    }
+    .policy-section h3 { font-size: 1.05rem; font-weight: 700; margin: 1.75rem 0 0.6rem; color: var(--white); }
+    .policy-section p { color: var(--gray); margin-bottom: 1rem; font-size: 0.97rem; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul, .policy-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-section li { color: var(--gray); font-size: 0.97rem; margin-bottom: 0.5rem; }
+    .policy-section strong { color: var(--white); font-weight: 600; }
+    .policy-section a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* CALLOUT BOXES */
+    .callout {
+      border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .callout-gold {
+      background: rgba(245,194,0,0.08); border: 1px solid rgba(245,194,0,0.2);
+      color: var(--white);
+    }
+    .callout-gold strong { color: var(--gold); }
+    .callout-info {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+      color: var(--gray);
+    }
+    .callout-red {
+      background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* DATA TABLE */
+    .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .data-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .data-table td {
+      padding: 0.9rem 1rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .data-table td:first-child { color: var(--white); font-weight: 600; width: 30%; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: rgba(245,194,0,0.07); border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 16px; padding: 2rem;
+    }
+    .contact-box h3 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1rem; }
+    .contact-box p { color: var(--gray); font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .contact-box a { color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid var(--card-border);
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .page-body { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">Audit<span>MD</span></span>
+      <span class="nav-badge">by DFEAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/hipaa-framework.html">HIPAA Framework</a></li>
+      <li><a href="/ai-governance.html">AI Governance</a></li>
+    </ul>
+    <a href="/#intake" class="btn-nav">Request Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="page-body" style="padding-bottom:0;padding-top:0;">
+    <span class="eyebrow">Legal &amp; Privacy</span>
+    <h1>Privacy <span>Policy</span></h1>
+    <p class="effective-date">Effective Date: July 1, 2026 &nbsp;·&nbsp; Last Reviewed: July 2026</p>
+    <p>This Privacy Policy describes how DFEAL LLC ("DFEAL," "we," "us," or "our"), operating the AuditMD platform at auditmd.xyz, collects, uses, protects, and handles information submitted through our website and professional engagement services. We are committed to responsible, transparent, and secure data stewardship.</p>
+    <div class="commit-pills">
+      <span class="commit-pill">No PHI Collected</span>
+      <span class="commit-pill">No Data Selling</span>
+      <span class="commit-pill">No Third-Party Advertising</span>
+      <span class="commit-pill">Encrypted in Transit</span>
+      <span class="commit-pill">Access-Controlled Storage</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#scope">Scope and Who This Policy Applies To</a></li>
+      <li><a href="#what-we-collect">What Information We Collect</a></li>
+      <li><a href="#how-we-use">How We Use Your Information</a></li>
+      <li><a href="#what-we-never-do">What We Never Do With Your Data</a></li>
+      <li><a href="#data-handling">Data Handling and Security Controls</a></li>
+      <li><a href="#third-parties">Third-Party Service Providers</a></li>
+      <li><a href="#data-retention">Data Retention</a></li>
+      <li><a href="#your-rights">Your Rights and Choices</a></li>
+      <li><a href="#hipaa-note">A Note on HIPAA and Patient Data</a></li>
+      <li><a href="#cookies">Cookies and Website Analytics</a></li>
+      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="policy-section" id="scope">
+    <h2><span class="s-num">01</span> Scope and Who This Policy Applies To</h2>
+    <p>This Privacy Policy applies to all individuals and organizations that interact with the AuditMD website (auditmd.xyz), submit information through any of our assessment forms or intake processes, or engage DFEAL LLC for professional Health IT compliance consulting services.</p>
+    <p>DFEAL LLC is a limited liability company registered in the State of Delaware. Our registered address is 254 Chapman Rd, Ste 208, Newark, DE 19702.</p>
+    <p>By using auditmd.xyz or submitting any form on our platform, you acknowledge that you have read and understood this Privacy Policy and consent to the data practices described herein.</p>
+    <div class="callout callout-info">
+      This policy governs <strong>organisational</strong> data submitted by health system administrators, compliance officers, IT leaders, and other professionals. AuditMD does not serve individual consumers and does not collect personal health information from patients.
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="policy-section" id="what-we-collect">
+    <h2><span class="s-num">02</span> What Information We Collect</h2>
+    <p>AuditMD collects only the information necessary to deliver professional Health IT audit and compliance services. All data collection is purposeful, scoped, and proportionate to the engagement.</p>
+
+    <h3>2.1 Information You Provide Directly</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>Data Category</th><th>What We Collect &amp; Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Contact Information</td>
+          <td>Name, job title, organization name, business email address, and business phone number — used to communicate with designated contacts about your engagement.</td>
+        </tr>
+        <tr>
+          <td>Organisation Profile</td>
+          <td>Organization type (hospital, FQHC, health system, etc.), size, geographic location, and primary service lines — used to scope and calibrate the assessment to your organization.</td>
+        </tr>
+        <tr>
+          <td>Technology Environment</td>
+          <td>EHR platform in use, cloud infrastructure, number of users with ePHI access, existing security tools — collected through our assessment forms to evaluate your Health IT posture.</td>
+        </tr>
+        <tr>
+          <td>Compliance &amp; Policy Status</td>
+          <td>Self-reported policy status, prior audit history, known gaps, and compliance program maturity — used to direct the assessment focus and produce accurate findings.</td>
+        </tr>
+        <tr>
+          <td>AI Systems in Use</td>
+          <td>Names of AI/ML tools, vendors, and use cases in clinical or operational deployment — used to evaluate AI governance posture. No model weights, training data, or patient outputs are collected.</td>
+        </tr>
+        <tr>
+          <td>Engagement Communications</td>
+          <td>Email correspondence, meeting notes, and documents shared during the engagement — retained in access-controlled client folders for the duration of the engagement and per the retention schedule in Section 7.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 Information Collected Automatically</h3>
+    <p>When you visit auditmd.xyz, our hosting platform (Netlify) may collect standard web server logs including IP addresses, browser type, referring URL, and pages visited. This information is used for security monitoring and site performance — not for marketing profiling or third-party advertising.</p>
+    <p>We do not use third-party tracking pixels, behavioral advertising networks, or cross-site identity resolution tools on our website.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="policy-section" id="how-we-use">
+    <h2><span class="s-num">03</span> How We Use Your Information</h2>
+    <p>DFEAL uses information collected through AuditMD exclusively for the following purposes:</p>
+    <ul>
+      <li><strong>Service Delivery:</strong> Conducting the scoped Health IT audit, AI governance assessment, HIPAA compliance assessment, or other engagement services you have requested.</li>
+      <li><strong>Engagement Management:</strong> Scheduling discovery calls, delivering assessment reports and deliverables, and managing the client lifecycle from intake through post-audit follow-up.</li>
+      <li><strong>Internal Quality Assurance:</strong> Reviewing engagement outcomes to improve our methodology, assessment frameworks, and deliverable quality.</li>
+      <li><strong>Compliance Obligations:</strong> Maintaining records required by applicable law, including business and tax record-keeping obligations.</li>
+      <li><strong>Service Communications:</strong> Sending engagement status updates, deliverable notifications, invoice communications, and (where you have opted in) information about related services. You may opt out of non-engagement communications at any time.</li>
+      <li><strong>Security Monitoring:</strong> Detecting and responding to potential security incidents, unauthorized access, or abuse of our platform.</li>
+    </ul>
+    <div class="callout callout-gold">
+      <strong>We do not use your organisational data to train AI models, benchmark against other clients, or produce aggregated industry datasets for sale or licensing.</strong>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="policy-section" id="what-we-never-do">
+    <h2><span class="s-num">04</span> What We Never Do With Your Data</h2>
+    <p>We believe the clearest way to earn trust is to be explicit about what we will never do. The following practices are prohibited within DFEAL LLC and are not subject to exception:</p>
+    <div class="callout callout-red">
+      <ul style="padding-left: 1.25rem; margin: 0;">
+        <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not sell your data.</strong> Client organisational data is never sold, licensed, rented, or traded to any third party for any consideration.</li>
+        <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not share data with advertisers.</strong> No client data is disclosed to advertising platforms, data brokers, or marketing analytics providers.</li>
+        <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not use client data for competitive intelligence.</strong> Assessment findings are used solely to serve the client who provided them — not to build benchmarks, market reports, or competitive analysis products.</li>
+        <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not share deliverables as Drive links.</strong> All client deliverables (reports, scorecards, roadmaps) are delivered as encrypted attachments — never as public or shared Drive links.</li>
+        <li style="color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not collect patient health information.</strong> AuditMD assesses organisational Health IT posture — not individual patient records. No Protected Health Information (PHI) or individually identifiable health information is collected through any AuditMD form or process.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="policy-section" id="data-handling">
+    <h2><span class="s-num">05</span> Data Handling and Security Controls</h2>
+    <p>DFEAL applies a layered security architecture to all client data, consistent with the HIPAA Security Rule standards we help our clients implement.</p>
+
+    <h3>5.1 Transmission Security</h3>
+    <p>All data submitted through auditmd.xyz is transmitted over TLS 1.2 or higher. Our website forms route through a server-side proxy (Netlify serverless function) — webhook URLs and API keys are never exposed to the browser or included in client-side code.</p>
+
+    <h3>5.2 Storage and Access Control</h3>
+    <p>Client data is stored in Google Workspace (Google Drive and Google Sheets) under the <strong>support@auditmd.xyz</strong> Google Workspace account. Access controls are role-based: only DFEAL staff with a direct engagement role have access to client-specific folders. External sharing of client folders is disabled.</p>
+
+    <h3>5.3 Workflow Automation Security</h3>
+    <p>Our engagement automation platform (Zapier) processes form submission data to route it to the correct internal workflow. DFEAL uses Zapier's premium business plan with Business Associate Agreement coverage. Zapier task logs are reviewed monthly and purged on a quarterly schedule.</p>
+
+    <h3>5.4 Credential and Key Management</h3>
+    <p>API keys, webhook URLs, and credentials used in our platform are stored exclusively as environment variables in Netlify's server-side environment. They are never hardcoded in client-side source code, committed to version control repositories, or transmitted in browser-accessible network requests.</p>
+
+    <h3>5.5 Multi-Factor Authentication</h3>
+    <p>Multi-factor authentication is enforced on all DFEAL accounts with access to client data, including support@auditmd.xyz (Google Workspace), Zapier, Netlify, and our project management tools.</p>
+
+    <h3>5.6 Incident Response</h3>
+    <p>In the event of a confirmed data security incident affecting client organisational data, DFEAL will notify affected clients within 72 hours of discovery, provide a written incident summary, and implement remediation measures. Incidents involving potential PHI exposure (if any were inadvertently collected) will be handled per HIPAA Breach Notification Rule requirements.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="policy-section" id="third-parties">
+    <h2><span class="s-num">06</span> Third-Party Service Providers</h2>
+    <p>DFEAL uses a small, carefully selected set of third-party service providers to operate our platform and deliver engagements. Each is engaged under data processing terms appropriate to the sensitivity of information they handle.</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Provider</th><th>Role &amp; Data Handled</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Netlify</td>
+          <td>Website hosting, serverless function execution, and form submission routing. Netlify receives server log data and processes form payloads through our proxy function. Netlify does not receive or store client assessment content.</td>
+        </tr>
+        <tr>
+          <td>Zapier (Business)</td>
+          <td>Workflow automation — routes form data to Google Sheets, triggers emails, and manages client lifecycle events. Zapier processes form submission fields in transit. Task history is reviewed quarterly and purged. Zapier Business Associate Agreement in place.</td>
+        </tr>
+        <tr>
+          <td>Google Workspace</td>
+          <td>Email (Gmail), document storage (Drive), and data tracking (Sheets) under the support@auditmd.xyz account. Google Workspace Business Associate Agreement in place. External sharing disabled on all client folders.</td>
+        </tr>
+        <tr>
+          <td>DeepSeek AI</td>
+          <td>Powers the Aria virtual advisor chatbot on auditmd.xyz. Chatbot queries are general-purpose service questions — users are advised not to submit organisational identifiers or sensitive information through the chat interface. No chat data is linked to engagement records.</td>
+        </tr>
+        <tr>
+          <td>GitHub</td>
+          <td>Version control for the auditmd.xyz website codebase. No client data is stored in the repository. Environment variables and credentials are managed separately through Netlify.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>DFEAL does not engage data brokers, marketing analytics platforms, or advertising networks in connection with any client data.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="policy-section" id="data-retention">
+    <h2><span class="s-num">07</span> Data Retention</h2>
+    <p>DFEAL retains client data only as long as necessary for the engagement and applicable legal obligations.</p>
+    <ul>
+      <li><strong>Active Engagement Data</strong> (forms, assessments, correspondence) — retained for the duration of the engagement plus 12 months post-completion to support any follow-up questions or dispute resolution.</li>
+      <li><strong>Deliverables and Reports</strong> — retained for 36 months post-delivery. Clients are encouraged to maintain their own copies of all deliverables.</li>
+      <li><strong>Financial Records</strong> (invoices, payment records) — retained for 7 years per standard U.S. business record-keeping requirements.</li>
+      <li><strong>Website Log Data</strong> — Netlify server logs are retained per Netlify's standard retention schedule (approximately 30 days). DFEAL does not request or retain extended log archives.</li>
+      <li><strong>Zapier Task Logs</strong> — reviewed monthly and purged quarterly. No task history is retained beyond 90 days.</li>
+    </ul>
+    <p>Upon written request, DFEAL will confirm what data is held for your organization and provide a deletion timeline where retention obligations permit.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="policy-section" id="your-rights">
+    <h2><span class="s-num">08</span> Your Rights and Choices</h2>
+    <p>As an organisational client or contact, you have the following rights regarding the data DFEAL holds about you or your organization:</p>
+    <ul>
+      <li><strong>Access:</strong> You may request a summary of the organisational data DFEAL holds in connection with your engagement.</li>
+      <li><strong>Correction:</strong> You may request correction of inaccurate contact or organisational information in our records.</li>
+      <li><strong>Deletion:</strong> You may request deletion of your data following the conclusion of your engagement, subject to legal retention obligations described in Section 7.</li>
+      <li><strong>Communication Opt-Out:</strong> You may opt out of non-engagement communications (service updates, re-engagement outreach) at any time by emailing <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a> or clicking the unsubscribe link in any marketing email.</li>
+      <li><strong>Portability:</strong> You may request a copy of your engagement data in a structured, machine-readable format upon completion of your engagement.</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a>. We will respond within 10 business days.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="policy-section" id="hipaa-note">
+    <h2><span class="s-num">09</span> A Note on HIPAA and Patient Data</h2>
+    <p>AuditMD is a Health IT compliance consulting service. We assess the <strong>organisational systems, policies, and controls</strong> that protect patient data — we do not access, collect, process, or review individual patient records or Protected Health Information (PHI) as part of any engagement.</p>
+    <div class="callout callout-gold">
+      <strong>No patient PHI is ever submitted to, processed by, or stored within the AuditMD platform.</strong> All AuditMD assessment forms explicitly collect organisational and operational data only.
+    </div>
+    <p>Where DFEAL LLC acts as a Business Associate under HIPAA (in the event client engagement requires handling any information that could be considered PHI), a Business Associate Agreement will be executed prior to that data exchange. Our standard engagement scope does not require BA status.</p>
+    <p>Clients are responsible for ensuring that any information they voluntarily submit through our forms does not include individual patient identifiers, medical record information, or other PHI. DFEAL's assessment questionnaires are specifically designed to collect aggregate organisational data — not patient-level records.</p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="policy-section" id="cookies">
+    <h2><span class="s-num">10</span> Cookies and Website Analytics</h2>
+    <p>AuditMD (auditmd.xyz) uses a minimal cookie footprint consistent with our commitment to privacy.</p>
+    <ul>
+      <li><strong>Functional cookies:</strong> Session state and form interaction functionality. These are strictly necessary for the website to operate.</li>
+      <li><strong>Analytics:</strong> We may use privacy-respecting analytics (such as Netlify Analytics) to understand aggregate traffic patterns on our website. These tools do not use cross-site tracking, behavioral profiling, or third-party advertising cookies.</li>
+      <li><strong>No advertising cookies:</strong> We do not deploy Facebook Pixel, Google Ads remarketing tags, LinkedIn Insight Tags, or any other advertising network tracking technology on auditmd.xyz.</li>
+    </ul>
+    <p>You may configure your browser to block or delete cookies. This will not affect your ability to submit forms or engage with our services.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="policy-section" id="children">
+    <h2><span class="s-num">11</span> Children's Privacy</h2>
+    <p>AuditMD is a business-to-business professional services platform. It is not directed at individuals under the age of 18, and we do not knowingly collect personal information from minors. If you believe a minor has submitted information through our platform, please contact us immediately at <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a> and we will delete the information promptly.</p>
+  </div>
+
+  <!-- SECTION 12 -->
+  <div class="policy-section" id="changes">
+    <h2><span class="s-num">12</span> Changes to This Policy</h2>
+    <p>DFEAL LLC may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or service offerings. When we make material changes, we will update the "Last Reviewed" date at the top of this policy.</p>
+    <p>For active clients, we will notify the primary engagement contact by email if changes materially affect how we handle their organisational data. Continued use of auditmd.xyz following notice of a policy update constitutes acceptance of the revised terms.</p>
+    <p>We encourage you to review this policy periodically. Previous versions of this policy are available upon request.</p>
+  </div>
+
+  <!-- SECTION 13 -->
+  <div class="policy-section" id="contact">
+    <h2><span class="s-num">13</span> Contact Us</h2>
+    <p>If you have questions about this Privacy Policy, wish to exercise your rights, or need to report a privacy concern, please contact us through any of the following:</p>
+    <div class="contact-box">
+      <h3>Privacy &amp; Data Inquiries</h3>
+      <p><strong>Email:</strong> <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+      <p><strong>Mailing Address:</strong> DFEAL LLC, 254 Chapman Rd, Ste 208, Newark, DE 19702</p>
+      <p><strong>Website:</strong> <a href="https://auditmd.xyz">auditmd.xyz</a></p>
+      <p style="margin-top: 1rem; font-size: 0.875rem; color: rgba(255,255,255,0.45);">We aim to respond to all privacy-related inquiries within 10 business days. For urgent security concerns, please include "SECURITY" in your email subject line.</p>
+    </div>
+  </div>
+
+</div><!-- /page-body -->
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. &nbsp;|&nbsp;
+    <a href="/hipaa-framework.html">HIPAA Framework</a> &nbsp;|&nbsp;
+    <a href="/ai-governance.html">AI Governance</a> &nbsp;|&nbsp;
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>

@@ -102,6 +102,11 @@
     .form-hero{padding:1.75rem 0;}
     .form-container{padding:1.5rem 1rem;}
   }
+  .client-banner{background:rgba(245,194,0,0.08);border:1px solid rgba(245,194,0,0.3);border-radius:10px;padding:0.85rem 1.1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}
+  .client-banner svg{width:18px;height:18px;flex-shrink:0;color:var(--gold);}
+  .client-banner p{font-size:0.8rem;color:var(--navy-dark);margin:0;}
+  .client-banner strong{font-weight:700;}
+  #client-banner-wrap{display:none;}
 </style>
 </head>
 <body>
@@ -136,6 +141,14 @@
     <input type="hidden" name="form-name" value="auditmd-hipaa-compliance" />
     <input type="hidden" name="source" value="auditmd.xyz/forms" />
     <p class="form-honeypot"><label>Leave blank: <input name="bot-field" /></label></p>
+
+    <!-- Client org banner (shown when ?org= param is present) -->
+    <div id="client-banner-wrap">
+      <div class="client-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <p>This assessment has been sent to you as part of the AuditMD engagement for <strong id="client-org-label">[Organisation]</strong>. Your responses will remain confidential within the DFEAL team.</p>
+      </div>
+    </div>
 
     <div class="form-card">
       <div class="form-section-header">
@@ -511,6 +524,19 @@
 
 <script>
   const PROXY_URL = '/.netlify/functions/zapier-proxy';
+
+  // ── Read client identity from URL params passed by ZAP 16 dispatch ───────
+  // e.g. .../hipaa-compliance.html?org=Acme+Health&email=jane@acme.com
+  const _p     = new URLSearchParams(window.location.search);
+  const _org   = _p.get('org')   || '';
+  const _email = _p.get('email') || '';
+
+  // Show client banner if org is present
+  if (_org) {
+    document.getElementById('client-org-label').textContent = _org;
+    document.getElementById('client-banner-wrap').style.display = 'block';
+  }
+
   const frm = document.getElementById('form-hipaa-compliance');
   if (frm) {
     frm.addEventListener('submit', async function(e) {
@@ -527,6 +553,11 @@
         var key = k.replace('[]', '');
         payload[key] = (payload[key] !== undefined) ? payload[key] + '; ' + v : v;
       });
+
+      // Inject org identity from URL so Zap can look up PIPELINE row
+      payload['organization_name'] = _org || payload['organization_name'] || '';
+      payload['client_email']      = _email || '';
+
       payload['service']      = 'HIPAA Compliance Assessment';
       payload['zapier_event'] = 'hipaa_compliance_questionnaire_submitted';
       payload['source']       = 'AuditMD HIPAA Compliance Assessment Form';

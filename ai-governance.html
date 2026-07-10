@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Governance Strategy — AuditMD by DFEAL</title>
+  <meta name="description" content="AuditMD's comprehensive AI governance strategy for healthcare organizations — risk frameworks, accountability structures, bias monitoring, and regulatory alignment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0A2540;
+      --navy-mid: #0d2e4e;
+      --navy-light: #133a61;
+      --gold: #F5C200;
+      --gold-light: #ffe066;
+      --white: #FFFFFF;
+      --gray: rgba(255,255,255,0.65);
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -1px; }
+    .nav-logo-mark span { color: var(--gold); }
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+      color: var(--gold); border: 1px solid var(--gold);
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .btn-nav {
+      background: var(--gold); color: var(--navy);
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 700; font-size: 0.85rem; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: 0.9; color: var(--navy); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      padding: 6rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,194,0,0.08), transparent);
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1;
+      margin-bottom: 1.5rem; max-width: 820px; margin-left: auto; margin-right: auto;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p { font-size: 1.1rem; color: var(--gray); max-width: 660px; margin: 0 auto 2.5rem; }
+    .hero-pills { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-pill {
+      background: rgba(245,194,0,0.12); border: 1px solid rgba(245,194,0,0.3);
+      color: var(--gold); padding: 6px 16px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .alt-bg { background: rgba(255,255,255,0.02); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block;
+    }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .lead { font-size: 1.05rem; color: var(--gray); max-width: 720px; margin-bottom: 3rem; }
+
+    /* GRID CARDS */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 2rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .card:hover { border-color: rgba(245,194,0,0.3); transform: translateY(-3px); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .card p { color: var(--gray); font-size: 0.95rem; }
+    .card ul { margin-top: 0.75rem; padding-left: 0; list-style: none; }
+    .card ul li { font-size: 0.9rem; color: var(--gray); padding: 0.3rem 0; padding-left: 1.25rem; position: relative; }
+    .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; }
+
+    /* FRAMEWORK DOMAINS */
+    .domain-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+    .domain-item {
+      display: grid; grid-template-columns: 48px 1fr auto;
+      align-items: start; gap: 1.5rem;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color .2s;
+    }
+    .domain-item:hover { border-color: rgba(245,194,0,0.3); }
+    .domain-num {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(245,194,0,0.12); border: 1px solid rgba(245,194,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: var(--gold); flex-shrink: 0;
+    }
+    .domain-content h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .domain-content p { font-size: 0.9rem; color: var(--gray); }
+    .domain-tag {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+    }
+    .domain-tag.high { background: rgba(245,194,0,0.12); color: var(--gold); }
+
+    /* PRINCIPLES */
+    .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--card-border); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; margin-top: 2.5rem; }
+    .principle-item { background: var(--card-bg); padding: 1.75rem; }
+    .principle-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .principle-item p { font-size: 0.875rem; color: var(--gray); }
+
+    /* REGULATORY TABLE */
+    .reg-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .reg-table th {
+      text-align: left; padding: 0.9rem 1.25rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .reg-table td {
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .reg-table td:first-child { color: var(--white); font-weight: 600; }
+    .reg-table tr:last-child td { border-bottom: none; }
+    .reg-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+    /* TESTIMONIAL / STATEMENT BOX */
+    .statement-box {
+      background: rgba(245,194,0,0.07); border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 16px; padding: 2.5rem; text-align: center; margin-top: 3rem;
+    }
+    .statement-box p {
+      font-size: 1.15rem; font-style: italic; color: var(--white);
+      max-width: 700px; margin: 0 auto 1rem; line-height: 1.7;
+    }
+    .statement-box cite { font-size: 0.85rem; color: var(--gold); font-style: normal; font-weight: 600; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(245,194,0,0.1), rgba(10,37,64,0));
+      border-top: 1px solid rgba(245,194,0,0.15);
+      text-align: center; padding: 5rem 2rem;
+    }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--gray); max-width: 560px; margin: 0 auto 2.5rem; }
+    .btn-primary {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block; background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25); padding: 14px 32px; border-radius: 10px;
+      font-weight: 600; font-size: 1rem; text-decoration: none; margin-left: 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid var(--card-border);
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .domain-item { grid-template-columns: 1fr; }
+      .domain-num { width: 36px; height: 36px; font-size: 0.85rem; }
+      .btn-outline { margin-left: 0; margin-top: 0.75rem; display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">Audit<span>MD</span></span>
+      <span class="nav-badge">by DFEAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/hipaa-framework.html">HIPAA Framework</a></li>
+      <li><a href="/privacy-policy.html">Privacy</a></li>
+    </ul>
+    <a href="/#intake" class="btn-nav">Request Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">AI Governance</span>
+    <h1>A Governance Strategy Built for <span>Healthcare AI</span></h1>
+    <p>As AI systems become embedded in clinical decision-making, EHR workflows, and population health management, the governance frameworks that ensure accountability, transparency, and patient safety are no longer optional — they define institutional trust.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">Algorithmic Accountability</span>
+      <span class="hero-pill">Bias Monitoring</span>
+      <span class="hero-pill">Model Risk Management</span>
+      <span class="hero-pill">Regulatory Alignment</span>
+      <span class="hero-pill">Clinical Oversight</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY AI GOVERNANCE MATTERS IN HEALTHCARE -->
+<section>
+  <div class="container">
+    <span class="section-label">The Challenge</span>
+    <h2>Why Healthcare AI Governance Is Uniquely Complex</h2>
+    <p class="lead">Healthcare AI operates at the intersection of clinical decision-making, patient privacy, regulatory obligation, and vendor accountability. A governance gap in any dimension creates compounding risk across all others.</p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon">⚕️</div>
+        <h3>Clinical Risk Amplification</h3>
+        <p>AI-assisted diagnostic tools, predictive risk scores, and care pathway recommendations can amplify both correct and incorrect clinical judgments at scale. Governance ensures human oversight remains meaningful, not ceremonial.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Algorithmic Bias in Patient Populations</h3>
+        <p>Models trained on non-representative datasets systematically underperform for certain patient populations — particularly minority communities, elderly patients, and rare disease cases. Governance requires ongoing bias monitoring and documented equity audits.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>Third-Party AI Vendor Risk</h3>
+        <p>Most healthcare AI is procured from third-party vendors who operate their models as black boxes. Governance frameworks must extend accountability to the vendor relationship — contractually and operationally — not just internal development teams.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📜</div>
+        <h3>Evolving Regulatory Environment</h3>
+        <p>The FDA, ONC, and emerging state AI laws are rapidly extending oversight to clinical AI tools. Organizations without governance infrastructure will face retroactive compliance burdens as regulations crystallize.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>PHI Exposure Through AI Pipelines</h3>
+        <p>AI training, fine-tuning, and inference pipelines can inadvertently expose PHI to third-party model providers. Without governance controls, HIPAA obligations extend into every AI tool your organization touches.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h3>Documentation Gaps Under Audit</h3>
+        <p>When a clinical AI-assisted decision is reviewed — by legal counsel, a payer, or a regulatory body — organizations without governance documentation have no evidence trail to demonstrate responsible AI use. Governance creates defensibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SIX GOVERNANCE PRINCIPLES -->
+<section class="alt-bg">
+  <div class="container">
+    <span class="section-label">Our Framework</span>
+    <h2>Six Core Principles of Healthcare AI Governance</h2>
+    <p class="lead">AuditMD's AI governance assessment is structured around six principles that align with international standards (NIST AI RMF, ISO/IEC 42001) and U.S. healthcare regulatory expectations.</p>
+    <div class="principles-grid">
+      <div class="principle-item">
+        <h4>01 · Transparency</h4>
+        <p>Stakeholders — clinical, administrative, and patient — must be able to understand what an AI system does, what data it uses, and how its outputs influence decisions.</p>
+      </div>
+      <div class="principle-item">
+        <h4>02 · Accountability</h4>
+        <p>Every AI system in clinical or operational use must have a named responsible party — an individual or team accountable for its performance, monitoring, and incident response.</p>
+      </div>
+      <div class="principle-item">
+        <h4>03 · Fairness &amp; Equity</h4>
+        <p>AI outputs must be assessed across patient subgroups defined by race, ethnicity, age, gender, and socioeconomic status. Performance disparities must be documented and addressed.</p>
+      </div>
+      <div class="principle-item">
+        <h4>04 · Safety &amp; Reliability</h4>
+        <p>AI systems must perform within clinically acceptable tolerances under real-world operating conditions, including edge cases and data drift — not only controlled validation environments.</p>
+      </div>
+      <div class="principle-item">
+        <h4>05 · Privacy by Design</h4>
+        <p>AI system architecture must minimize PHI exposure. Data minimization, de-identification, access controls, and audit logging must be built in, not retrofitted post-deployment.</p>
+      </div>
+      <div class="principle-item">
+        <h4>06 · Human Oversight</h4>
+        <p>Clinical AI must preserve meaningful clinician authority over final decisions. Automation bias — the over-reliance on AI outputs at the expense of clinical judgment — must be actively monitored and countered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 GOVERNANCE DOMAINS -->
+<section>
+  <div class="container">
+    <span class="section-label">Assessment Domains</span>
+    <h2>What AuditMD Assesses Across 12 AI Governance Domains</h2>
+    <p class="lead">Our AI governance assessment produces a scored, domain-by-domain readiness report. Each domain is evaluated against documented evidence — not self-attestation.</p>
+    <div class="domain-list">
+      <div class="domain-item">
+        <div class="domain-num">01</div>
+        <div class="domain-content">
+          <h3>AI Inventory &amp; System Cataloguing</h3>
+          <p>Does the organization maintain a complete, current inventory of all AI and algorithmic systems in clinical or operational use — including vendor-procured tools embedded in EHR platforms?</p>
+        </div>
+        <span class="domain-tag high">Foundation</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">02</div>
+        <div class="domain-content">
+          <h3>Risk Classification &amp; Tiering</h3>
+          <p>Are AI systems risk-classified by clinical impact, autonomy level, and patient population affected? High-risk systems (diagnostic decision support, medication dosing, triage) require proportionally stronger governance controls.</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">03</div>
+        <div class="domain-content">
+          <h3>Vendor Due Diligence &amp; Contracts</h3>
+          <p>Do vendor agreements include AI-specific provisions: model performance SLAs, bias audit rights, data use restrictions, explainability requirements, and notification obligations for model updates?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">04</div>
+        <div class="domain-content">
+          <h3>Algorithmic Bias &amp; Equity Monitoring</h3>
+          <p>Are AI outputs monitored for performance disparities across demographic subgroups? Is there a documented process for identifying, escalating, and remediating equity concerns?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">05</div>
+        <div class="domain-content">
+          <h3>Clinical Validation &amp; Pre-Deployment Testing</h3>
+          <p>Are AI systems validated on data representative of the organization's actual patient population before deployment? What evidence exists that validation conditions matched real operating conditions?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">06</div>
+        <div class="domain-content">
+          <h3>Model Performance Monitoring &amp; Drift Detection</h3>
+          <p>Are deployed models monitored for performance degradation, input data drift, and population shifts? Is there an automated alert system and defined review cadence for high-risk models?</p>
+        </div>
+        <span class="domain-tag">Operational</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">07</div>
+        <div class="domain-content">
+          <h3>Explainability &amp; Clinical Transparency</h3>
+          <p>Can the AI system explain its outputs in terms that clinical staff can interpret and challenge? Is the level of explainability appropriate to the clinical risk tier of the system?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">08</div>
+        <div class="domain-content">
+          <h3>Data Governance &amp; PHI Protection in AI Pipelines</h3>
+          <p>Are data governance policies specifically extended to cover AI training data, inference inputs, and model output logs? Is PHI handled in compliance with HIPAA across all pipeline stages?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">09</div>
+        <div class="domain-content">
+          <h3>Human Oversight &amp; Override Protocols</h3>
+          <p>Are clinical staff trained to critically evaluate AI recommendations? Are override mechanisms functional, audited, and reviewed for patterns that might indicate automation bias?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">10</div>
+        <div class="domain-content">
+          <h3>Incident Response for AI Failures</h3>
+          <p>Is there a defined process for detecting, escalating, and responding to AI-related adverse events or near-misses — separate from general IT incident response? Are AI incidents reportable under existing sentinel event frameworks?</p>
+        </div>
+        <span class="domain-tag">Operational</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">11</div>
+        <div class="domain-content">
+          <h3>Governance Structure &amp; AI Committee</h3>
+          <p>Does the organization have a cross-functional AI governance body — including clinical, legal, IT, compliance, and executive leadership — with defined authority over AI adoption and ongoing oversight?</p>
+        </div>
+        <span class="domain-tag">Governance</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">12</div>
+        <div class="domain-content">
+          <h3>Regulatory Readiness &amp; Documentation</h3>
+          <p>Is the organization prepared to demonstrate responsible AI governance to regulators, accreditation bodies, payers, and legal counsel? Is the documentation trail complete and defensible?</p>
+        </div>
+        <span class="domain-tag high">Foundation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATORY ALIGNMENT -->
+<section class="alt-bg">
+  <div class="container">
+    <span class="section-label">Regulatory Landscape</span>
+    <h2>Key Regulatory Frameworks Governing Healthcare AI</h2>
+    <p class="lead">AuditMD maps your AI governance posture against the regulatory and standards frameworks that currently govern — or are actively shaping — clinical AI oversight.</p>
+    <table class="reg-table">
+      <thead>
+        <tr>
+          <th>Framework / Regulation</th>
+          <th>Issuing Body</th>
+          <th>Scope &amp; Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NIST AI Risk Management Framework (AI RMF)</td>
+          <td>NIST</td>
+          <td>Voluntary framework for identifying, assessing, and managing AI risks across four functions: Govern, Map, Measure, Manage. Increasingly referenced in regulatory and procurement contexts.</td>
+        </tr>
+        <tr>
+          <td>21st Century Cures Act — Information Blocking &amp; Algorithm Transparency</td>
+          <td>ONC / HHS</td>
+          <td>Prohibits practices that restrict access to, exchange, or use of electronic health information. Requires transparency around clinical decision support tools meeting the CDS definition.</td>
+        </tr>
+        <tr>
+          <td>FDA Predetermined Change Control Plans</td>
+          <td>FDA</td>
+          <td>Regulates AI/ML-based Software as a Medical Device (SaMD). Requires manufacturers to pre-specify expected algorithm changes — critical for organizations using FDA-regulated clinical AI tools.</td>
+        </tr>
+        <tr>
+          <td>Executive Order on Safe, Secure &amp; Trustworthy AI</td>
+          <td>White House / HHS</td>
+          <td>Directs HHS to develop an AI safety program for healthcare. Establishes standards for AI transparency, safety testing, and bias evaluation in health and human services contexts.</td>
+        </tr>
+        <tr>
+          <td>ISO/IEC 42001 — AI Management Systems</td>
+          <td>ISO / IEC</td>
+          <td>International standard for establishing, implementing, and maintaining an AI management system. Provides certifiable governance structure increasingly required in global healthcare procurement.</td>
+        </tr>
+        <tr>
+          <td>CMS Innovation Center AI Guidance</td>
+          <td>CMS</td>
+          <td>Guidance for value-based care programs and alternative payment models using AI-assisted population health tools. Addresses algorithmic bias in quality measure calculations.</td>
+        </tr>
+        <tr>
+          <td>State AI Legislation (NY, CO, TX, IL)</td>
+          <td>State Legislatures</td>
+          <td>A growing number of states are enacting AI-specific legislation covering algorithmic impact assessments, automated decision-making disclosures, and bias testing requirements in high-risk contexts.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="statement-box">
+      <p>"Organizations that invest in AI governance infrastructure now are not spending money on compliance — they are building the institutional credibility that will differentiate them in every future payer negotiation, partnership, and patient trust conversation."</p>
+      <cite>— DFEAL LLC, AuditMD AI Governance Perspective</cite>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU RECEIVE -->
+<section>
+  <div class="container">
+    <span class="section-label">Deliverables</span>
+    <h2>What AuditMD Delivers After Your AI Governance Assessment</h2>
+    <p class="lead">Every AuditMD engagement produces a complete documentation package designed to support board-level reporting, vendor negotiation, and regulatory defensibility.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>AI Governance Scorecard</h3>
+        <p>Domain-by-domain scores across all 12 governance areas, with weighted overall readiness rating. Benchmarked against healthcare industry baseline for organizations of comparable size and AI adoption stage.</p>
+        <ul>
+          <li>Color-coded readiness by domain</li>
+          <li>Compliance gap indicators</li>
+          <li>Board-ready executive summary version</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗂️</div>
+        <h3>AI Risk Register</h3>
+        <p>Catalogued risk findings mapped to each AI system in scope, with likelihood, impact, and current control effectiveness ratings. Prioritized by clinical and regulatory risk level.</p>
+        <ul>
+          <li>System-level risk entries</li>
+          <li>Vendor accountability mapping</li>
+          <li>Regulatory citation per finding</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗺️</div>
+        <h3>90-Day Remediation Roadmap</h3>
+        <p>Sequenced action plan with ownership assignments, effort estimates, and dependency mapping. Distinguishes quick wins (30 days) from structural governance initiatives (60–90 days).</p>
+        <ul>
+          <li>Week-by-week implementation timeline</li>
+          <li>Team / vendor responsibility matrix</li>
+          <li>Progress milestone definitions</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>AI Governance Policy Templates</h3>
+        <p>Customized policy templates for AI system intake review, bias monitoring procedures, vendor AI contracts checklist, and AI incident response runbook — ready for legal review and immediate adoption.</p>
+        <ul>
+          <li>AI intake and approval process</li>
+          <li>Bias monitoring procedure template</li>
+          <li>AI incident escalation runbook</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <span class="eyebrow">Take Action</span>
+    <h2>Is Your Organization Ready for Healthcare AI Scrutiny?</h2>
+    <p>Our 14-day AI governance assessment gives your leadership team the clear, documented picture of where you stand — and an actionable plan to close the gaps before regulators ask the questions.</p>
+    <div>
+      <a href="/" class="btn-primary">Request Your Assessment</a>
+      <a href="/hipaa-framework.html" class="btn-outline">View HIPAA Framework</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. &nbsp;|&nbsp;
+    <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="/hipaa-framework.html">HIPAA Framework</a> &nbsp;|&nbsp;
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>

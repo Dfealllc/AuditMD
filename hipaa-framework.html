@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HIPAA Compliance Framework — AuditMD by DFEAL</title>
+  <meta name="description" content="AuditMD's comprehensive HIPAA compliance framework: administrative, physical, and technical safeguards that protect your organization and your patients." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0A2540;
+      --navy-mid: #0d2e4e;
+      --navy-light: #133a61;
+      --gold: #F5C200;
+      --gold-light: #ffe066;
+      --white: #FFFFFF;
+      --gray: rgba(255,255,255,0.65);
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -1px; }
+    .nav-logo-mark span { color: var(--gold); }
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+      color: var(--gold); border: 1px solid var(--gold);
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .btn-nav {
+      background: var(--gold); color: var(--navy);
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 700; font-size: 0.85rem; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: 0.9; color: var(--navy); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      padding: 6rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,194,0,0.08), transparent);
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 900; line-height: 1.1;
+      margin-bottom: 1.5rem;
+      max-width: 800px; margin-left: auto; margin-right: auto;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: 1.1rem; color: var(--gray);
+      max-width: 640px; margin: 0 auto 2.5rem;
+    }
+    .hero-pills { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-pill {
+      background: rgba(245,194,0,0.12); border: 1px solid rgba(245,194,0,0.3);
+      color: var(--gold); padding: 6px 16px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem; display: block;
+    }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .lead { font-size: 1.05rem; color: var(--gray); max-width: 720px; margin-bottom: 3rem; }
+
+    /* ── OVERVIEW CARDS ── */
+    .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+    .overview-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 2rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .overview-card:hover { border-color: rgba(245,194,0,0.3); transform: translateY(-3px); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .overview-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .overview-card p { color: var(--gray); font-size: 0.95rem; }
+
+    /* ── SAFEGUARDS ── */
+    .safeguards { background: rgba(255,255,255,0.02); }
+    .safeguard-block { margin-bottom: 3.5rem; }
+    .safeguard-block:last-child { margin-bottom: 0; }
+    .safeguard-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(245,194,0,0.08);
+      border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 12px 12px 0 0;
+      margin-bottom: 0;
+    }
+    .safeguard-header .s-icon { font-size: 1.5rem; }
+    .safeguard-header h3 { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+    .safeguard-header .s-tag {
+      margin-left: auto; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(245,194,0,0.7); border: 1px solid rgba(245,194,0,0.25);
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .safeguard-items {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px; background: var(--card-border);
+      border: 1px solid var(--card-border); border-top: none;
+      border-radius: 0 0 12px 12px; overflow: hidden;
+    }
+    .safeguard-item {
+      background: var(--card-bg); padding: 1.25rem 1.5rem;
+    }
+    .safeguard-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .safeguard-item p { font-size: 0.875rem; color: var(--gray); }
+
+    /* ── AUDIT PROCESS ── */
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .process-step {
+      display: grid; grid-template-columns: 56px 1fr;
+      gap: 1.5rem; align-items: start;
+      position: relative;
+    }
+    .process-step:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 27px; top: 56px; bottom: -16px;
+      width: 2px; background: rgba(245,194,0,0.2);
+    }
+    .process-step + .process-step { padding-top: 2rem; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(245,194,0,0.12); border: 2px solid rgba(245,194,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: var(--gold);
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; padding-top: 0.9rem; }
+    .step-content p { color: var(--gray); font-size: 0.95rem; }
+
+    /* ── COMPLIANCE TABLE ── */
+    .compliance-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .compliance-table th {
+      text-align: left; padding: 0.9rem 1.25rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .compliance-table td {
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .compliance-table td:first-child { color: var(--white); font-weight: 600; }
+    .compliance-table tr:last-child td { border-bottom: none; }
+    .compliance-table tr:hover td { background: rgba(255,255,255,0.03); }
+    .status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .status-required { background: rgba(245,194,0,0.15); color: var(--gold); }
+    .status-addressable { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(245,194,0,0.1), rgba(10,37,64,0));
+      border-top: 1px solid rgba(245,194,0,0.15);
+      text-align: center; padding: 5rem 2rem;
+    }
+    .cta-section h2 { margin-bottom: 1rem; }
+    .cta-section p { color: var(--gray); max-width: 560px; margin: 0 auto 2.5rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; text-decoration: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 14px 32px; border-radius: 10px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      margin-left: 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid var(--card-border);
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .btn-outline { margin-left: 0; margin-top: 0.75rem; display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">Audit<span>MD</span></span>
+      <span class="nav-badge">by DFEAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/ai-governance.html">AI Governance</a></li>
+      <li><a href="/privacy-policy.html">Privacy</a></li>
+    </ul>
+    <a href="/#intake" class="btn-nav">Request Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Compliance Framework</span>
+    <h1>HIPAA Compliance <span>Done Right</span></h1>
+    <p>A complete picture of how AuditMD assesses, documents, and supports your organization's HIPAA posture — from administrative safeguards to technical controls and breach response.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">Administrative Safeguards</span>
+      <span class="hero-pill">Physical Safeguards</span>
+      <span class="hero-pill">Technical Safeguards</span>
+      <span class="hero-pill">Breach Notification</span>
+      <span class="hero-pill">Business Associate Agreements</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS HIPAA -->
+<section>
+  <div class="container">
+    <span class="section-label">Foundation</span>
+    <h2>What HIPAA Requires of Health IT Systems</h2>
+    <p class="lead">The Health Insurance Portability and Accountability Act (HIPAA) establishes the national standard for protecting sensitive patient health information. For organizations deploying AI-powered clinical tools, EHR systems, and digital health platforms, HIPAA compliance is not optional — it is the operational baseline.</p>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="card-icon">📋</div>
+        <h3>Privacy Rule</h3>
+        <p>Governs how covered entities and their business associates use and disclose Protected Health Information (PHI). Establishes patient rights around their own health records including access, correction, and restriction.</p>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🔒</div>
+        <h3>Security Rule</h3>
+        <p>Requires covered entities to implement administrative, physical, and technical safeguards to protect Electronic PHI (ePHI). Specifies both required and addressable implementation specifications.</p>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">🚨</div>
+        <h3>Breach Notification Rule</h3>
+        <p>Mandates notification to affected individuals, HHS, and in some cases media within 60 days of discovering a breach of unsecured PHI. Requires documented breach assessment procedures.</p>
+      </div>
+      <div class="overview-card">
+        <div class="card-icon">⚖️</div>
+        <h3>Enforcement Rule</h3>
+        <p>Establishes civil money penalties up to $1.9M per violation category per year. The Office for Civil Rights (OCR) conducts compliance investigations and resolution agreements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE SAFEGUARDS -->
+<section class="safeguards">
+  <div class="container">
+    <span class="section-label">Security Rule Deep Dive</span>
+    <h2>The Three Pillars of HIPAA Security Safeguards</h2>
+    <p class="lead">AuditMD's assessment evaluates all 18 required and addressable implementation specifications across administrative, physical, and technical safeguard domains.</p>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">🏛️</span>
+        <h3>Administrative Safeguards</h3>
+        <span class="s-tag">9 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Security Management Process</h4>
+          <p>Risk analysis and risk management programs, sanction policies, and information system activity review to prevent, detect, contain, and correct security violations.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Assigned Security Responsibility</h4>
+          <p>Designating a Security Officer responsible for developing and implementing security policies and procedures across the covered entity.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workforce Security</h4>
+          <p>Authorization, supervision, clearance procedures, and termination processes to ensure only authorized personnel access ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Information Access Management</h4>
+          <p>Role-based access controls, access authorization processes, and establishment and modification of access rights for all ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Security Awareness &amp; Training</h4>
+          <p>Ongoing security training for all workforce members including protection against malware, monitoring login attempts, and password management procedures.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Security Incident Procedures</h4>
+          <p>Documented procedures for identifying, reporting, and responding to suspected or known security incidents, including tracking outcomes.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Contingency Planning</h4>
+          <p>Data backup, disaster recovery, emergency mode operation, testing, and revision plans ensuring ePHI availability during emergency situations.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Evaluation</h4>
+          <p>Periodic technical and non-technical evaluation of security policies and procedures in response to environmental or operational changes.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Business Associate Contracts</h4>
+          <p>Written contracts with all business associates ensuring they appropriately safeguard ePHI and comply with applicable HIPAA requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">🏢</span>
+        <h3>Physical Safeguards</h3>
+        <span class="s-tag">4 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Facility Access Controls</h4>
+          <p>Contingency operations, facility security plans, access control and validation procedures, and maintenance records for physical access to ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workstation Use</h4>
+          <p>Policies and procedures specifying proper functions of and physical attributes of the surroundings of workstations that access ePHI.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workstation Security</h4>
+          <p>Physical safeguards for workstations that access ePHI to restrict access to authorized users only, including screen locks and cable locks.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Device &amp; Media Controls</h4>
+          <p>Disposal of hardware and electronic media containing ePHI, media re-use procedures, accountability tracking, and data backup and storage requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">💻</span>
+        <h3>Technical Safeguards</h3>
+        <span class="s-tag">5 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Access Controls</h4>
+          <p>Unique user identification, emergency access procedures, automatic logoff, and encryption/decryption mechanisms for all systems accessing ePHI.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Audit Controls</h4>
+          <p>Hardware, software, and procedural mechanisms to record and examine activity in systems containing or using ePHI — audit logs, access records, and anomaly detection.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Integrity Controls</h4>
+          <p>Policies and procedures ensuring ePHI is not improperly altered or destroyed, including electronic error-checking mechanisms and data integrity validation.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Person Authentication</h4>
+          <p>Procedures to verify that a person seeking access to ePHI is who they claim to be — multi-factor authentication, biometrics, and identity verification protocols.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Transmission Security</h4>
+          <p>Encryption of ePHI in transit, integrity controls preventing improper modification during transmission, and secure protocols for all data exchange.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT PROCESS -->
+<section>
+  <div class="container">
+    <span class="section-label">Our Methodology</span>
+    <h2>How AuditMD Assesses Your HIPAA Posture</h2>
+    <p class="lead">Our structured HIPAA assessment process delivers a complete compliance picture in 14 days — without disrupting clinical operations.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Pre-Call Questionnaire &amp; Scoping</h3>
+          <p>We gather your organization's profile: EHR systems in use, number of users with ePHI access, existing policies, cloud infrastructure, and prior audit history. This scopes the assessment to your actual risk surface before we begin.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Stakeholder Survey &amp; IT Governance Review</h3>
+          <p>Key stakeholders — clinical leadership, IT, compliance officers — complete structured surveys capturing policy gaps, access control practices, and incident response readiness. Our IT Governance Assessment identifies structural vulnerabilities before they become violations.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>HIPAA Compliance Assessment (12 Domains)</h3>
+          <p>Our proprietary 12-domain assessment framework maps directly to HIPAA Security Rule implementation specifications. We evaluate all required and addressable specifications, score each domain, and identify compliance gaps with documented evidence.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Risk Analysis &amp; Gap Documentation</h3>
+          <p>We perform the formal risk analysis HIPAA requires — identifying threats and vulnerabilities to ePHI, evaluating current controls, determining likelihood and impact, and assigning risk levels. All findings are documented in a Risk Register.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Executive Report &amp; Remediation Roadmap</h3>
+          <p>Delivery includes your Compliance Scorecard, Executive Summary for board presentation, Risk Register with prioritized findings, and a 90-day Remediation Roadmap with actionable steps mapped to the responsible team member or vendor.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Post-Audit Debrief &amp; Ongoing Monitoring (Optional)</h3>
+          <p>A structured debrief session walks through findings with your leadership team. Organizations can then enroll in Layer 2 monthly compliance monitoring for continuous HIPAA posture review, regulatory alert tracking, and an annual re-audit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE REFERENCE TABLE -->
+<section class="safeguards">
+  <div class="container">
+    <span class="section-label">Quick Reference</span>
+    <h2>Key HIPAA Implementation Specifications</h2>
+    <p class="lead">Required specifications must be implemented. Addressable specifications must be implemented if reasonable and appropriate — or the covered entity must document why an equivalent alternative was adopted.</p>
+    <table class="compliance-table">
+      <thead>
+        <tr>
+          <th>Specification</th>
+          <th>Safeguard Category</th>
+          <th>Status</th>
+          <th>What AuditMD Evaluates</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Risk Analysis</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Scope, methodology, threat/vulnerability identification, likelihood and impact ratings, existing controls</td>
+        </tr>
+        <tr>
+          <td>Risk Management</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Risk reduction plan, implementation timelines, accountability assignments, review cycles</td>
+        </tr>
+        <tr>
+          <td>Unique User Identification</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Absence of shared credentials, individual account provisioning, identity verification at access points</td>
+        </tr>
+        <tr>
+          <td>Emergency Access Procedure</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Break-glass procedures, emergency access logging, post-emergency review protocols</td>
+        </tr>
+        <tr>
+          <td>Audit Controls</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Log retention policies, access log completeness, anomaly detection, log review cadence</td>
+        </tr>
+        <tr>
+          <td>Transmission Encryption</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-addressable">Addressable</span></td>
+          <td>TLS versions in use, VPN configurations, ePHI sent via email, secure messaging platforms</td>
+        </tr>
+        <tr>
+          <td>Workforce Training</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-addressable">Addressable</span></td>
+          <td>Training frequency, content coverage, completion tracking, phishing simulation programs</td>
+        </tr>
+        <tr>
+          <td>Device &amp; Media Disposal</td>
+          <td>Physical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Hardware disposition procedures, data destruction certificates, BYOD policy compliance</td>
+        </tr>
+        <tr>
+          <td>Business Associate Agreements</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>BAA coverage gaps, contract language against HHS requirements, subcontractor BAA chain</td>
+        </tr>
+        <tr>
+          <td>Contingency Plan</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Data backup frequency, RTO/RPO definitions, disaster recovery test cadence, documented procedures</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <span class="eyebrow">Get Started</span>
+    <h2>Ready to Assess Your HIPAA Posture?</h2>
+    <p>Our 14-day assessment delivers the risk analysis, gap documentation, and remediation roadmap your compliance program needs — without disrupting clinical operations.</p>
+    <div>
+      <a href="/" class="btn-primary">Request Your Audit</a>
+      <a href="/ai-governance.html" class="btn-outline">View AI Governance Framework</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. &nbsp;|&nbsp;
+    <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="/ai-governance.html">AI Governance</a> &nbsp;|&nbsp;
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>
