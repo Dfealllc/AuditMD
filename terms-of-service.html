@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — AuditMD by DFEAL</title>
+  <meta name="description" content="AuditMD Terms of Service — engagement terms, custom pricing, payment and refund policy, the Aria AI advisor, and dispute resolution for DFEAL LLC's Health IT compliance audit services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0A2540;
+      --gold: #F5C200;
+      --white: #FFFFFF;
+      --gray: rgba(255,255,255,0.65);
+      --gray-light: rgba(255,255,255,0.45);
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border); padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -1px; }
+    .nav-logo-mark span { color: var(--gold); }
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+      color: var(--gold); border: 1px solid var(--gold);
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--white); }
+    .btn-nav {
+      background: var(--gold); color: var(--navy); padding: 8px 20px; border-radius: 8px;
+      font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: opacity .2s;
+    }
+    .btn-nav:hover { opacity: 0.9; color: var(--navy); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      padding: 5rem 2rem 3.5rem; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,194,0,0.06), transparent);
+    }
+    .hero-inner { max-width: 860px; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--gold); }
+    .hero .effective-date {
+      font-size: 0.85rem; color: var(--gray-light); margin-bottom: 1.5rem;
+    }
+    .hero p { font-size: 1rem; color: var(--gray); max-width: 640px; }
+    .commit-pills { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+    .commit-pill {
+      background: rgba(245,194,0,0.1); border: 1px solid rgba(245,194,0,0.25);
+      color: var(--gold); padding: 5px 14px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 600;
+    }
+
+    /* LAYOUT */
+    .page-body { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 1.75rem 2rem; margin-bottom: 3rem;
+    }
+    .toc h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { margin-bottom: 0.5rem; }
+    .toc a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .toc a:hover { color: var(--white); }
+
+    .policy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    .policy-section h2 {
+      font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .policy-section h2 .s-num {
+      font-size: 0.75rem; font-weight: 700; color: var(--gold);
+      border: 1px solid rgba(245,194,0,0.3); padding: 2px 8px; border-radius: 20px;
+    }
+    .policy-section h3 { font-size: 1.05rem; font-weight: 700; margin: 1.75rem 0 0.6rem; color: var(--white); }
+    .policy-section p { color: var(--gray); margin-bottom: 1rem; font-size: 0.97rem; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul, .policy-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-section li { color: var(--gray); font-size: 0.97rem; margin-bottom: 0.5rem; }
+    .policy-section strong { color: var(--white); font-weight: 600; }
+    .policy-section a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
+    /* CALLOUT BOXES */
+    .callout {
+      border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .callout-gold {
+      background: rgba(245,194,0,0.08); border: 1px solid rgba(245,194,0,0.2);
+      color: var(--white);
+    }
+    .callout-gold strong { color: var(--gold); }
+    .callout-info {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+      color: var(--gray);
+    }
+    .callout-red {
+      background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* DATA TABLE */
+    .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .data-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .data-table td {
+      padding: 0.9rem 1rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .data-table td:first-child { color: var(--white); font-weight: 600; width: 30%; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: rgba(245,194,0,0.07); border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 16px; padding: 2rem;
+    }
+    .contact-box h3 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1rem; }
+    .contact-box p { color: var(--gray); font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .contact-box a { color: var(--gold); }
+
+    /* FOOTER */
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid var(--card-border);
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    footer a:hover { color: var(--white); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .page-body { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">Audit<span>MD</span></span>
+      <span class="nav-badge">by DFEAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How It Works</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/hipaa-framework.html">HIPAA Framework</a></li>
+      <li><a href="/ai-governance.html">AI Governance</a></li>
+    </ul>
+    <a href="/#intake" class="btn-nav">Request Audit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="page-body" style="padding-bottom:0;padding-top:0;">
+    <span class="eyebrow">Legal &amp; Privacy</span>
+    <h1>Terms of <span>Service</span></h1>
+    <p class="effective-date">Effective Date: July 10, 2026 &nbsp;·&nbsp; Last Reviewed: July 2026</p>
+    <p>These Terms of Service govern access to and use of auditmd.xyz and all professional Health IT compliance audit, assessment, and advisory services offered under the AuditMD brand by DFEAL LLC ("DFEAL," "we," "us," or "our"). By using this site or engaging our services, you agree to these Terms.</p>
+    <div class="commit-pills">
+      <span class="commit-pill">Custom-Scoped Pricing</span>
+      <span class="commit-pill">Fixed-Price Guarantee</span>
+      <span class="commit-pill">No Open-Ended Billing</span>
+      <span class="commit-pill">Individual Arbitration Only</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-body">
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#services">About DFEAL and the Services</a></li>
+      <li><a href="#eligibility">Eligibility and Business Use Only</a></li>
+      <li><a href="#engagement">Engagement Process and Custom Quotes</a></li>
+      <li><a href="#fees">Fees, Deposits, and Payment</a></li>
+      <li><a href="#cancellation">Cancellation and Refunds</a></li>
+      <li><a href="#term">Term, Renewal, and Termination</a></li>
+      <li><a href="#client-responsibilities">Client Responsibilities</a></li>
+      <li><a href="#aria">The Aria AI Advisor and Use of AI in Our Services</a></li>
+      <li><a href="#no-guarantee">No Guarantee of Regulatory Outcome; Not Legal Advice</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#confidentiality">Confidentiality</a></li>
+      <li><a href="#privacy">Privacy and Data Handling</a></li>
+      <li><a href="#disclaimers">Disclaimers and Warranties</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#indemnification">Indemnification</a></li>
+      <li><a href="#governing-law">Governing Law and Dispute Resolution</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#general">General Provisions</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="policy-section" id="acceptance">
+    <h2><span class="s-num">01</span> Acceptance of Terms</h2>
+    <p>These Terms of Service ("Terms") govern access to and use of auditmd.xyz (the "Site") and all professional Health IT compliance audit, assessment, and advisory services offered under the AuditMD brand (the "Services") by DFEAL LLC, a Delaware limited liability company with a registered address at 254 Chapman Rd, Ste 208, Newark, DE 19702 ("DFEAL," "we," "us," or "our").</p>
+    <p>By accessing the Site, submitting an intake or discovery-call form, engaging Aria (our AI advisor), or signing a statement of work or invoice for the Services, you ("Client," "you," or "your") agree to be bound by these Terms. If you are entering into these Terms on behalf of an organization, you represent that you have authority to bind that organization, and "you" refers to that organization.</p>
+    <div class="callout callout-info">
+      If you do not agree to these Terms, do not use the Site or the Services. Use of the Site or submission of any form constitutes acceptance of these Terms and of our <a href="/privacy-policy.html">Privacy Policy</a>, which is incorporated by reference.
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="policy-section" id="services">
+    <h2><span class="s-num">02</span> About DFEAL and the Services</h2>
+    <p>AuditMD is DFEAL's AI Health IT Readiness Audit™ platform. The Services combine AI-assisted analysis with expert human review to help healthcare organizations, Health IT vendors, and government/payer entities assess Health IT and AI-governance readiness across compliance domains including HIPAA, interoperability (FHIR), AI model governance, cybersecurity posture, and the 21st Century Cures Act. Services are offered in three engagement layers:</p>
+    <ul>
+      <li><strong>Layer 1 — AI Health IT Readiness Audit™:</strong> a one-time, custom-scoped engagement delivering a 12-domain assessment, Executive Summary, Compliance Scorecard, Risk Register, and Remediation Roadmap, typically within 14 days of engagement start.</li>
+      <li><strong>Layer 2 — Ongoing Compliance Monitoring:</strong> a monthly retainer providing recurring HIPAA posture review, regulatory alerts, monthly expert review calls, and an annual full re-audit.</li>
+      <li><strong>Layer 3 — Fractional PMO AI Service:</strong> a monthly retainer, available as an add-on to Layer 2, providing outsourced Health IT program-management support.</li>
+    </ul>
+    <p>"AI Health IT Readiness Audit™" is a trademark of DFEAL LLC. Service scope, deliverables, and timelines for a given engagement are as described in the applicable quote or statement of work, which controls over the general description on the Site in the event of a conflict.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="policy-section" id="eligibility">
+    <h2><span class="s-num">03</span> Eligibility and Business Use Only</h2>
+    <p>The Services are business-to-business professional services intended for healthcare organizations, Health IT vendors, government agencies, and payer organizations. The Site and Services are not directed at individual consumers and are not intended for use by anyone under the age of 18.</p>
+    <div class="callout callout-gold">
+      <strong>AuditMD does not collect or process individual patient records or Protected Health Information (PHI).</strong> Client is responsible for ensuring that information submitted through any form, the Aria chat widget, or during an engagement does not include PHI or other individually identifiable health information, consistent with our Privacy Policy.
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="policy-section" id="engagement">
+    <h2><span class="s-num">04</span> Engagement Process and Custom Quotes</h2>
+    <p>Engagements begin with a discovery call, typically preceded by a pre-call questionnaire. Following the discovery call, DFEAL provides a custom quote scoped to your organization's size and complexity, generally within 48 hours. Pricing is not published on the Site because it is engagement-specific; the quote or statement of work you accept is the binding price term for that engagement. DFEAL does not bill on an open-ended, time-and-materials basis unless the quote expressly says so — every engagement carries a fixed-price guarantee at the scope quoted.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="policy-section" id="fees">
+    <h2><span class="s-num">05</span> Fees, Deposits, and Payment</h2>
+    <h3>5.1 Custom Pricing</h3>
+    <p>Fees for each engagement are set out in the quote or statement of work accepted by Client and are not subject to change during the engagement except by written agreement of both parties (for example, a documented change in scope).</p>
+    <h3>5.2 Deposit and Payment Terms</h3>
+    <p>For Layer 1 (one-time) engagements, a 50% deposit is due to begin Stage 1 (Intake &amp; Scoping); the remaining balance is invoiced on Net 14 payment terms. For Layer 2 and Layer 3 monthly retainers, DFEAL invoices monthly in advance on Net 14 payment terms, with no deposit required. Amounts not paid when due may accrue a late charge of 1.5% per month (or the highest rate permitted by law, if lower) on the outstanding balance. DFEAL may suspend Services, including pausing an in-progress audit stage or a monthly retainer, for invoices more than 14 days past due, upon written notice.</p>
+    <h3>5.3 Invoicing</h3>
+    <p>Upon acceptance of a quote, DFEAL issues an invoice through our billing platform (currently Stripe). DFEAL will confirm renewal terms with Client ahead of each Layer 2/Layer 3 renewal cycle.</p>
+    <h3>5.4 Taxes</h3>
+    <p>Fees are exclusive of applicable sales, use, or similar taxes, which are Client's responsibility unless Client provides a valid exemption certificate.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="policy-section" id="cancellation">
+    <h2><span class="s-num">06</span> Cancellation and Refunds</h2>
+    <h3>6.1 Layer 1 (One-Time Audit) Engagements</h3>
+    <p>If Client cancels a Layer 1 engagement after the deposit has been paid, the deposit is refunded on a pro-rated basis according to the engagement stage reached at the time of cancellation:</p>
+    <table class="data-table">
+      <thead><tr><th>Stage Reached at Cancellation</th><th>Deposit Refund</th></tr></thead>
+      <tbody>
+        <tr><td>Stage 1 — Intake &amp; Scoping (Days 1–3)</td><td>50% of deposit refunded</td></tr>
+        <tr><td>Stage 2 — AI-Powered Domain Analysis (Days 4–7)</td><td>25% of deposit refunded</td></tr>
+        <tr><td>Stage 3 — Expert Human Review (Days 8–11)</td><td>No refund</td></tr>
+        <tr><td>Stage 4 — Executive Reporting &amp; Handoff (Days 12–14), or once final deliverables have been transmitted</td><td>No refund</td></tr>
+      </tbody>
+    </table>
+    <p>Cancellation requests must be submitted in writing to <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a>. Refunds are issued to the original payment method within 10 business days of a confirmed cancellation.</p>
+    <h3>6.2 Layer 2 / Layer 3 (Monthly Retainer) Engagements</h3>
+    <p>Retainer engagements have an initial minimum term of three (3) months (the "Minimum Term"), after which they continue month-to-month until cancelled. Fees for the Minimum Term are non-refundable except in the case of DFEAL's uncured material breach. After the Minimum Term, either party may cancel with thirty (30) days' written notice; Client remains responsible for fees for Services rendered through the effective date of cancellation.</p>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="policy-section" id="term">
+    <h2><span class="s-num">07</span> Term, Renewal, and Termination</h2>
+    <p>These Terms remain in effect for as long as Client uses the Site or receives Services. A Layer 1 engagement terminates upon delivery of final deliverables and payment in full. Layer 2 and Layer 3 retainers renew automatically at the end of each monthly billing cycle unless cancelled in accordance with Section 6.2. Upon completion of a Layer 1 engagement, DFEAL may propose a Layer 2 or Layer 3 ongoing engagement where appropriate; Client is under no obligation to accept.</p>
+    <p>Either party may terminate an engagement immediately for the other party's uncured material breach, following fifteen (15) days' written notice and opportunity to cure. Sections 5 (Fees), 9–17, and any other provision that by its nature should survive, survive termination.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="policy-section" id="client-responsibilities">
+    <h2><span class="s-num">08</span> Client Responsibilities</h2>
+    <p>Client agrees to:</p>
+    <ul>
+      <li>Provide accurate, current information in all intake forms, questionnaires, and engagement communications.</li>
+      <li>Make reasonably available the stakeholders, systems access, and documentation needed to complete the assessment within the agreed timeline.</li>
+      <li>Not submit PHI or individually identifiable patient information through any Site form, the Aria chat widget, or engagement correspondence.</li>
+      <li>Use deliverables internally for Client's own compliance and program-management purposes, subject to Section 11 (Intellectual Property).</li>
+    </ul>
+    <p>Delays in providing required information or access may extend engagement timelines; DFEAL is not responsible for missed delivery dates caused by Client delay.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="policy-section" id="aria">
+    <h2><span class="s-num">09</span> The Aria AI Advisor and Use of AI in Our Services</h2>
+    <h3>9.1 Aria Chat Widget</h3>
+    <div class="callout callout-gold">
+      Aria is an AI assistant and can make mistakes. It's for general questions about AuditMD services only — not legal, compliance, or clinical advice. Please don't share PHI or confidential organizational details here.
+    </div>
+    <p>Aria is powered by a third-party AI model (DeepSeek AI) and is provided for general, pre-engagement informational purposes. Conversations with Aria are not part of any engagement record, are not reviewed by a human advisor in real time, and do not create an advisory or client relationship between Client and DFEAL. Do not rely on Aria's responses as a substitute for a discovery call, a signed statement of work, or professional advice.</p>
+    <h3>9.2 AI-Assisted Audit Analysis</h3>
+    <p>Our audit methodology uses proprietary AI-powered scanning tools to perform initial domain analysis, as described on the Site ("AI-Powered Domain Analysis," Days 4–7). Every AI-generated finding is reviewed and validated by DFEAL's clinical and compliance experts before inclusion in a deliverable ("Expert Human Review," Days 8–11). Deliverables reflect the state of Client's environment and applicable regulatory guidance as of the assessment date and are advisory in nature; see Section 10.</p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="policy-section" id="no-guarantee">
+    <h2><span class="s-num">10</span> No Guarantee of Regulatory Outcome; Not Legal Advice</h2>
+    <p>The Services provide an independent readiness assessment and recommendations. They do not constitute legal advice, and DFEAL is not a law firm. Completion of an audit, retainer engagement, or any deliverable does not guarantee that Client is or will remain compliant with HIPAA, the 21st Century Cures Act, or any other law, regulation, or industry standard, and does not guarantee any particular outcome in a regulatory examination, audit, investigation, or enforcement action. Client remains solely responsible for its own compliance decisions and for obtaining independent legal counsel where appropriate.</p>
+  </div>
+
+  <!-- SECTION 11 -->
+  <div class="policy-section" id="ip">
+    <h2><span class="s-num">11</span> Intellectual Property</h2>
+    <p>Upon payment in full for the applicable engagement, DFEAL grants Client a non-exclusive, perpetual, internal-use license to the deliverables prepared specifically for Client (Executive Summary, Compliance Scorecard, Risk Register, Remediation Roadmap, and PMO Optimization Plan, as applicable). DFEAL and its licensors retain all right, title, and interest in and to the underlying AuditMD methodology, scoring frameworks, templates, software, the Aria chat widget, the Site, and the "AI Health IT Readiness Audit™" mark, none of which is licensed to Client except as embodied in the delivered reports. Client may not resell, sublicense, or represent DFEAL's methodology or templates as its own.</p>
+  </div>
+
+  <!-- SECTION 12 -->
+  <div class="policy-section" id="confidentiality">
+    <h2><span class="s-num">12</span> Confidentiality</h2>
+    <p>Each party may receive confidential or proprietary information of the other in connection with an engagement ("Confidential Information"). Each party agrees to use the other's Confidential Information solely to perform its obligations under these Terms and the applicable engagement, and not to disclose it to third parties except to personnel, contractors, or service providers with a need to know and under confidentiality obligations at least as protective as those in this Section, or as required by law. This Section does not limit DFEAL's handling of Client data as described in our Privacy Policy, including engagement with the subprocessors listed there.</p>
+  </div>
+
+  <!-- SECTION 13 -->
+  <div class="policy-section" id="privacy">
+    <h2><span class="s-num">13</span> Privacy and Data Handling</h2>
+    <p>Our collection, use, and protection of information submitted through the Site or during an engagement is described in our <a href="/privacy-policy.html">Privacy Policy</a>, which is incorporated into these Terms by reference. As stated there, DFEAL does not collect PHI, does not sell Client data, and uses a limited set of subprocessors (Netlify, Zapier, Google Workspace, DeepSeek AI for the Aria widget, and GitHub for source control) under appropriate safeguards.</p>
+  </div>
+
+  <!-- SECTION 14 -->
+  <div class="policy-section" id="disclaimers">
+    <h2><span class="s-num">14</span> Disclaimers and Warranties</h2>
+    <div class="callout callout-red">
+      EXCEPT AS EXPRESSLY STATED IN A SIGNED STATEMENT OF WORK, THE SITE AND SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE." DFEAL DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND ANY WARRANTY THAT THE SERVICES WILL IDENTIFY EVERY COMPLIANCE GAP OR SECURITY VULNERABILITY IN CLIENT'S ENVIRONMENT. DFEAL DOES NOT WARRANT THAT THE SITE, ARIA, OR ANY AI-ASSISTED TOOL WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE.
+    </div>
+  </div>
+
+  <!-- SECTION 15 -->
+  <div class="policy-section" id="liability">
+    <h2><span class="s-num">15</span> Limitation of Liability</h2>
+    <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, DFEAL WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, OR PUNITIVE DAMAGES, OR FOR LOST PROFITS, LOST DATA, OR REPUTATIONAL HARM, ARISING OUT OF OR RELATING TO THE SITE OR SERVICES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. DFEAL'S AGGREGATE LIABILITY FOR ANY CLAIM ARISING OUT OF OR RELATING TO THESE TERMS OR AN ENGAGEMENT WILL NOT EXCEED THE TOTAL FEES PAID BY CLIENT TO DFEAL FOR THE APPLICABLE ENGAGEMENT IN THE TWELVE (12) MONTHS PRECEDING THE EVENT GIVING RISE TO THE CLAIM.</p>
+    <p>This limitation does not apply to Client's payment obligations, either party's indemnification obligations, or breaches of Section 12 (Confidentiality).</p>
+  </div>
+
+  <!-- SECTION 16 -->
+  <div class="policy-section" id="indemnification">
+    <h2><span class="s-num">16</span> Indemnification</h2>
+    <p>Client agrees to indemnify and hold DFEAL harmless from third-party claims arising out of Client's breach of these Terms, Client's submission of PHI or unlawful content through the Site or Aria, or Client's misuse of deliverables in a manner inconsistent with Section 11. DFEAL agrees to indemnify and hold Client harmless from third-party claims that DFEAL's deliverables, as provided and used in accordance with these Terms, infringe a third party's U.S. intellectual property rights.</p>
+  </div>
+
+  <!-- SECTION 17 -->
+  <div class="policy-section" id="governing-law">
+    <h2><span class="s-num">17</span> Governing Law and Dispute Resolution</h2>
+    <p>These Terms and any dispute arising out of or relating to the Site, the Services, or an engagement are governed by the laws of the State of Delaware, without regard to its conflict-of-laws principles.</p>
+    <p>Any dispute that cannot be resolved informally within 30 days of written notice will be resolved by binding arbitration administered by the American Arbitration Association under its Commercial Arbitration Rules, before a single arbitrator, seated in New Castle County, Delaware. Arbitration will proceed on an individual basis only — Client and DFEAL each waive any right to bring or participate in a class, collective, or representative action, and waive any right to a jury trial. Notwithstanding the foregoing, either party may seek injunctive or other equitable relief in a court of competent jurisdiction in Delaware to protect its Confidential Information or intellectual property pending arbitration.</p>
+  </div>
+
+  <!-- SECTION 18 -->
+  <div class="policy-section" id="changes">
+    <h2><span class="s-num">18</span> Changes to These Terms</h2>
+    <p>DFEAL may update these Terms from time to time to reflect changes in our Services, technology, or legal requirements. When we make material changes, we will update the "Last Reviewed" date at the top of this page and, for active engagement clients, notify the primary engagement contact by email. Continued use of the Site or Services after notice of an update constitutes acceptance of the revised Terms; changes do not apply retroactively to a fully executed statement of work unless both parties agree in writing.</p>
+  </div>
+
+  <!-- SECTION 19 -->
+  <div class="policy-section" id="general">
+    <h2><span class="s-num">19</span> General Provisions</h2>
+    <ul>
+      <li><strong>Entire Agreement:</strong> These Terms, together with the Privacy Policy and any accepted quote or statement of work, constitute the entire agreement between Client and DFEAL regarding the Services and supersede prior proposals or understandings on the same subject.</li>
+      <li><strong>Severability:</strong> If any provision of these Terms is held unenforceable, the remaining provisions remain in full force and effect.</li>
+      <li><strong>Assignment:</strong> Client may not assign these Terms without DFEAL's prior written consent; DFEAL may assign these Terms in connection with a merger, acquisition, or sale of assets.</li>
+      <li><strong>Force Majeure:</strong> Neither party is liable for delay or failure to perform caused by events beyond its reasonable control.</li>
+      <li><strong>Notices:</strong> Notices to DFEAL must be sent to support@auditmd.xyz or the mailing address in Section 20. Notices to Client will be sent to the email address associated with the engagement.</li>
+      <li><strong>Independent Contractors:</strong> DFEAL and Client are independent contractors. Nothing in these Terms creates a partnership, joint venture, or employment relationship.</li>
+      <li><strong>No Third-Party Beneficiaries:</strong> These Terms do not confer any rights or remedies on any person other than Client and DFEAL.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 20 -->
+  <div class="policy-section" id="contact">
+    <h2><span class="s-num">20</span> Contact Us</h2>
+    <p>Questions about these Terms can be directed to:</p>
+    <div class="contact-box">
+      <h3>General &amp; Legal Inquiries</h3>
+      <p><strong>Email:</strong> <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+      <p><strong>Phone:</strong> <a href="tel:+18444420529">+1 (844) 442-0529</a></p>
+      <p><strong>Mailing Address:</strong> DFEAL LLC, 254 Chapman Rd, Ste 208, Newark, DE 19702</p>
+      <p><strong>Website:</strong> <a href="https://auditmd.xyz">auditmd.xyz</a></p>
+    </div>
+  </div>
+
+</div><!-- /page-body -->
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. AI Health IT Readiness Audit™ is a trademark of DFEAL LLC. &nbsp;|&nbsp;
+    <a href="/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="/hipaa-framework.html">HIPAA Framework</a> &nbsp;|&nbsp;
+    <a href="/ai-governance.html">AI Governance</a> &nbsp;|&nbsp;
+    <a href="/">Home</a>
+  </p>
+</footer>
+
+</body>
+</html>

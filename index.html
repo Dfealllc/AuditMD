@@ -432,6 +432,7 @@
   .chat-quick-replies { display:flex; flex-wrap:wrap; gap:0.5rem; padding:0 1rem 0.75rem; }
   .chat-qr { background:var(--section-alt); color:var(--navy); border:1px solid var(--border); border-radius:100px; padding:0.3rem 0.75rem; font-size:0.75rem; font-weight:500; cursor:pointer; transition:var(--transition); white-space:nowrap; }
   .chat-qr:hover { background:var(--navy); color:var(--white); border-color:var(--navy); }
+  .chat-disclaimer { font-size:0.68rem; line-height:1.4; color:var(--slate-light); text-align:center; padding:0 1rem 0.75rem; }
   @media(max-width:420px){ .chat-panel{width:calc(100vw - 3rem);right:1.5rem;} }
 
 </style>
@@ -1280,7 +1281,7 @@
       <p>© 2026 DFEAL LLC · AuditMD. All rights reserved. AI Health IT Readiness Audit™ is a trademark of DFEAL LLC.</p>
       <div class="footer-bottom-links">
         <a href="/privacy-policy.html">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="/terms-of-service.html">Terms of Service</a>
         <a href="/hipaa-framework.html">Security</a>
       </div>
     </div>
@@ -1692,6 +1693,7 @@ You help prospects understand services, answer compliance questions (HIPAA, ONC,
     <textarea class="chat-input" id="chat-input" placeholder="Ask anything about our services…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
     <button class="chat-send" onclick="sendMessage()" aria-label="Send">➤</button>
   </div>
+  <p class="chat-disclaimer">Aria is an AI assistant and can make mistakes. General info only — not legal, compliance, or clinical advice. Please don't share PHI or confidential details.</p>
 </div>
 
 </body>
