@@ -79,6 +79,13 @@
   .radio-item label,.checkbox-item label{font-size:0.875rem;color:var(--navy-dark);cursor:pointer;font-weight:500;}
   .radio-item .sub,.checkbox-item .sub{font-size:0.75rem;color:var(--slate);display:block;margin-top:1px;}
 
+  /* CLIENT BANNER */
+  .client-banner{background:rgba(245,194,0,0.08);border:1px solid rgba(245,194,0,0.3);border-radius:10px;padding:0.85rem 1.1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}
+  .client-banner svg{width:18px;height:18px;flex-shrink:0;color:var(--gold);}
+  .client-banner p{font-size:0.8rem;color:var(--navy-dark);margin:0;}
+  .client-banner strong{font-weight:700;}
+  #client-banner-wrap{display:none;}
+
   /* FORM SUBMIT */
   .form-submit-area{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);padding:2rem 1.75rem;box-shadow:var(--shadow);text-align:center;}
   .form-submit-area h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
@@ -130,11 +137,21 @@
 </div>
 
 <div class="form-container">
+
+  <!-- Client org banner (shown when ?org= param is present) -->
+  <div id="client-banner-wrap">
+    <div class="client-banner">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd"/></svg>
+      <p>This questionnaire has been sent to you as part of the AuditMD engagement for <strong id="client-org-label">[Organisation]</strong>. Your responses are confidential within the DFEAL team.</p>
+    </div>
+  </div>
+
   <form name="auditmd-pre-call" method="POST" action="/thank-you"
         data-netlify="true" netlify-honeypot="bot-field" id="form-pre-call">
 
     <input type="hidden" name="form-name" value="auditmd-pre-call" />
     <input type="hidden" name="source" value="auditmd.xyz/forms" />
+    <input type="hidden" name="submitted_at" id="submitted_at" value="" />
     <p class="form-honeypot"><label>Leave blank: <input name="bot-field" /></label></p>
 
     <div class="form-card">
@@ -334,6 +351,26 @@
 
 <script>
   const PROXY_URL = '/.netlify/functions/zapier-proxy';
+
+  // ── Read client identity from URL params (passed by ZAP 1 / ZAP 4 dispatch) ─
+  // e.g. .../forms/pre-call.html?org=Acme+Health&email=jane@acme.com
+  const _p = new URLSearchParams(window.location.search);
+  const _org   = _p.get('org')   || '';
+  const _email = _p.get('email') || '';
+
+  // Pre-fill the org/email fields so the client doesn't have to retype them,
+  // and show the identity banner if we have an org.
+  if (_org) {
+    const orgField = document.querySelector('[name="org_name"]');
+    if (orgField && !orgField.value) orgField.value = _org;
+    document.getElementById('client-org-label').textContent = _org;
+    document.getElementById('client-banner-wrap').style.display = 'block';
+  }
+  if (_email) {
+    const emailField = document.querySelector('[name="contact_email"]');
+    if (emailField && !emailField.value) emailField.value = _email;
+  }
+
   const frm = document.getElementById('form-pre-call');
   if (frm) {
     frm.addEventListener('submit', async function(e) {
@@ -343,6 +380,11 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
       if (errDiv)    { errDiv.style.display = 'none'; }
 
+      // Client-side timestamp fallback in case the receiving Zap step isn't
+      // mapped to Zapier's own trigger timestamp meta field.
+      const tsField = document.getElementById('submitted_at');
+      if (tsField) tsField.value = new Date().toISOString();
+
       // Build payload — bracket-strip checkbox keys, join multi-values with '; '
       const formData = new FormData(frm);
       const payload  = {};
@@ -350,6 +392,16 @@
         var key = k.replace('[]', '');
         payload[key] = (payload[key] !== undefined) ? payload[key] + '; ' + v : v;
       });
+
+      // Alias fields to the naming convention used by the original intake Zap
+      // (organization_name / email) as well as this form's own field names
+      // (org_name / contact_email), so whichever mapping the Zap step uses,
+      // it finds a populated value. Also backfill from the URL params as a
+      // last resort if the client cleared the pre-filled fields.
+      payload['organization_name'] = payload['org_name'] || _org || '';
+      payload['email']             = payload['contact_email'] || _email || '';
+      payload['timestamp']         = payload['submitted_at'] || '';
+
       payload['service']      = 'Pre-Call Questionnaire';
       payload['zapier_event'] = 'pre_call_questionnaire_submitted';
       payload['source']       = 'AuditMD Pre-Call Form';
@@ -373,6 +425,7 @@
 
       if (sent) {
         frm.style.display = 'none';
+        document.getElementById('client-banner-wrap').style.display = 'none';
         var success = document.getElementById('form-success');
         if (success) { success.style.display = 'block'; success.scrollIntoView({behavior:'smooth',block:'center'}); }
       } else {

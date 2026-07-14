@@ -1088,143 +1088,25 @@
         </ul>
       </div>
 
-      <!-- Right: Netlify Intake Form -->
+      <!-- Right: Slim CTA card -> dedicated intake page (was: full embedded form) -->
       <div class="intake-form" id="intake-form-wrap">
         <h3>AI Readiness Assessment Intake</h3>
-        <p class="form-sub">We'll review your information and follow up within 24 hours.</p>
-
-        <form name="ai-readiness-intake" method="POST" action="/thank-you"
-              data-netlify="true" netlify-honeypot="bot-field" id="intake-form">
-
-
-          <!-- Hidden: populated by tier selection & Zapier -->
-          <input type="hidden" name="selected_tier" id="selected_tier" value="" />
-          <input type="hidden" name="source" value="auditmd.xyz" />
-          <input type="hidden" name="form-name" value="ai-readiness-intake" />
-
-          <!-- Honeypot spam protection (hidden) -->
-          <p class="form-honeypot">
-            <label>Don't fill this out: <input name="bot-field" /></label>
-          </p>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="org-name">Organization Name *</label>
-              <input type="text" id="org-name" name="organization_name" placeholder="Acme Health System" required />
-            </div>
-            <div class="form-group">
-              <label for="org-type">Organization Type *</label>
-              <select id="org-type" name="organization_type" required>
-                <option value="" disabled selected>Select type…</option>
-                <option>Hospital / Health System</option>
-                <option>FQHC / Community Health Center</option>
-                <option>Health IT Vendor</option>
-                <option>Government / Federal Agency</option>
-                <option>Payer / Insurance</option>
-                <option>Medical Group / Clinic</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="contact-name">Your Name *</label>
-              <input type="text" id="contact-name" name="contact_name" placeholder="Jane Smith" required />
-            </div>
-            <div class="form-group">
-              <label for="contact-role">Your Title / Role *</label>
-              <input type="text" id="contact-role" name="contact_role" placeholder="CIO, Compliance Officer…" required />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="contact-email">Work Email *</label>
-            <input type="email" id="contact-email" name="email" placeholder="jane@healthsystem.org" required />
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="num-providers">Number of Providers (MDs, NPs, PAs) *</label>
-              <select id="num-providers" name="num_providers" required>
-                <option value="" disabled selected>Select range…</option>
-                <option>1–5</option>
-                <option>6–15</option>
-                <option>16–50</option>
-                <option>50+</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="annual-budget">Annual Operating Budget *</label>
-              <select id="annual-budget" name="annual_budget" required>
-                <option value="" disabled selected>Select range…</option>
-                <option>Under $1M</option>
-                <option>$1M–$5M</option>
-                <option>$5M–$20M</option>
-                <option>$20M+</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="ehr-system">Primary EHR System</label>
-              <select id="ehr-system" name="ehr_system">
-                <option value="" disabled selected>Select EHR…</option>
-                <option>Epic</option>
-                <option>Cerner / Oracle Health</option>
-                <option>Meditech</option>
-                <option>Allscripts / Veradigm</option>
-                <option>athenahealth</option>
-                <option>eClinicalWorks</option>
-                <option>Other / Multiple</option>
-                <option>None</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="ehr-year">EHR Implementation Year</label>
-              <input type="text" id="ehr-year" name="ehr_implementation_year" placeholder="e.g., 2019" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="hipaa-review">HIPAA Compliance Last Reviewed *</label>
-            <select id="hipaa-review" name="hipaa_last_reviewed" required>
-              <option value="" disabled selected>Select…</option>
-              <option>Within 6 months</option>
-              <option>6–18 months ago</option>
-              <option>1–2 years ago</option>
-              <option>2+ years ago</option>
-              <option>Never / Unknown</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="ai-tools">Current AI or Automation Tools in Use *</label>
-            <textarea id="ai-tools" name="ai_tools_in_use" placeholder="List tools in use, or type 'None'…" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="stakeholders">Key Stakeholders for the Discovery Call *</label>
-            <textarea id="stakeholders" name="key_stakeholders" placeholder="Names and titles of people who should be on the call…" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="success-outcome">What outcome would make this engagement a success for you? *</label>
-            <textarea id="success-outcome" name="success_outcome" placeholder="Describe your goals…" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="additional-notes">Anything else we should know before the call?</label>
-            <textarea id="additional-notes" name="additional_notes" placeholder="Any context, concerns, or questions…"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-            Submit for Review
-          </button>
-          <p class="form-legal">By submitting you agree to be contacted about DFEAL services. We never share your information with third parties.</p>
-        </form>
+        <p class="form-sub">Takes about 5 minutes. We'll review your information and follow up within 24 hours to schedule your complimentary discovery call.</p>
+        <ul style="list-style:none;margin:1.25rem 0 1.75rem;display:flex;flex-direction:column;gap:0.6rem;">
+          <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;color:rgba(255,255,255,0.7);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F5C200" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            No obligation, no patient PHI collected
+          </li>
+          <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;color:rgba(255,255,255,0.7);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F5C200" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Custom-scoped quote within 48 hours
+          </li>
+        </ul>
+        <a href="/start.html" id="intake-cta-link" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;text-decoration:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          Start Your Assessment
+        </a>
+        <p class="form-legal" style="margin-top:1rem;">You'll be taken to our secure intake form on a dedicated page.</p>
       </div>
 
     </div>
@@ -1393,16 +1275,15 @@
 
   function selectTierAndClose() {
     if (!_selectedTier) return;
-    // Set hidden field in form
-    const field = document.getElementById('selected_tier');
-    if (field) field.value = _selectedTier.name + ' (' + _selectedTier.price + ')';
-    // Show banner
+    // Show banner (persists in case user navigates back to compare/pay via Stripe)
     document.getElementById('tier-banner-name').textContent = _selectedTier.name;
     document.getElementById('tier-banner-price').textContent = _selectedTier.price;
     document.getElementById('tier-banner').style.display = 'flex';
     closeTierModal();
-    // Scroll to form
-    setTimeout(() => document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 200);
+    // Send them to the dedicated intake page with the tier carried in the URL
+    // so /start.html can pre-fill its hidden selected_tier field.
+    const tierParam = encodeURIComponent(_selectedTier.name + ' (' + _selectedTier.price + ')');
+    setTimeout(() => { window.location.href = '/start.html?tier=' + tierParam; }, 150);
   }
 
   function clearTier() {

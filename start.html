@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Start Your AI Health IT Assessment | AuditMD</title>
+<meta name="description" content="Tell us about your organization and we'll reach out within 24 hours to schedule your complimentary discovery call." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+    --section-alt:#F0F3FF;--card-bg:#FFFFFF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);--shadow-lg:0 8px 40px rgba(11,27,110,0.14);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  /* NAV */
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+  .btn-navy:hover{background:var(--navy-mid);}
+  .btn-primary{background:var(--gold);color:var(--navy-dark);}
+  .btn-primary:hover{background:var(--gold-light);box-shadow:0 4px 20px rgba(245,194,0,0.4);}
+  .btn-lg{padding:0.85rem 1.75rem;font-size:0.95rem;border-radius:10px;}
+
+  /* HERO BANNER */
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;}
+  .form-hero-meta{display:flex;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap;}
+  .form-meta-pill{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:0.3rem 0.8rem;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.75);}
+
+  /* MAIN CONTAINER */
+  .form-container{max-width:900px;margin:0 auto;padding:2.5rem 1.5rem;flex:1;}
+  .form-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:1.5rem;}
+  .form-section-header{background:var(--section-alt);padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);}
+  .form-section-header h2{font-size:1rem;font-weight:700;color:var(--navy-dark);}
+  .form-section-header p{font-size:0.8rem;color:var(--slate);margin-top:0.2rem;}
+  .form-section-body{padding:1.75rem;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+  .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.25rem;}
+  .form-group:last-child{margin-bottom:0;}
+  .form-group label{font-size:0.75rem;font-weight:700;color:var(--navy-dark);letter-spacing:0.04em;text-transform:uppercase;}
+  .form-group input,.form-group select,.form-group textarea{
+    background:var(--off-white);border:1.5px solid var(--border);border-radius:8px;
+    padding:0.7rem 0.9rem;font-size:0.875rem;font-family:var(--font);
+    color:var(--navy-dark);transition:var(--transition);outline:none;width:100%;
+  }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+    border-color:var(--navy);background:var(--white);box-shadow:0 0 0 3px rgba(11,27,110,0.08);
+  }
+  .form-group textarea{resize:vertical;min-height:90px;}
+  .form-group select option{background:var(--white);color:var(--navy-dark);}
+
+  /* TRUST STRIP */
+  .trust-strip{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.75rem;}
+  .trust-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--slate);font-weight:600;}
+  .trust-item svg{width:16px;height:16px;color:var(--navy);flex-shrink:0;}
+
+  /* FORM SUBMIT */
+  .form-submit-area{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--border);padding:2rem 1.75rem;box-shadow:var(--shadow);text-align:center;}
+  .form-submit-area h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
+  .form-submit-area p{font-size:0.875rem;color:var(--slate);margin-bottom:1.5rem;}
+  .form-legal{font-size:0.72rem;color:var(--slate-light);margin-top:1rem;}
+  .form-honeypot{display:none;}
+
+  /* ERROR */
+  #form-error{display:none;background:rgba(239,68,68,0.06);border:1.5px solid rgba(239,68,68,0.3);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem;}
+
+  /* FOOTER */
+  footer{background:#05102E;color:rgba(255,255,255,0.5);padding:1.5rem;text-align:center;font-size:0.8rem;}
+  footer a{color:rgba(255,255,255,0.6);margin:0 0.75rem;transition:var(--transition);}
+  footer a:hover{color:var(--white);}
+
+  @media(max-width:640px){
+    .form-row{grid-template-columns:1fr;}
+    .form-hero{padding:1.75rem 0;}
+    .form-container{padding:1.5rem 1rem;}
+    .trust-strip{gap:0.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<span class="dot"></span>
+      <span>by DFEAL LLC</span>
+    </div>
+    <a href="/" class="btn btn-navy">← Back to Site</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Get Started</span>
+    <h1>Start Your AI Health IT Assessment</h1>
+    <p>Tell us about your organization and we'll reach out within 24 hours to schedule your complimentary 45-minute discovery call.</p>
+    <div class="form-hero-meta">
+      <span class="form-meta-pill">🔒 Confidential</span>
+      <span class="form-meta-pill">⏱ ~5 min</span>
+      <span class="form-meta-pill">📞 24hr response</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+
+  <div class="trust-strip">
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>No obligation</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>No patient data collected</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Custom-scoped quote within 48hrs</span>
+  </div>
+
+  <form name="ai-readiness-intake" method="POST" action="/thank-you"
+        data-netlify="true" netlify-honeypot="bot-field" id="intake-form-standalone">
+
+    <input type="hidden" name="selected_tier" id="selected_tier" value="" />
+    <input type="hidden" name="source" value="auditmd.xyz/start" />
+    <input type="hidden" name="form-name" value="ai-readiness-intake" />
+    <input type="hidden" name="submitted_at" id="submitted_at" value="" />
+    <p class="form-honeypot"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Organization &amp; Contact</h2>
+      </div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="org-name">Organization Name *</label>
+            <input type="text" id="org-name" name="organization_name" placeholder="Acme Health System" required />
+          </div>
+          <div class="form-group">
+            <label for="org-type">Organization Type *</label>
+            <select id="org-type" name="organization_type" required>
+              <option value="" disabled selected>Select type…</option>
+              <option>Hospital / Health System</option>
+              <option>FQHC / Community Health Center</option>
+              <option>Health IT Vendor</option>
+              <option>Government / Federal Agency</option>
+              <option>Payer / Insurance</option>
+              <option>Medical Group / Clinic</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-name">Your Name *</label>
+            <input type="text" id="contact-name" name="contact_name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="contact-role">Your Title / Role *</label>
+            <input type="text" id="contact-role" name="contact_role" placeholder="CIO, Compliance Officer…" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Work Email *</label>
+          <input type="email" id="contact-email" name="email" placeholder="jane@healthsystem.org" required />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Organization Profile</h2>
+      </div>
+      <div class="form-section-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="num-providers">Number of Providers (MDs, NPs, PAs) *</label>
+            <select id="num-providers" name="num_providers" required>
+              <option value="" disabled selected>Select range…</option>
+              <option>1–5</option>
+              <option>6–15</option>
+              <option>16–50</option>
+              <option>50+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="annual-budget">Annual Operating Budget *</label>
+            <select id="annual-budget" name="annual_budget" required>
+              <option value="" disabled selected>Select range…</option>
+              <option>Under $1M</option>
+              <option>$1M–$5M</option>
+              <option>$5M–$20M</option>
+              <option>$20M+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ehr-system">Primary EHR System</label>
+            <select id="ehr-system" name="ehr_system">
+              <option value="" disabled selected>Select EHR…</option>
+              <option>Epic</option>
+              <option>Cerner / Oracle Health</option>
+              <option>Meditech</option>
+              <option>Allscripts / Veradigm</option>
+              <option>athenahealth</option>
+              <option>eClinicalWorks</option>
+              <option>Other / Multiple</option>
+              <option>None</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ehr-year">EHR Implementation Year</label>
+            <input type="text" id="ehr-year" name="ehr_implementation_year" placeholder="e.g., 2019" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="hipaa-review">HIPAA Compliance Last Reviewed *</label>
+          <select id="hipaa-review" name="hipaa_last_reviewed" required>
+            <option value="" disabled selected>Select…</option>
+            <option>Within 6 months</option>
+            <option>6–18 months ago</option>
+            <option>1–2 years ago</option>
+            <option>2+ years ago</option>
+            <option>Never / Unknown</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-section-header">
+        <h2>Current State &amp; Goals</h2>
+      </div>
+      <div class="form-section-body">
+        <div class="form-group">
+          <label for="ai-tools">Current AI or Automation Tools in Use *</label>
+          <textarea id="ai-tools" name="ai_tools_in_use" placeholder="List tools in use, or type 'None'…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="stakeholders">Key Stakeholders for the Discovery Call *</label>
+          <textarea id="stakeholders" name="key_stakeholders" placeholder="Names and titles of people who should be on the call…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="success-outcome">What outcome would make this engagement a success for you? *</label>
+          <textarea id="success-outcome" name="success_outcome" placeholder="Describe your goals…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="additional-notes">Anything else we should know before the call?</label>
+          <textarea id="additional-notes" name="additional_notes" placeholder="Any context, concerns, or questions…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-submit-area">
+      <h3>Ready to Submit?</h3>
+      <p>We'll review your information and follow up within 24 hours to schedule your discovery call.</p>
+      <button type="submit" class="btn btn-primary btn-lg" style="min-width:240px;justify-content:center" id="submit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        Submit for Review
+      </button>
+      <p class="form-legal">By submitting you agree to be contacted about DFEAL services. We never share your information with third parties. No patient PHI — organizational health IT data only.</p>
+    </div>
+  </form>
+
+  <div id="form-error">
+    <p style="color:#b91c1c;font-weight:600;margin-bottom:0.4rem;">Submission failed</p>
+    <p style="font-size:0.875rem;">Please check your connection and click <strong>Retry Submission</strong> above. If the problem persists, email <a href="mailto:support@auditmd.xyz" style="color:#b91c1c;">support@auditmd.xyz</a>.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  // Same catch hook the homepage intake form has always used (ZAP 1 trigger).
+  const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/42m9m34/';
+
+  // Carry a tier selected on the homepage's pricing modal into this page.
+  const _params = new URLSearchParams(window.location.search);
+  const _tier = _params.get('tier');
+  if (_tier) {
+    const tierField = document.getElementById('selected_tier');
+    if (tierField) tierField.value = _tier;
+  }
+
+  const frm = document.getElementById('intake-form-standalone');
+  if (frm) {
+    frm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-btn');
+      const errDiv = document.getElementById('form-error');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<span style="opacity:0.75">Submitting…</span>'; }
+      if (errDiv) errDiv.style.display = 'none';
+
+      // Client-side timestamp fallback in case the Zap's own meta timestamp
+      // isn't mapped on the receiving end (mirrors the fix applied to pre-call.html).
+      document.getElementById('submitted_at').value = new Date().toISOString();
+
+      const formData = new FormData(frm);
+      const payload = {};
+      formData.forEach(function (v, k) {
+        var key = k.replace('[]', '');
+        payload[key] = (payload[key] !== undefined) ? payload[key] + '; ' + v : v;
+      });
+      payload['source'] = 'AuditMD Intake Form';
+      payload['service'] = 'Intake Form';
+      payload['form_type'] = 'intake';
+
+      var sent = false;
+      for (var attempt = 1; attempt <= 3; attempt++) {
+        try {
+          var res = await fetch(ZAPIER_WEBHOOK_URL, { method: 'POST', body: JSON.stringify(payload) });
+          if (res.ok || res.type === 'opaque') { sent = true; break; }
+        } catch (err) {
+          console.warn('[AuditMD] Intake webhook attempt ' + attempt + ' failed:', err);
+          if (attempt < 3) await new Promise(function (r) { setTimeout(r, 800 * attempt); });
+        }
+      }
+
+      // Redirect to thank-you regardless — we never want a webhook hiccup to
+      // strand a prospect on the form. Console warning above is the signal
+      // for staff to check AUTOMATION_LOG / Zap history if this keeps happening.
+      window.location.href = '/thank-you';
+    });
+  }
+</script>
+</body>
+</html>
