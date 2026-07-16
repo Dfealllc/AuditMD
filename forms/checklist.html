@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Assessment Checklist | AuditMD</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --navy:#0B1B6E;--navy-dark:#080F40;--navy-mid:#132090;
+    --gold:#F5C200;--gold-light:#FFD740;
+    --white:#FFFFFF;--off-white:#F6F8FF;--slate:#5B6490;--slate-light:#8890B8;
+    --border:#E2E6F3;--success:#22C55E;
+    --section-alt:#F0F3FF;
+    --font:'Inter',sans-serif;--radius:12px;--radius-lg:20px;
+    --shadow:0 2px 16px rgba(11,27,110,0.08);
+    --transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font);color:var(--navy-dark);background:var(--off-white);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+  a{text-decoration:none;color:inherit;}
+  p{color:var(--slate);line-height:1.7;}
+
+  nav{background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;font-weight:900;font-size:1.1rem;color:var(--navy-dark);letter-spacing:-0.02em;}
+  .nav-logo .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;margin-left:2px;}
+  .nav-logo span{font-size:0.75rem;font-weight:600;color:var(--slate);border-left:1px solid var(--border);padding-left:0.6rem;margin-left:0.4rem;text-transform:uppercase;letter-spacing:0.05em;}
+  .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;border-radius:8px;font-size:0.875rem;font-weight:600;cursor:pointer;transition:var(--transition);border:2px solid transparent;}
+  .btn-navy{background:var(--navy);color:var(--white);}
+
+  .form-hero{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);color:var(--white);padding:2.5rem 0;}
+  .form-hero-inner{max-width:900px;margin:0 auto;padding:0 1.5rem;}
+  .form-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;display:block;}
+  .form-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;color:var(--white);margin-bottom:0.75rem;}
+  .form-hero p{color:rgba(255,255,255,0.7);font-size:1rem;max-width:600px;}
+
+  .progress-wrap{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 0;}
+  .progress-label{display:flex;justify-content:space-between;font-size:0.8rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.5rem;}
+  .progress-track{background:var(--border);border-radius:100px;height:10px;overflow:hidden;}
+  .progress-fill{background:linear-gradient(90deg,var(--gold),var(--gold-light));height:100%;width:0%;transition:width 0.4s ease;}
+
+  .checklist-container{max-width:900px;margin:0 auto;padding:1.5rem 1.5rem 2.5rem;flex:1;display:flex;flex-direction:column;gap:1rem;}
+  .check-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:1.5rem 1.75rem;display:flex;align-items:center;gap:1.25rem;transition:var(--transition);}
+  .check-card.done{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.04);}
+  .check-badge{width:44px;height:44px;border-radius:50%;background:var(--section-alt);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0;border:2px solid var(--border);}
+  .check-card.done .check-badge{background:var(--success);color:var(--white);border-color:var(--success);}
+  .check-body{flex:1;min-width:0;}
+  .check-body h3{font-size:1rem;font-weight:700;color:var(--navy-dark);margin-bottom:0.2rem;}
+  .check-body p{font-size:0.82rem;margin:0;}
+  .check-action{flex-shrink:0;}
+  .check-action a{display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1.1rem;border-radius:8px;font-size:0.82rem;font-weight:700;background:var(--navy);color:var(--white);white-space:nowrap;}
+  .check-card.done .check-action a{background:transparent;color:var(--success);border:1.5px solid var(--success);}
+
+  .disclaimer{max-width:900px;margin:0 auto;padding:0 1.5rem 2rem;font-size:0.75rem;color:var(--slate-light);text-align:center;}
+
+  footer{background:#05102E;color:rgba(255,255,255,0.5);padding:1.5rem;text-align:center;font-size:0.8rem;}
+  footer a{color:rgba(255,255,255,0.6);margin:0 0.75rem;transition:var(--transition);}
+  footer a:hover{color:var(--white);}
+
+  @media(max-width:640px){
+    .check-card{flex-wrap:wrap;}
+    .check-action{width:100%;}
+    .check-action a{width:100%;justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      AuditMD<span class="dot"></span>
+      <span>by DFEAL LLC</span>
+    </div>
+    <a href="https://auditmd.xyz" class="btn btn-navy">← Back to Site</a>
+  </div>
+</nav>
+
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <span class="form-eyebrow">Before Your Audit Begins</span>
+    <h1>Your Assessment Checklist</h1>
+    <p id="hero-sub">Five short forms help our team prepare for your engagement. Complete them at your own pace — each takes about 10–15 minutes.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>Your progress</span>
+    <span id="progress-count">0/5 complete</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<div class="checklist-container" id="checklist-container">
+  <!-- Cards injected by script below -->
+</div>
+
+<p class="disclaimer">Progress shown here is a personal reminder saved on this device only. Your DFEAL engagement team confirms actual completion separately when each form is received — this checklist won't hold up your engagement either way.</p>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+</footer>
+
+<script>
+  const _p = new URLSearchParams(window.location.search);
+  const _org = _p.get('org') || '';
+  const _email = _p.get('email') || '';
+
+  if (_org) {
+    document.getElementById('hero-sub').textContent =
+      'Five short forms for ' + _org + ' — help our team prepare for your engagement. Complete them at your own pace.';
+  }
+
+  function withParams(path) {
+    const qs = new URLSearchParams();
+    if (_org) qs.set('org', _org);
+    if (_email) qs.set('email', _email);
+    const q = qs.toString();
+    return path + (q ? '?' + q : '');
+  }
+
+  const FORMS = [
+    { key: 'stakeholder', name: 'AI Readiness Stakeholder Survey', time: '~12 min', href: withParams('/forms/stakeholder-survey.html') },
+    { key: 'governance',  name: 'IT Governance Assessment',        time: '~10 min', href: withParams('/forms/governance.html') },
+    { key: 'hipaa',       name: 'HIPAA Compliance Assessment',     time: '~12 min', href: withParams('/forms/hipaa-compliance.html') },
+    { key: 'ehr',         name: 'EHR Workflow Assessment',         time: '~10 min', href: withParams('/forms/ehr-workflow.html') },
+    { key: 'pmo',         name: 'PMO Maturity Assessment',         time: '~10 min', href: withParams('/forms/pmo-maturity.html') },
+  ];
+
+  // Local-only progress memory, scoped to this client so different clients
+  // sharing a device don't see each other's ticks.
+  const storageKey = 'auditmd_checklist_' + (_email || _org || 'anon');
+  let done = {};
+  try { done = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch (e) { done = {}; }
+
+  function save() {
+    try { localStorage.setItem(storageKey, JSON.stringify(done)); } catch (e) {}
+  }
+
+  function render() {
+    const container = document.getElementById('checklist-container');
+    container.innerHTML = '';
+    let completeCount = 0;
+
+    FORMS.forEach(function (f, i) {
+      const isDone = !!done[f.key];
+      if (isDone) completeCount++;
+
+      const card = document.createElement('div');
+      card.className = 'check-card' + (isDone ? ' done' : '');
+
+      const badge = document.createElement('div');
+      badge.className = 'check-badge';
+      badge.textContent = isDone ? '✓' : String(i + 1);
+
+      const body = document.createElement('div');
+      body.className = 'check-body';
+      body.innerHTML = '<h3>' + f.name + '</h3><p>' + f.time + (isDone ? ' · Marked complete' : '') + '</p>';
+
+      const action = document.createElement('div');
+      action.className = 'check-action';
+      const link = document.createElement('a');
+      link.href = f.href;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = isDone ? 'Review Again' : 'Start Form';
+      link.addEventListener('click', function () {
+        done[f.key] = true;
+        save();
+        setTimeout(render, 300);
+      });
+      action.appendChild(link);
+
+      card.appendChild(badge);
+      card.appendChild(body);
+      card.appendChild(action);
+      container.appendChild(card);
+    });
+
+    document.getElementById('progress-count').textContent = completeCount + '/5 complete';
+    document.getElementById('progress-fill').style.width = (completeCount / FORMS.length * 100) + '%';
+  }
+
+  render();
+</script>
+</body>
+</html>

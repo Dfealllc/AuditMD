@@ -337,7 +337,8 @@
   <div class="form-success" id="form-success">
     <div class="fs-icon">✅</div>
     <h4>Questionnaire Submitted</h4>
-    <p>Your responses have been received. Your DFEAL engagement team will review them and follow up with next steps.</p>
+    <p>Your responses have been received. Taking you to our booking calendar now to schedule your discovery call…</p>
+    <p style="margin-top:0.75rem;font-size:0.8rem;">Not redirected automatically? <a href="#" id="manual-calendly-link" style="color:var(--navy);font-weight:700;text-decoration:underline;">Click here to book your call</a>.</p>
   </div>
   <div id="form-error" style="display:none;background:rgba(239,68,68,0.06);border:1.5px solid rgba(239,68,68,0.3);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem;">
     <p style="color:#b91c1c;font-weight:600;margin-bottom:0.4rem;">Submission failed</p>
@@ -428,6 +429,24 @@
         document.getElementById('client-banner-wrap').style.display = 'none';
         var success = document.getElementById('form-success');
         if (success) { success.style.display = 'block'; success.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+        // Build the Calendly discovery-call link, prefilled with name/email
+        // we already have from the form (falls back to URL params if the
+        // client cleared the fields).
+        var calName  = payload['contact_name']  || '';
+        var calEmail = payload['contact_email'] || _email || '';
+        var calUrl = 'https://calendly.com/dfealllc/30min';
+        var calParams = new URLSearchParams();
+        if (calName)  calParams.set('name', calName);
+        if (calEmail) calParams.set('email', calEmail);
+        var calFullUrl = calUrl + (calParams.toString() ? '?' + calParams.toString() : '');
+
+        var manualLink = document.getElementById('manual-calendly-link');
+        if (manualLink) manualLink.href = calFullUrl;
+
+        // Auto-redirect after a short pause so the client sees the
+        // confirmation message before leaving the page.
+        setTimeout(function () { window.location.href = calFullUrl; }, 2200);
       } else {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Retry Submission'; }
         if (errDiv)    { errDiv.style.display = 'block'; errDiv.scrollIntoView({behavior:'smooth',block:'center'}); }

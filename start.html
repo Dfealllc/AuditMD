@@ -174,9 +174,15 @@
             <input type="text" id="contact-role" name="contact_role" placeholder="CIO, Compliance Officer…" required />
           </div>
         </div>
-        <div class="form-group">
-          <label for="contact-email">Work Email *</label>
-          <input type="email" id="contact-email" name="email" placeholder="jane@healthsystem.org" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-email">Work Email *</label>
+            <input type="email" id="contact-email" name="email" placeholder="jane@healthsystem.org" required />
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Phone Number *</label>
+            <input type="tel" id="contact-phone" name="phone" placeholder="+1 (555) 000-0000" required />
+          </div>
         </div>
       </div>
     </div>
@@ -186,6 +192,16 @@
         <h2>Organization Profile</h2>
       </div>
       <div class="form-section-body">
+        <div class="form-group">
+          <label for="service-tier">Which service are you interested in? *</label>
+          <select id="service-tier-select" name="service_tier" required>
+            <option value="" disabled selected>Select…</option>
+            <option value="Layer 1 - AI Health IT Readiness Audit">Layer 1 — AI Health IT Readiness Audit™ (one-time)</option>
+            <option value="Layer 2 - Ongoing Compliance Monitoring">Layer 2 — Ongoing Compliance Monitoring (monthly retainer)</option>
+            <option value="Layer 3 - Fractional PMO AI Service">Layer 3 — Fractional PMO AI Service (monthly retainer)</option>
+            <option value="Not sure - let's discuss">Not sure yet — let's discuss on the call</option>
+          </select>
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="num-providers">Number of Providers (MDs, NPs, PAs) *</label>
@@ -292,11 +308,21 @@
   const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/28015444/42m9m34/';
 
   // Carry a tier selected on the homepage's pricing modal into this page.
+  // Pre-select it in the visible Service Tier dropdown so there is exactly
+  // ONE field (service_tier) carrying this value downstream — not a second
+  // hidden field the client never sees and the Zap has to guess between.
   const _params = new URLSearchParams(window.location.search);
   const _tier = _params.get('tier');
   if (_tier) {
+    const tierSelect = document.getElementById('service-tier-select');
+    if (tierSelect) {
+      const match = Array.from(tierSelect.options).find(o => _tier.toLowerCase().includes('layer 1') && o.value.startsWith('Layer 1'))
+        || Array.from(tierSelect.options).find(o => _tier.toLowerCase().includes('layer 2') && o.value.startsWith('Layer 2'))
+        || Array.from(tierSelect.options).find(o => _tier.toLowerCase().includes('layer 3') && o.value.startsWith('Layer 3'));
+      if (match) tierSelect.value = match.value;
+    }
     const tierField = document.getElementById('selected_tier');
-    if (tierField) tierField.value = _tier;
+    if (tierField) tierField.value = _tier; // raw value kept as a fallback/audit trail
   }
 
   const frm = document.getElementById('intake-form-standalone');
@@ -318,6 +344,9 @@
         var key = k.replace('[]', '');
         payload[key] = (payload[key] !== undefined) ? payload[key] + '; ' + v : v;
       });
+      // Single canonical field for service tier, regardless of which path set it.
+      payload['service_tier'] = payload['service_tier'] || payload['selected_tier'] || '';
+
       payload['source'] = 'AuditMD Intake Form';
       payload['service'] = 'Intake Form';
       payload['form_type'] = 'intake';
