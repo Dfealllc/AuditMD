@@ -122,7 +122,7 @@
       AuditMD<div class="dot"></div>
       <span>Confidential</span>
     </div>
-    <a href="https://auditmd.xyz" class="btn btn-outline btn-sm">← Back to AuditMD</a>
+    <a href="/forms/checklist.html" class="btn btn-outline btn-sm">← Back to Checklist</a>
   </div>
 </nav>
 
@@ -590,7 +590,6 @@
         var success = document.getElementById('form-success');
         if (success) { success.style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       } else {
-        var submitBtn = frm.querySelector('[type="submit"]');
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Retry Submission'; }
         if (errDiv)    { errDiv.style.display = 'block'; errDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       }
