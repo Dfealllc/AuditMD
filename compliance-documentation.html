@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>Confidential Compliance Documentation — AuditMD by DFEAL</title>
+  <meta name="description" content="Confidential — not for public distribution." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0A2540;
+      --navy-mid: #0d2e4e;
+      --navy-light: #133a61;
+      --gold: #F5C200;
+      --gold-light: #ffe066;
+      --white: #FFFFFF;
+      --gray: rgba(255,255,255,0.65);
+      --gray-light: rgba(255,255,255,0.45);
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── GATE ── */
+    .gate-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    .gate-box {
+      max-width: 420px; width: 100%;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 2.5rem;
+      text-align: center;
+    }
+    .gate-box .lock-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .gate-box h1 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .gate-box p { color: var(--gray); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .gate-box input {
+      width: 100%; padding: 0.85rem 1rem; border-radius: 10px;
+      border: 1px solid var(--card-border); background: rgba(255,255,255,0.06);
+      color: var(--white); font-size: 1rem; text-align: center; letter-spacing: 2px;
+      margin-bottom: 1rem; font-family: 'Inter', sans-serif;
+    }
+    .gate-box input::placeholder { color: var(--gray-light); letter-spacing: normal; }
+    .gate-box button {
+      width: 100%; background: var(--gold); color: var(--navy);
+      border: none; padding: 0.85rem 1rem; border-radius: 10px;
+      font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: opacity .2s;
+    }
+    .gate-box button:hover { opacity: 0.9; }
+    .gate-error { color: #ff8a8a; font-size: 0.85rem; margin-top: 0.75rem; display: none; }
+    .gate-note { color: var(--gray-light); font-size: 0.78rem; margin-top: 1.5rem; }
+    body.locked #doc-root { display: none; }
+    body:not(.locked) .gate-overlay { display: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -1px; }
+    .nav-logo-mark span { color: var(--gold); }
+    .nav-badge {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1px;
+      color: #ff8a8a; border: 1px solid #ff8a8a;
+      padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+    }
+
+    /* ── DOC HEADER ── */
+    .doc-hero {
+      background: linear-gradient(135deg, #0A2540 0%, #0d3060 50%, #0A2540 100%);
+      padding: 4rem 2rem 3rem; text-align: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: #ff8a8a;
+      margin-bottom: 1rem;
+    }
+    .doc-hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin-bottom: 1rem; }
+    .doc-hero p { color: var(--gray); max-width: 680px; margin: 0 auto; font-size: 1rem; }
+    .doc-toc { max-width: 900px; margin: 2rem auto 0; display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+    .doc-toc a {
+      background: rgba(245,194,0,0.1); border: 1px solid rgba(245,194,0,0.25);
+      color: var(--gold); padding: 6px 16px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600; text-decoration: none;
+    }
+
+    /* ── SECTIONS (shared) ── */
+    section { padding: 5rem 2rem; }
+    .alt-bg { background: rgba(255,255,255,0.02); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem; display: block;
+    }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .lead { font-size: 1.05rem; color: var(--gray); max-width: 720px; margin-bottom: 3rem; }
+
+    .part-divider {
+      max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 0;
+      border-top: 2px solid rgba(245,194,0,0.25);
+    }
+    .part-divider .part-eyebrow { color: #ff8a8a; }
+    .part-divider h2 { margin-top: 0.5rem; }
+
+    /* ── SAFEGUARDS (HIPAA) ── */
+    .safeguards { background: rgba(255,255,255,0.02); }
+    .safeguard-block { margin-bottom: 3.5rem; }
+    .safeguard-block:last-child { margin-bottom: 0; }
+    .safeguard-header {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(245,194,0,0.08);
+      border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 12px 12px 0 0;
+      margin-bottom: 0;
+    }
+    .safeguard-header .s-icon { font-size: 1.5rem; }
+    .safeguard-header h3 { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+    .safeguard-header .s-tag {
+      margin-left: auto; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: rgba(245,194,0,0.7); border: 1px solid rgba(245,194,0,0.25);
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .safeguard-items {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px; background: var(--card-border);
+      border: 1px solid var(--card-border); border-top: none;
+      border-radius: 0 0 12px 12px; overflow: hidden;
+    }
+    .safeguard-item { background: var(--card-bg); padding: 1.25rem 1.5rem; }
+    .safeguard-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .safeguard-item p { font-size: 0.875rem; color: var(--gray); }
+
+    /* ── AUDIT PROCESS (HIPAA) ── */
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
+    .process-step { display: grid; grid-template-columns: 56px 1fr; gap: 1.5rem; align-items: start; position: relative; }
+    .process-step:not(:last-child)::after {
+      content: ''; position: absolute; left: 27px; top: 56px; bottom: -16px;
+      width: 2px; background: rgba(245,194,0,0.2);
+    }
+    .process-step + .process-step { padding-top: 2rem; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(245,194,0,0.12); border: 2px solid rgba(245,194,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900; color: var(--gold);
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; padding-top: 0.9rem; }
+    .step-content p { color: var(--gray); font-size: 0.95rem; }
+
+    /* ── COMPLIANCE TABLE (HIPAA) ── */
+    .compliance-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .compliance-table th {
+      text-align: left; padding: 0.9rem 1.25rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .compliance-table td {
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .compliance-table td:first-child { color: var(--white); font-weight: 600; }
+    .compliance-table tr:last-child td { border-bottom: none; }
+    .status-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+    .status-required { background: rgba(245,194,0,0.15); color: var(--gold); }
+    .status-addressable { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); }
+
+    /* ── CARDS (shared) ── */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 2rem; }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .card p { color: var(--gray); font-size: 0.95rem; }
+    .card ul { margin-top: 0.75rem; padding-left: 0; list-style: none; }
+    .card ul li { font-size: 0.9rem; color: var(--gray); padding: 0.3rem 0; padding-left: 1.25rem; position: relative; }
+    .card ul li::before { content: '→'; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; }
+
+    /* ── PRINCIPLES (AI Governance) ── */
+    .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--card-border); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; margin-top: 2.5rem; }
+    .principle-item { background: var(--card-bg); padding: 1.75rem; }
+    .principle-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+    .principle-item p { font-size: 0.875rem; color: var(--gray); }
+
+    /* ── DOMAINS (AI Governance) ── */
+    .domain-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
+    .domain-item {
+      display: grid; grid-template-columns: 48px 1fr auto;
+      align-items: start; gap: 1.5rem;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .domain-num {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(245,194,0,0.12); border: 1px solid rgba(245,194,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: var(--gold); flex-shrink: 0;
+    }
+    .domain-content h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .domain-content p { font-size: 0.9rem; color: var(--gray); }
+    .domain-tag {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+      background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6);
+    }
+    .domain-tag.high { background: rgba(245,194,0,0.12); color: var(--gold); }
+
+    /* ── REGULATORY TABLE (AI Governance) ── */
+    .reg-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .reg-table th {
+      text-align: left; padding: 0.9rem 1.25rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .reg-table td {
+      padding: 1rem 1.25rem; border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem; color: var(--gray); vertical-align: top;
+    }
+    .reg-table td:first-child { color: var(--white); font-weight: 600; }
+    .reg-table tr:last-child td { border-bottom: none; }
+    .statement-box {
+      background: rgba(245,194,0,0.07); border: 1px solid rgba(245,194,0,0.2);
+      border-radius: 16px; padding: 2.5rem; text-align: center; margin-top: 3rem;
+    }
+    .statement-box p { font-size: 1.15rem; font-style: italic; color: var(--white); max-width: 700px; margin: 0 auto 1rem; line-height: 1.7; }
+    .statement-box cite { font-size: 0.85rem; color: var(--gold); font-style: normal; font-weight: 600; }
+
+    /* ── PRIVACY POLICY SECTIONS ── */
+    .policy-section { margin-bottom: 3.5rem; scroll-margin-top: 80px; }
+    .policy-section h2 {
+      font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .policy-section h2 .s-num {
+      font-size: 0.75rem; font-weight: 700; color: var(--gold);
+      border: 1px solid rgba(245,194,0,0.3); padding: 2px 8px; border-radius: 20px;
+    }
+    .policy-section h3 { font-size: 1.05rem; font-weight: 700; margin: 1.75rem 0 0.6rem; color: var(--white); }
+    .policy-section p { color: var(--gray); margin-bottom: 1rem; font-size: 0.97rem; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul, .policy-section ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .policy-section li { color: var(--gray); font-size: 0.97rem; margin-bottom: 0.5rem; }
+    .policy-section strong { color: var(--white); font-weight: 600; }
+    .policy-section a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+    .callout { border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; }
+    .callout-gold { background: rgba(245,194,0,0.08); border: 1px solid rgba(245,194,0,0.2); color: var(--white); }
+    .callout-gold strong { color: var(--gold); }
+    .callout-info { background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); color: var(--gray); }
+    .callout-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: rgba(255,255,255,0.85); }
+    .data-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .data-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: rgba(245,194,0,0.1); color: var(--gold);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      border-bottom: 2px solid rgba(245,194,0,0.2);
+    }
+    .data-table td { padding: 0.9rem 1rem; border-bottom: 1px solid var(--card-border); font-size: 0.9rem; color: var(--gray); vertical-align: top; }
+    .data-table td:first-child { color: var(--white); font-weight: 600; width: 30%; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .contact-box { background: rgba(245,194,0,0.07); border: 1px solid rgba(245,194,0,0.2); border-radius: 16px; padding: 2rem; }
+    .contact-box h3 { color: var(--gold); margin-bottom: 0.75rem; font-size: 1rem; }
+    .contact-box p { color: var(--gray); font-size: 0.95rem; margin-bottom: 0.5rem; }
+    .contact-box a { color: var(--gold); }
+
+    /* ── SIGNATURE FORM ── */
+    .sig-section { background: rgba(255,255,255,0.03); border-top: 1px solid rgba(245,194,0,0.2); }
+    .sig-box { max-width: 640px; margin: 2.5rem auto 0; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 2.5rem; }
+    .sig-field { margin-bottom: 1.25rem; }
+    .sig-field label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+    .sig-field input[type="text"], .sig-field input[type="email"] {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 8px;
+      border: 1px solid var(--card-border); background: rgba(255,255,255,0.06);
+      color: var(--white); font-size: 0.95rem; font-family: 'Inter', sans-serif;
+    }
+    .sig-checkbox { display: flex; align-items: flex-start; gap: 0.75rem; margin: 1.5rem 0; }
+    .sig-checkbox input { margin-top: 0.3rem; width: 18px; height: 18px; flex-shrink: 0; }
+    .sig-checkbox label { font-size: 0.88rem; color: var(--gray); }
+    .sig-submit {
+      width: 100%; background: var(--gold); color: var(--navy);
+      border: none; padding: 0.9rem 1rem; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; cursor: pointer; transition: opacity .2s;
+    }
+    .sig-submit:hover { opacity: 0.9; }
+    .sig-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    #sig-success, #sig-error { display: none; border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1.5rem; text-align: center; }
+    #sig-success { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: #6ee7b7; }
+    #sig-error { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #ff8a8a; }
+
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid var(--card-border);
+      padding: 2rem; text-align: center;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .domain-item { grid-template-columns: 1fr; }
+      .domain-num { width: 36px; height: 36px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body class="locked">
+
+<!-- PASSCODE GATE -->
+<div class="gate-overlay">
+  <div class="gate-box">
+    <div class="lock-icon">🔒</div>
+    <h1>Confidential Documentation</h1>
+    <p>This page contains internal compliance and privacy documentation intended for signed AuditMD engagement clients only. Enter your access code to continue.</p>
+    <input type="password" id="gate-input" placeholder="Access code" autocomplete="off" />
+    <button id="gate-submit" onclick="checkGate()">Unlock Document</button>
+    <p class="gate-error" id="gate-error">Incorrect access code. Please try again or contact support@auditmd.xyz.</p>
+    <p class="gate-note">Note: this code is provided to you directly by DFEAL — it is not published anywhere on the public site.</p>
+  </div>
+</div>
+
+<div id="doc-root">
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-mark">Audit<span>MD</span></span>
+      <span class="nav-badge">Confidential</span>
+    </a>
+  </div>
+</nav>
+
+<!-- DOC HERO -->
+<section class="doc-hero">
+  <div class="container">
+    <span class="eyebrow">Confidential — Not for Public Distribution</span>
+    <h1>Compliance &amp; Governance Documentation</h1>
+    <p>This document contains the complete HIPAA Security Rule implementation detail, AI governance framework, and privacy/data-handling detail that supplement AuditMD's public HIPAA Framework, AI Governance, and Privacy Policy pages. It is provided to signed engagement clients only and should not be redistributed.</p>
+    <div class="doc-toc">
+      <a href="#part1-hipaa">Part 1 — HIPAA Framework</a>
+      <a href="#part2-ai">Part 2 — AI Governance</a>
+      <a href="#part3-privacy">Part 3 — Privacy &amp; Data Handling</a>
+      <a href="#acknowledgment">Acknowledgment &amp; Signature</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PART 1 — HIPAA ══════════════════════════ -->
+<div class="part-divider" id="part1-hipaa">
+  <span class="eyebrow part-eyebrow">Part 1 of 3</span>
+  <h2>HIPAA Compliance Framework — Full Detail</h2>
+</div>
+
+<!-- THREE SAFEGUARDS -->
+<section class="safeguards">
+  <div class="container">
+    <span class="section-label">Security Rule Deep Dive</span>
+    <h2>The Three Pillars of HIPAA Security Safeguards</h2>
+    <p class="lead">AuditMD's assessment evaluates all 18 required and addressable implementation specifications across administrative, physical, and technical safeguard domains.</p>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">🏛️</span>
+        <h3>Administrative Safeguards</h3>
+        <span class="s-tag">9 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Security Management Process</h4>
+          <p>Risk analysis and risk management programs, sanction policies, and information system activity review to prevent, detect, contain, and correct security violations.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Assigned Security Responsibility</h4>
+          <p>Designating a Security Officer responsible for developing and implementing security policies and procedures across the covered entity.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workforce Security</h4>
+          <p>Authorization, supervision, clearance procedures, and termination processes to ensure only authorized personnel access ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Information Access Management</h4>
+          <p>Role-based access controls, access authorization processes, and establishment and modification of access rights for all ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Security Awareness &amp; Training</h4>
+          <p>Ongoing security training for all workforce members including protection against malware, monitoring login attempts, and password management procedures.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Security Incident Procedures</h4>
+          <p>Documented procedures for identifying, reporting, and responding to suspected or known security incidents, including tracking outcomes.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Contingency Planning</h4>
+          <p>Data backup, disaster recovery, emergency mode operation, testing, and revision plans ensuring ePHI availability during emergency situations.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Evaluation</h4>
+          <p>Periodic technical and non-technical evaluation of security policies and procedures in response to environmental or operational changes.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Business Associate Contracts</h4>
+          <p>Written contracts with all business associates ensuring they appropriately safeguard ePHI and comply with applicable HIPAA requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">🏢</span>
+        <h3>Physical Safeguards</h3>
+        <span class="s-tag">4 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Facility Access Controls</h4>
+          <p>Contingency operations, facility security plans, access control and validation procedures, and maintenance records for physical access to ePHI systems.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workstation Use</h4>
+          <p>Policies and procedures specifying proper functions of and physical attributes of the surroundings of workstations that access ePHI.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Workstation Security</h4>
+          <p>Physical safeguards for workstations that access ePHI to restrict access to authorized users only, including screen locks and cable locks.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Device &amp; Media Controls</h4>
+          <p>Disposal of hardware and electronic media containing ePHI, media re-use procedures, accountability tracking, and data backup and storage requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="safeguard-block">
+      <div class="safeguard-header">
+        <span class="s-icon">💻</span>
+        <h3>Technical Safeguards</h3>
+        <span class="s-tag">5 Standards</span>
+      </div>
+      <div class="safeguard-items">
+        <div class="safeguard-item">
+          <h4>Access Controls</h4>
+          <p>Unique user identification, emergency access procedures, automatic logoff, and encryption/decryption mechanisms for all systems accessing ePHI.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Audit Controls</h4>
+          <p>Hardware, software, and procedural mechanisms to record and examine activity in systems containing or using ePHI — audit logs, access records, and anomaly detection.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Integrity Controls</h4>
+          <p>Policies and procedures ensuring ePHI is not improperly altered or destroyed, including electronic error-checking mechanisms and data integrity validation.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Person Authentication</h4>
+          <p>Procedures to verify that a person seeking access to ePHI is who they claim to be — multi-factor authentication, biometrics, and identity verification protocols.</p>
+        </div>
+        <div class="safeguard-item">
+          <h4>Transmission Security</h4>
+          <p>Encryption of ePHI in transit, integrity controls preventing improper modification during transmission, and secure protocols for all data exchange.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT PROCESS -->
+<section>
+  <div class="container">
+    <span class="section-label">Our Methodology</span>
+    <h2>How AuditMD Assesses Your HIPAA Posture</h2>
+    <p class="lead">Our structured HIPAA assessment process delivers a complete compliance picture in 14 days — without disrupting clinical operations.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Pre-Call Questionnaire &amp; Scoping</h3>
+          <p>We gather your organization's profile: EHR systems in use, number of users with ePHI access, existing policies, cloud infrastructure, and prior audit history. This scopes the assessment to your actual risk surface before we begin.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Stakeholder Survey &amp; IT Governance Review</h3>
+          <p>Key stakeholders — clinical leadership, IT, compliance officers — complete structured surveys capturing policy gaps, access control practices, and incident response readiness. Our IT Governance Assessment identifies structural vulnerabilities before they become violations.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>HIPAA Compliance Assessment (12 Domains)</h3>
+          <p>Our proprietary 12-domain assessment framework maps directly to HIPAA Security Rule implementation specifications. We evaluate all required and addressable specifications, score each domain, and identify compliance gaps with documented evidence.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Risk Analysis &amp; Gap Documentation</h3>
+          <p>We perform the formal risk analysis HIPAA requires — identifying threats and vulnerabilities to ePHI, evaluating current controls, determining likelihood and impact, and assigning risk levels. All findings are documented in a Risk Register.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Executive Report &amp; Remediation Roadmap</h3>
+          <p>Delivery includes your Compliance Scorecard, Executive Summary for board presentation, Risk Register with prioritized findings, and a 90-day Remediation Roadmap with actionable steps mapped to the responsible team member or vendor.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Post-Audit Debrief &amp; Ongoing Monitoring (Optional)</h3>
+          <p>A structured debrief session walks through findings with your leadership team. Organizations can then enroll in Layer 2 monthly compliance monitoring for continuous HIPAA posture review, regulatory alert tracking, and an annual re-audit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE REFERENCE TABLE -->
+<section class="safeguards">
+  <div class="container">
+    <span class="section-label">Quick Reference</span>
+    <h2>Key HIPAA Implementation Specifications</h2>
+    <p class="lead">Required specifications must be implemented. Addressable specifications must be implemented if reasonable and appropriate — or the covered entity must document why an equivalent alternative was adopted.</p>
+    <table class="compliance-table">
+      <thead>
+        <tr>
+          <th>Specification</th>
+          <th>Safeguard Category</th>
+          <th>Status</th>
+          <th>What AuditMD Evaluates</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Risk Analysis</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Scope, methodology, threat/vulnerability identification, likelihood and impact ratings, existing controls</td>
+        </tr>
+        <tr>
+          <td>Risk Management</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Risk reduction plan, implementation timelines, accountability assignments, review cycles</td>
+        </tr>
+        <tr>
+          <td>Unique User Identification</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Absence of shared credentials, individual account provisioning, identity verification at access points</td>
+        </tr>
+        <tr>
+          <td>Emergency Access Procedure</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Break-glass procedures, emergency access logging, post-emergency review protocols</td>
+        </tr>
+        <tr>
+          <td>Audit Controls</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Log retention policies, access log completeness, anomaly detection, log review cadence</td>
+        </tr>
+        <tr>
+          <td>Transmission Encryption</td>
+          <td>Technical</td>
+          <td><span class="status-badge status-addressable">Addressable</span></td>
+          <td>TLS versions in use, VPN configurations, ePHI sent via email, secure messaging platforms</td>
+        </tr>
+        <tr>
+          <td>Workforce Training</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-addressable">Addressable</span></td>
+          <td>Training frequency, content coverage, completion tracking, phishing simulation programs</td>
+        </tr>
+        <tr>
+          <td>Device &amp; Media Disposal</td>
+          <td>Physical</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Hardware disposition procedures, data destruction certificates, BYOD policy compliance</td>
+        </tr>
+        <tr>
+          <td>Business Associate Agreements</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>BAA coverage gaps, contract language against HHS requirements, subcontractor BAA chain</td>
+        </tr>
+        <tr>
+          <td>Contingency Plan</td>
+          <td>Administrative</td>
+          <td><span class="status-badge status-required">Required</span></td>
+          <td>Data backup frequency, RTO/RPO definitions, disaster recovery test cadence, documented procedures</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PART 2 — AI GOVERNANCE ══════════════════════════ -->
+<div class="part-divider" id="part2-ai">
+  <span class="eyebrow part-eyebrow">Part 2 of 3</span>
+  <h2>AI Governance Strategy — Full Detail</h2>
+</div>
+
+<!-- SIX GOVERNANCE PRINCIPLES -->
+<section class="alt-bg">
+  <div class="container">
+    <span class="section-label">Our Framework</span>
+    <h2>Six Core Principles of Healthcare AI Governance</h2>
+    <p class="lead">AuditMD's AI governance assessment is structured around six principles that align with international standards (NIST AI RMF, ISO/IEC 42001) and U.S. healthcare regulatory expectations.</p>
+    <div class="principles-grid">
+      <div class="principle-item">
+        <h4>01 · Transparency</h4>
+        <p>Stakeholders — clinical, administrative, and patient — must be able to understand what an AI system does, what data it uses, and how its outputs influence decisions.</p>
+      </div>
+      <div class="principle-item">
+        <h4>02 · Accountability</h4>
+        <p>Every AI system in clinical or operational use must have a named responsible party — an individual or team accountable for its performance, monitoring, and incident response.</p>
+      </div>
+      <div class="principle-item">
+        <h4>03 · Fairness &amp; Equity</h4>
+        <p>AI outputs must be assessed across patient subgroups defined by race, ethnicity, age, gender, and socioeconomic status. Performance disparities must be documented and addressed.</p>
+      </div>
+      <div class="principle-item">
+        <h4>04 · Safety &amp; Reliability</h4>
+        <p>AI systems must perform within clinically acceptable tolerances under real-world operating conditions, including edge cases and data drift — not only controlled validation environments.</p>
+      </div>
+      <div class="principle-item">
+        <h4>05 · Privacy by Design</h4>
+        <p>AI system architecture must minimize PHI exposure. Data minimization, de-identification, access controls, and audit logging must be built in, not retrofitted post-deployment.</p>
+      </div>
+      <div class="principle-item">
+        <h4>06 · Human Oversight</h4>
+        <p>Clinical AI must preserve meaningful clinician authority over final decisions. Automation bias — the over-reliance on AI outputs at the expense of clinical judgment — must be actively monitored and countered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 GOVERNANCE DOMAINS -->
+<section>
+  <div class="container">
+    <span class="section-label">Assessment Domains</span>
+    <h2>What AuditMD Assesses Across 12 AI Governance Domains</h2>
+    <p class="lead">Our AI governance assessment produces a scored, domain-by-domain readiness report. Each domain is evaluated against documented evidence — not self-attestation.</p>
+    <div class="domain-list">
+      <div class="domain-item">
+        <div class="domain-num">01</div>
+        <div class="domain-content">
+          <h3>AI Inventory &amp; System Cataloguing</h3>
+          <p>Does the organization maintain a complete, current inventory of all AI and algorithmic systems in clinical or operational use — including vendor-procured tools embedded in EHR platforms?</p>
+        </div>
+        <span class="domain-tag high">Foundation</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">02</div>
+        <div class="domain-content">
+          <h3>Risk Classification &amp; Tiering</h3>
+          <p>Are AI systems risk-classified by clinical impact, autonomy level, and patient population affected? High-risk systems (diagnostic decision support, medication dosing, triage) require proportionally stronger governance controls.</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">03</div>
+        <div class="domain-content">
+          <h3>Vendor Due Diligence &amp; Contracts</h3>
+          <p>Do vendor agreements include AI-specific provisions: model performance SLAs, bias audit rights, data use restrictions, explainability requirements, and notification obligations for model updates?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">04</div>
+        <div class="domain-content">
+          <h3>Algorithmic Bias &amp; Equity Monitoring</h3>
+          <p>Are AI outputs monitored for performance disparities across demographic subgroups? Is there a documented process for identifying, escalating, and remediating equity concerns?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">05</div>
+        <div class="domain-content">
+          <h3>Clinical Validation &amp; Pre-Deployment Testing</h3>
+          <p>Are AI systems validated on data representative of the organization's actual patient population before deployment? What evidence exists that validation conditions matched real operating conditions?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">06</div>
+        <div class="domain-content">
+          <h3>Model Performance Monitoring &amp; Drift Detection</h3>
+          <p>Are deployed models monitored for performance degradation, input data drift, and population shifts? Is there an automated alert system and defined review cadence for high-risk models?</p>
+        </div>
+        <span class="domain-tag">Operational</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">07</div>
+        <div class="domain-content">
+          <h3>Explainability &amp; Clinical Transparency</h3>
+          <p>Can the AI system explain its outputs in terms that clinical staff can interpret and challenge? Is the level of explainability appropriate to the clinical risk tier of the system?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">08</div>
+        <div class="domain-content">
+          <h3>Data Governance &amp; PHI Protection in AI Pipelines</h3>
+          <p>Are data governance policies specifically extended to cover AI training data, inference inputs, and model output logs? Is PHI handled in compliance with HIPAA across all pipeline stages?</p>
+        </div>
+        <span class="domain-tag high">High Priority</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">09</div>
+        <div class="domain-content">
+          <h3>Human Oversight &amp; Override Protocols</h3>
+          <p>Are clinical staff trained to critically evaluate AI recommendations? Are override mechanisms functional, audited, and reviewed for patterns that might indicate automation bias?</p>
+        </div>
+        <span class="domain-tag">Clinical</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">10</div>
+        <div class="domain-content">
+          <h3>Incident Response for AI Failures</h3>
+          <p>Is there a defined process for detecting, escalating, and responding to AI-related adverse events or near-misses — separate from general IT incident response? Are AI incidents reportable under existing sentinel event frameworks?</p>
+        </div>
+        <span class="domain-tag">Operational</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">11</div>
+        <div class="domain-content">
+          <h3>Governance Structure &amp; AI Committee</h3>
+          <p>Does the organization have a cross-functional AI governance body — including clinical, legal, IT, compliance, and executive leadership — with defined authority over AI adoption and ongoing oversight?</p>
+        </div>
+        <span class="domain-tag">Governance</span>
+      </div>
+      <div class="domain-item">
+        <div class="domain-num">12</div>
+        <div class="domain-content">
+          <h3>Regulatory Readiness &amp; Documentation</h3>
+          <p>Is the organization prepared to demonstrate responsible AI governance to regulators, accreditation bodies, payers, and legal counsel? Is the documentation trail complete and defensible?</p>
+        </div>
+        <span class="domain-tag high">Foundation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATORY ALIGNMENT -->
+<section class="alt-bg">
+  <div class="container">
+    <span class="section-label">Regulatory Landscape</span>
+    <h2>Key Regulatory Frameworks Governing Healthcare AI</h2>
+    <p class="lead">AuditMD maps your AI governance posture against the regulatory and standards frameworks that currently govern — or are actively shaping — clinical AI oversight.</p>
+    <table class="reg-table">
+      <thead>
+        <tr>
+          <th>Framework / Regulation</th>
+          <th>Issuing Body</th>
+          <th>Scope &amp; Relevance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>NIST AI Risk Management Framework (AI RMF)</td>
+          <td>NIST</td>
+          <td>Voluntary framework for identifying, assessing, and managing AI risks across four functions: Govern, Map, Measure, Manage. Increasingly referenced in regulatory and procurement contexts.</td>
+        </tr>
+        <tr>
+          <td>21st Century Cures Act — Information Blocking &amp; Algorithm Transparency</td>
+          <td>ONC / HHS</td>
+          <td>Prohibits practices that restrict access to, exchange, or use of electronic health information. Requires transparency around clinical decision support tools meeting the CDS definition.</td>
+        </tr>
+        <tr>
+          <td>FDA Predetermined Change Control Plans</td>
+          <td>FDA</td>
+          <td>Regulates AI/ML-based Software as a Medical Device (SaMD). Requires manufacturers to pre-specify expected algorithm changes — critical for organizations using FDA-regulated clinical AI tools.</td>
+        </tr>
+        <tr>
+          <td>Executive Order on Safe, Secure &amp; Trustworthy AI</td>
+          <td>White House / HHS</td>
+          <td>Directs HHS to develop an AI safety program for healthcare. Establishes standards for AI transparency, safety testing, and bias evaluation in health and human services contexts.</td>
+        </tr>
+        <tr>
+          <td>ISO/IEC 42001 — AI Management Systems</td>
+          <td>ISO / IEC</td>
+          <td>International standard for establishing, implementing, and maintaining an AI management system. Provides certifiable governance structure increasingly required in global healthcare procurement.</td>
+        </tr>
+        <tr>
+          <td>CMS Innovation Center AI Guidance</td>
+          <td>CMS</td>
+          <td>Guidance for value-based care programs and alternative payment models using AI-assisted population health tools. Addresses algorithmic bias in quality measure calculations.</td>
+        </tr>
+        <tr>
+          <td>State AI Legislation (NY, CO, TX, IL)</td>
+          <td>State Legislatures</td>
+          <td>A growing number of states are enacting AI-specific legislation covering algorithmic impact assessments, automated decision-making disclosures, and bias testing requirements in high-risk contexts.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="statement-box">
+      <p>"Organizations that invest in AI governance infrastructure now are not spending money on compliance — they are building the institutional credibility that will differentiate them in every future payer negotiation, partnership, and patient trust conversation."</p>
+      <cite>— DFEAL LLC, AuditMD AI Governance Perspective</cite>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU RECEIVE -->
+<section>
+  <div class="container">
+    <span class="section-label">Deliverables</span>
+    <h2>What AuditMD Delivers After Your AI Governance Assessment</h2>
+    <p class="lead">Every AuditMD engagement produces a complete documentation package designed to support board-level reporting, vendor negotiation, and regulatory defensibility.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>AI Governance Scorecard</h3>
+        <p>Domain-by-domain scores across all 12 governance areas, with weighted overall readiness rating. Benchmarked against healthcare industry baseline for organizations of comparable size and AI adoption stage.</p>
+        <ul>
+          <li>Color-coded readiness by domain</li>
+          <li>Compliance gap indicators</li>
+          <li>Board-ready executive summary version</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗂️</div>
+        <h3>AI Risk Register</h3>
+        <p>Catalogued risk findings mapped to each AI system in scope, with likelihood, impact, and current control effectiveness ratings. Prioritized by clinical and regulatory risk level.</p>
+        <ul>
+          <li>System-level risk entries</li>
+          <li>Vendor accountability mapping</li>
+          <li>Regulatory citation per finding</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🗺️</div>
+        <h3>90-Day Remediation Roadmap</h3>
+        <p>Sequenced action plan with ownership assignments, effort estimates, and dependency mapping. Distinguishes quick wins (30 days) from structural governance initiatives (60–90 days).</p>
+        <ul>
+          <li>Week-by-week implementation timeline</li>
+          <li>Team / vendor responsibility matrix</li>
+          <li>Progress milestone definitions</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <h3>AI Governance Policy Templates</h3>
+        <p>Customized policy templates for AI system intake review, bias monitoring procedures, vendor AI contracts checklist, and AI incident response runbook — ready for legal review and immediate adoption.</p>
+        <ul>
+          <li>AI intake and approval process</li>
+          <li>Bias monitoring procedure template</li>
+          <li>AI incident escalation runbook</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PART 3 — PRIVACY ══════════════════════════ -->
+<div class="part-divider" id="part3-privacy">
+  <span class="eyebrow part-eyebrow">Part 3 of 3</span>
+  <h2>Privacy &amp; Data Handling — Full Detail</h2>
+</div>
+
+<section>
+  <div class="container">
+
+    <div class="policy-section" id="what-we-collect-detail">
+      <h2><span class="s-num">02 (cont.)</span> What Information We Collect — Detail</h2>
+      <h3>2.1 Information You Provide Directly</h3>
+      <table class="data-table">
+        <thead>
+          <tr><th>Data Category</th><th>What We Collect &amp; Why</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Contact Information</td>
+            <td>Name, job title, organization name, business email address, and business phone number — used to communicate with designated contacts about your engagement.</td>
+          </tr>
+          <tr>
+            <td>Organisation Profile</td>
+            <td>Organization type (hospital, FQHC, health system, etc.), size, geographic location, and primary service lines — used to scope and calibrate the assessment to your organization.</td>
+          </tr>
+          <tr>
+            <td>Technology Environment</td>
+            <td>EHR platform in use, cloud infrastructure, number of users with ePHI access, existing security tools — collected through our assessment forms to evaluate your Health IT posture.</td>
+          </tr>
+          <tr>
+            <td>Compliance &amp; Policy Status</td>
+            <td>Self-reported policy status, prior audit history, known gaps, and compliance program maturity — used to direct the assessment focus and produce accurate findings.</td>
+          </tr>
+          <tr>
+            <td>AI Systems in Use</td>
+            <td>Names of AI/ML tools, vendors, and use cases in clinical or operational deployment — used to evaluate AI governance posture. No model weights, training data, or patient outputs are collected.</td>
+          </tr>
+          <tr>
+            <td>Engagement Communications</td>
+            <td>Email correspondence, meeting notes, and documents shared during the engagement — retained in access-controlled client folders for the duration of the engagement and per the retention schedule below.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>2.2 Information Collected Automatically</h3>
+      <p>When you visit auditmd.xyz, our hosting platform (Netlify) may collect standard web server logs including IP addresses, browser type, referring URL, and pages visited. This information is used for security monitoring and site performance — not for marketing profiling or third-party advertising.</p>
+      <p>We do not use third-party tracking pixels, behavioral advertising networks, or cross-site identity resolution tools on our website.</p>
+    </div>
+
+    <div class="policy-section" id="how-we-use">
+      <h2><span class="s-num">03</span> How We Use Your Information</h2>
+      <p>DFEAL uses information collected through AuditMD exclusively for the following purposes:</p>
+      <ul>
+        <li><strong>Service Delivery:</strong> Conducting the scoped Health IT audit, AI governance assessment, HIPAA compliance assessment, or other engagement services you have requested.</li>
+        <li><strong>Engagement Management:</strong> Scheduling discovery calls, delivering assessment reports and deliverables, and managing the client lifecycle from intake through post-audit follow-up.</li>
+        <li><strong>Internal Quality Assurance:</strong> Reviewing engagement outcomes to improve our methodology, assessment frameworks, and deliverable quality.</li>
+        <li><strong>Compliance Obligations:</strong> Maintaining records required by applicable law, including business and tax record-keeping obligations.</li>
+        <li><strong>Service Communications:</strong> Sending engagement status updates, deliverable notifications, invoice communications, and (where you have opted in) information about related services. You may opt out of non-engagement communications at any time.</li>
+        <li><strong>Security Monitoring:</strong> Detecting and responding to potential security incidents, unauthorized access, or abuse of our platform.</li>
+      </ul>
+      <div class="callout callout-gold">
+        <strong>We do not use your organisational data to train AI models, benchmark against other clients, or produce aggregated industry datasets for sale or licensing.</strong>
+      </div>
+    </div>
+
+    <div class="policy-section" id="what-we-never-do">
+      <h2><span class="s-num">04</span> What We Never Do With Your Data</h2>
+      <p>We believe the clearest way to earn trust is to be explicit about what we will never do. The following practices are prohibited within DFEAL LLC and are not subject to exception:</p>
+      <div class="callout callout-red">
+        <ul style="padding-left: 1.25rem; margin: 0;">
+          <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not sell your data.</strong> Client organisational data is never sold, licensed, rented, or traded to any third party for any consideration.</li>
+          <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not share data with advertisers.</strong> No client data is disclosed to advertising platforms, data brokers, or marketing analytics providers.</li>
+          <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not use client data for competitive intelligence.</strong> Assessment findings are used solely to serve the client who provided them — not to build benchmarks, market reports, or competitive analysis products.</li>
+          <li style="margin-bottom: 0.6rem; color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not share deliverables as Drive links.</strong> All client deliverables (reports, scorecards, roadmaps) are delivered as encrypted attachments — never as public or shared Drive links.</li>
+          <li style="color: rgba(255,255,255,0.85);"><strong style="color:#fff;">We do not collect patient health information.</strong> AuditMD assesses organisational Health IT posture — not individual patient records. No Protected Health Information (PHI) or individually identifiable health information is collected through any AuditMD form or process.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="policy-section" id="data-handling">
+      <h2><span class="s-num">05</span> Data Handling and Security Controls</h2>
+      <p>DFEAL applies a layered security architecture to all client data, consistent with the HIPAA Security Rule standards we help our clients implement.</p>
+      <h3>5.1 Transmission Security</h3>
+      <p>All data submitted through auditmd.xyz is transmitted over TLS 1.2 or higher. Our website forms route through a server-side proxy (Netlify serverless function) — webhook URLs and API keys are never exposed to the browser or included in client-side code.</p>
+      <h3>5.2 Storage and Access Control</h3>
+      <p>Client data is stored in Google Workspace (Google Drive and Google Sheets) under the <strong>support@auditmd.xyz</strong> Google Workspace account. Access controls are role-based: only DFEAL staff with a direct engagement role have access to client-specific folders. External sharing of client folders is disabled.</p>
+      <h3>5.3 Workflow Automation Security</h3>
+      <p>Our engagement automation platform (Zapier) processes form submission data to route it to the correct internal workflow. DFEAL uses Zapier's premium business plan with Business Associate Agreement coverage. Zapier task logs are reviewed monthly and purged on a quarterly schedule.</p>
+      <h3>5.4 Credential and Key Management</h3>
+      <p>API keys, webhook URLs, and credentials used in our platform are stored exclusively as environment variables in Netlify's server-side environment. They are never hardcoded in client-side source code, committed to version control repositories, or transmitted in browser-accessible network requests.</p>
+      <h3>5.5 Multi-Factor Authentication</h3>
+      <p>Multi-factor authentication is enforced on all DFEAL accounts with access to client data, including support@auditmd.xyz (Google Workspace), Zapier, Netlify, and our project management tools.</p>
+      <h3>5.6 Incident Response</h3>
+      <p>In the event of a confirmed data security incident affecting client organisational data, DFEAL will notify affected clients within 72 hours of discovery, provide a written incident summary, and implement remediation measures. Incidents involving potential PHI exposure (if any were inadvertently collected) will be handled per HIPAA Breach Notification Rule requirements.</p>
+    </div>
+
+    <div class="policy-section" id="third-parties">
+      <h2><span class="s-num">06</span> Third-Party Service Providers</h2>
+      <p>DFEAL uses a small, carefully selected set of third-party service providers to operate our platform and deliver engagements. Each is engaged under data processing terms appropriate to the sensitivity of information they handle.</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Provider</th><th>Role &amp; Data Handled</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Netlify</td>
+            <td>Website hosting, serverless function execution, and form submission routing. Netlify receives server log data and processes form payloads through our proxy function. Netlify does not receive or store client assessment content.</td>
+          </tr>
+          <tr>
+            <td>Zapier (Business)</td>
+            <td>Workflow automation — routes form data to Google Sheets, triggers emails, and manages client lifecycle events. Zapier processes form submission fields in transit. Task history is reviewed quarterly and purged. Zapier Business Associate Agreement in place.</td>
+          </tr>
+          <tr>
+            <td>Google Workspace</td>
+            <td>Email (Gmail), document storage (Drive), and data tracking (Sheets) under the support@auditmd.xyz account. Google Workspace Business Associate Agreement in place. External sharing disabled on all client folders.</td>
+          </tr>
+          <tr>
+            <td>DeepSeek AI</td>
+            <td>Powers the Aria virtual advisor chatbot on auditmd.xyz. Chatbot queries are general-purpose service questions — users are advised not to submit organisational identifiers or sensitive information through the chat interface. No chat data is linked to engagement records.</td>
+          </tr>
+          <tr>
+            <td>GitHub</td>
+            <td>Version control for the auditmd.xyz website codebase. No client data is stored in the repository. Environment variables and credentials are managed separately through Netlify.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>DFEAL does not engage data brokers, marketing analytics platforms, or advertising networks in connection with any client data.</p>
+    </div>
+
+    <div class="policy-section" id="data-retention">
+      <h2><span class="s-num">07</span> Data Retention</h2>
+      <p>DFEAL retains client data only as long as necessary for the engagement and applicable legal obligations.</p>
+      <ul>
+        <li><strong>Active Engagement Data</strong> (forms, assessments, correspondence) — retained for the duration of the engagement plus 12 months post-completion to support any follow-up questions or dispute resolution.</li>
+        <li><strong>Deliverables and Reports</strong> — retained for 36 months post-delivery. Clients are encouraged to maintain their own copies of all deliverables.</li>
+        <li><strong>Financial Records</strong> (invoices, payment records) — retained for 7 years per standard U.S. business record-keeping requirements.</li>
+        <li><strong>Website Log Data</strong> — Netlify server logs are retained per Netlify's standard retention schedule (approximately 30 days). DFEAL does not request or retain extended log archives.</li>
+        <li><strong>Zapier Task Logs</strong> — reviewed monthly and purged quarterly. No task history is retained beyond 90 days.</li>
+      </ul>
+      <p>Upon written request, DFEAL will confirm what data is held for your organization and provide a deletion timeline where retention obligations permit.</p>
+    </div>
+
+    <div class="policy-section" id="your-rights">
+      <h2><span class="s-num">08</span> Your Rights and Choices</h2>
+      <p>As an organisational client or contact, you have the following rights regarding the data DFEAL holds about you or your organization:</p>
+      <ul>
+        <li><strong>Access:</strong> You may request a summary of the organisational data DFEAL holds in connection with your engagement.</li>
+        <li><strong>Correction:</strong> You may request correction of inaccurate contact or organisational information in our records.</li>
+        <li><strong>Deletion:</strong> You may request deletion of your data following the conclusion of your engagement, subject to legal retention obligations described above.</li>
+        <li><strong>Communication Opt-Out:</strong> You may opt out of non-engagement communications (service updates, re-engagement outreach) at any time by emailing <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a> or clicking the unsubscribe link in any marketing email.</li>
+        <li><strong>Portability:</strong> You may request a copy of your engagement data in a structured, machine-readable format upon completion of your engagement.</li>
+      </ul>
+      <p>To exercise any of these rights, contact us at <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a>. We will respond within 10 business days.</p>
+    </div>
+
+    <div class="policy-section" id="hipaa-note">
+      <h2><span class="s-num">09</span> A Note on HIPAA and Patient Data</h2>
+      <p>AuditMD is a Health IT compliance consulting service. We assess the <strong>organisational systems, policies, and controls</strong> that protect patient data — we do not access, collect, process, or review individual patient records or Protected Health Information (PHI) as part of any engagement.</p>
+      <div class="callout callout-gold">
+        <strong>No patient PHI is ever submitted to, processed by, or stored within the AuditMD platform.</strong> All AuditMD assessment forms explicitly collect organisational and operational data only.
+      </div>
+      <p>Where DFEAL LLC acts as a Business Associate under HIPAA (in the event client engagement requires handling any information that could be considered PHI), a Business Associate Agreement will be executed prior to that data exchange. Our standard engagement scope does not require BA status.</p>
+      <p>Clients are responsible for ensuring that any information they voluntarily submit through our forms does not include individual patient identifiers, medical record information, or other PHI. DFEAL's assessment questionnaires are specifically designed to collect aggregate organisational data — not patient-level records.</p>
+    </div>
+
+    <div class="policy-section" id="cookies">
+      <h2><span class="s-num">10</span> Cookies and Website Analytics</h2>
+      <p>AuditMD (auditmd.xyz) uses a minimal cookie footprint consistent with our commitment to privacy.</p>
+      <ul>
+        <li><strong>Functional cookies:</strong> Session state and form interaction functionality. These are strictly necessary for the website to operate.</li>
+        <li><strong>Analytics:</strong> We may use privacy-respecting analytics (such as Netlify Analytics) to understand aggregate traffic patterns on our website. These tools do not use cross-site tracking, behavioral profiling, or third-party advertising cookies.</li>
+        <li><strong>No advertising cookies:</strong> We do not deploy Facebook Pixel, Google Ads remarketing tags, LinkedIn Insight Tags, or any other advertising network tracking technology on auditmd.xyz.</li>
+      </ul>
+      <p>You may configure your browser to block or delete cookies. This will not affect your ability to submit forms or engage with our services.</p>
+    </div>
+
+    <div class="policy-section" id="children">
+      <h2><span class="s-num">11</span> Children's Privacy</h2>
+      <p>AuditMD is a business-to-business professional services platform. It is not directed at individuals under the age of 18, and we do not knowingly collect personal information from minors. If you believe a minor has submitted information through our platform, please contact us immediately at <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a> and we will delete the information promptly.</p>
+    </div>
+
+    <div class="policy-section" id="changes">
+      <h2><span class="s-num">12</span> Changes to This Policy</h2>
+      <p>DFEAL LLC may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or service offerings. When we make material changes, we will update the "Last Reviewed" date at the top of the public Privacy Policy page.</p>
+      <p>For active clients, we will notify the primary engagement contact by email if changes materially affect how we handle their organisational data. Continued use of auditmd.xyz following notice of a policy update constitutes acceptance of the revised terms.</p>
+      <p>We encourage you to review this policy periodically. Previous versions of this policy are available upon request.</p>
+    </div>
+
+    <div class="policy-section" id="contact">
+      <h2><span class="s-num">13</span> Contact Us</h2>
+      <p>If you have questions about this Privacy Policy, wish to exercise your rights, or need to report a privacy concern, please contact us through any of the following:</p>
+      <div class="contact-box">
+        <h3>Privacy &amp; Data Inquiries</h3>
+        <p><strong>Email:</strong> <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
+        <p><strong>Mailing Address:</strong> DFEAL LLC, 254 Chapman Rd, Ste 208, Newark, DE 19702</p>
+        <p><strong>Website:</strong> <a href="https://auditmd.xyz">auditmd.xyz</a></p>
+        <p style="margin-top: 1rem; font-size: 0.875rem; color: rgba(255,255,255,0.45);">We aim to respond to all privacy-related inquiries within 10 business days. For urgent security concerns, please include "SECURITY" in your email subject line.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════ ACKNOWLEDGMENT / SIGNATURE ══════════════════════════ -->
+<section class="sig-section" id="acknowledgment">
+  <div class="container">
+    <span class="section-label">Acknowledgment</span>
+    <h2>Confirm You've Reviewed This Documentation</h2>
+    <p class="lead">Please complete this acknowledgment to confirm receipt and review of this confidential compliance documentation. Your submission is logged internally for our engagement records.</p>
+
+    <div class="sig-box">
+      <form id="doc-sig-form">
+        <div class="sig-field">
+          <label for="sig-name">Full Name</label>
+          <input type="text" id="sig-name" name="full_name" required />
+        </div>
+        <div class="sig-field">
+          <label for="sig-title">Title / Role</label>
+          <input type="text" id="sig-title" name="title" required />
+        </div>
+        <div class="sig-field">
+          <label for="sig-org">Organization</label>
+          <input type="text" id="sig-org" name="organization" required />
+        </div>
+        <div class="sig-field">
+          <label for="sig-email">Work Email</label>
+          <input type="email" id="sig-email" name="email" required />
+        </div>
+        <div class="sig-checkbox">
+          <input type="checkbox" id="sig-agree" name="agree" required />
+          <label for="sig-agree">I confirm that I have read and reviewed this confidential compliance documentation, and I understand it is provided for internal use by my organization only and should not be shared or redistributed outside my organization.</label>
+        </div>
+        <input type="hidden" id="sig-timestamp" name="submitted_at" />
+        <button type="submit" class="sig-submit" id="sig-submit-btn">Sign &amp; Submit Acknowledgment</button>
+      </form>
+      <div id="sig-success">
+        <p><strong>Thank you.</strong> Your acknowledgment has been recorded.</p>
+      </div>
+      <div id="sig-error">
+        <p>Submission failed. Please check your connection and try again, or email <a href="mailto:support@auditmd.xyz" style="color:#ff8a8a;">support@auditmd.xyz</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 DFEAL LLC · AuditMD. Confidential — not for public distribution.</p>
+</footer>
+
+</div><!-- /doc-root -->
+
+<script>
+  // ── ACCESS GATE ──────────────────────────────────────────────────────────
+  // NOTE: this is a lightweight deterrent against casual discovery/search
+  // indexing/accidental linking — NOT real security. Anyone who views the
+  // page source can find this passcode. Real access control should come
+  // from the signed-engagement / Zapier-issued-link flow this page is a
+  // placeholder for.
+  var GATE_CODE = 'DFEAL-Confidential-2026';
+
+  function unlockDoc() {
+    document.body.classList.remove('locked');
+    try { sessionStorage.setItem('auditmd_doc_unlocked', '1'); } catch (e) {}
+  }
+
+  function checkGate() {
+    var input = document.getElementById('gate-input');
+    var err = document.getElementById('gate-error');
+    if (input.value === GATE_CODE) {
+      err.style.display = 'none';
+      unlockDoc();
+    } else {
+      err.style.display = 'block';
+    }
+  }
+
+  document.getElementById('gate-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') checkGate();
+  });
+
+  (function () {
+    try {
+      if (sessionStorage.getItem('auditmd_doc_unlocked') === '1') unlockDoc();
+    } catch (e) {}
+  })();
+
+  // ── SIGNATURE FORM SUBMIT ────────────────────────────────────────────────
+  var PROXY_URL = '/.netlify/functions/zapier-proxy';
+  var sigForm = document.getElementById('doc-sig-form');
+  if (sigForm) {
+    sigForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var btn = document.getElementById('sig-submit-btn');
+      var successBox = document.getElementById('sig-success');
+      var errorBox = document.getElementById('sig-error');
+      btn.disabled = true;
+      btn.textContent = 'Submitting…';
+      errorBox.style.display = 'none';
+
+      document.getElementById('sig-timestamp').value = new Date().toISOString();
+
+      var formData = new FormData(sigForm);
+      var payload = {};
+      formData.forEach(function (v, k) { payload[k] = v; });
+      payload['service'] = 'Compliance Documentation Signature';
+      payload['zapier_event'] = 'compliance_doc_signed';
+      payload['source'] = 'AuditMD Confidential Compliance Documentation';
+
+      var sent = false;
+      for (var attempt = 1; attempt <= 3; attempt++) {
+        try {
+          var res = await fetch(PROXY_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) { sent = true; break; }
+        } catch (err) {
+          if (attempt < 3) await new Promise(function (r) { setTimeout(r, 800 * attempt); });
+        }
+      }
+
+      if (sent) {
+        sigForm.style.display = 'none';
+        successBox.style.display = 'block';
+        successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Retry Submission';
+        errorBox.style.display = 'block';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

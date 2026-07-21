@@ -3,11 +3,13 @@
 // Routes form submissions to the correct Zapier webhook based on the
 // "service" field in the payload. Keeps all webhook URLs server-side.
 //
-// Setup — add these 5 keys in Netlify dashboard → Site → Environment Variables:
+// Setup — add these 6 keys in Netlify dashboard → Site → Environment Variables:
 //   ZAPIER_WEBHOOK_PRECALL, ZAPIER_WEBHOOK_STAKEHOLDER, ZAPIER_WEBHOOK_GOVERNANCE,
-//   ZAPIER_WEBHOOK_ASSESSMENT, ZAPIER_WEBHOOK_POSTAUDIT
+//   ZAPIER_WEBHOOK_ASSESSMENT, ZAPIER_WEBHOOK_POSTAUDIT, ZAPIER_WEBHOOK_DOCSIGN
 //
 // Note: HIPAA, EHR Workflow, and PMO Maturity all share ZAPIER_WEBHOOK_ASSESSMENT.
+// ZAPIER_WEBHOOK_DOCSIGN handles the Confidential Compliance Documentation
+// signature/acknowledgment form (compliance-documentation.html).
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CORS_HEADERS = {
@@ -27,6 +29,7 @@ function getWebhookUrl(service) {
     'EHR Workflow Assessment':          process.env.ZAPIER_WEBHOOK_ASSESSMENT,
     'PMO Maturity Assessment':          process.env.ZAPIER_WEBHOOK_ASSESSMENT,
     'Post-Audit Debrief':               process.env.ZAPIER_WEBHOOK_POSTAUDIT,
+    'Compliance Documentation Signature': process.env.ZAPIER_WEBHOOK_DOCSIGN,
   };
   return map[service] || null;
 }

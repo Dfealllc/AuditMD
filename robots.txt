@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /forms/
 Disallow: /netlify/
+Disallow: /compliance-documentation.html
 Allow: /
 
 Sitemap: https://auditmd.xyz/sitemap.xml
