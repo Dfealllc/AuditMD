@@ -102,7 +102,7 @@
   <!-- Cards injected by script below -->
 </div>
 
-<p class="disclaimer">Progress shown here is a personal reminder saved on this device only. Your DFEAL engagement team confirms actual completion separately when each form is received — this checklist won't hold up your engagement either way.</p>
+<p class="disclaimer">A checkmark appears here once a form is actually submitted. If you switch devices or clear your browser data, use the reminder link in your email to pick up where you left off — our team can also confirm what's been received.</p>
 
 <footer>
   <p>© 2026 DFEAL LLC · AuditMD · <a href="https://auditmd.xyz">auditmd.xyz</a> · <a href="mailto:support@auditmd.xyz">support@auditmd.xyz</a></p>
@@ -112,6 +112,7 @@
   const _p = new URLSearchParams(window.location.search);
   const _org = _p.get('org') || '';
   const _email = _p.get('email') || '';
+  const _completed = _p.get('completed') || '';
 
   if (_org) {
     document.getElementById('hero-sub').textContent =
@@ -144,6 +145,20 @@
     try { localStorage.setItem(storageKey, JSON.stringify(done)); } catch (e) {}
   }
 
+  // Real completion: only set when this page loads with ?completed={key},
+  // which each form now appends when its submission actually succeeds.
+  // Clicking a "Start Form" link no longer marks anything as done.
+  const validKeys = ['stakeholder', 'governance', 'hipaa', 'ehr', 'pmo'];
+  if (_completed && validKeys.indexOf(_completed) !== -1) {
+    done[_completed] = true;
+    save();
+    // Strip ?completed= from the URL so a refresh/share doesn't re-trigger it
+    // and so the badge reflects saved state, not the URL, going forward.
+    const cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete('completed');
+    window.history.replaceState({}, '', cleanUrl.toString());
+  }
+
   function render() {
     const container = document.getElementById('checklist-container');
     container.innerHTML = '';
@@ -168,14 +183,14 @@
       action.className = 'check-action';
       const link = document.createElement('a');
       link.href = f.href;
-      link.target = '_blank';
-      link.rel = 'noopener';
+      // Same-tab on purpose: each form now redirects back to this page with
+      // ?completed={key} after a real successful submit. Opening in a new
+      // tab would send that redirect to the new tab instead of updating
+      // the checklist the client is actually looking at.
       link.textContent = isDone ? 'Review Again' : 'Start Form';
-      link.addEventListener('click', function () {
-        done[f.key] = true;
-        save();
-        setTimeout(render, 300);
-      });
+      // No click handler here on purpose: a card is only ever marked done
+      // when the corresponding form's own submit script redirects back here
+      // with ?completed={key} after a confirmed successful save to Sheets.
       action.appendChild(link);
 
       card.appendChild(badge);

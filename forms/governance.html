@@ -363,7 +363,8 @@
   <div class="form-success" id="form-success">
     <div class="fs-icon">✅</div>
     <h4>Questionnaire Submitted</h4>
-    <p>Your responses have been received. Your DFEAL engagement team will review them and follow up with next steps.</p>
+    <p>Your responses have been received. Taking you back to your checklist now…</p>
+    <p style="margin-top:0.5rem;font-size:0.85rem;"><a id="manual-checklist-link" href="/forms/checklist.html" style="color:var(--navy);font-weight:700;">Continue to your checklist →</a></p>
   </div>
   <div id="form-error" style="display:none;background:rgba(239,68,68,0.06);border:1.5px solid rgba(239,68,68,0.3);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem;">
     <p style="color:#b91c1c;font-weight:600;margin-bottom:0.4rem;">Submission failed</p>
@@ -434,6 +435,14 @@
         frm.style.display = 'none';
         var success = document.getElementById('form-success');
         if (success) { success.style.display = 'block'; success.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+        var checklistUrl = new URL('/forms/checklist.html', window.location.origin);
+        checklistUrl.searchParams.set('completed', 'governance');
+        if (_clientOrg)   checklistUrl.searchParams.set('org', _clientOrg);
+        if (_clientEmail) checklistUrl.searchParams.set('email', _clientEmail);
+        var manualLink = document.getElementById('manual-checklist-link');
+        if (manualLink) manualLink.href = checklistUrl.toString();
+        setTimeout(function () { window.location.href = checklistUrl.toString(); }, 2200);
       } else {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Retry Submission'; }
         if (errDiv)    { errDiv.style.display = 'block'; errDiv.scrollIntoView({behavior:'smooth',block:'center'}); }

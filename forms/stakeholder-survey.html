@@ -476,7 +476,8 @@
       </svg>
     </div>
     <h2>Survey Submitted</h2>
-    <p>Thank you for completing the AI Readiness Stakeholder Survey. Your responses have been securely recorded and will inform our audit findings. The DFEAL team will be in touch as the engagement progresses.</p>
+    <p>Thank you for completing the AI Readiness Stakeholder Survey. Your responses have been securely recorded and will inform our audit findings. Taking you back to your checklist now…</p>
+    <p style="margin-top:0.75rem;font-size:0.85rem;"><a id="manual-checklist-link" href="/forms/checklist.html" style="color:var(--navy);font-weight:700;">Continue to your checklist →</a></p>
   </div>
 
   <!-- ERROR STATE -->
@@ -589,6 +590,16 @@
         document.querySelector('.progress-bar-wrap') && (document.querySelector('.progress-bar-wrap').parentElement.style.display = 'none');
         var success = document.getElementById('form-success');
         if (success) { success.style.display = 'block'; success.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+
+        // Send the client back to the checklist and mark THIS form done —
+        // only fires after a confirmed successful proxy response above.
+        var checklistUrl = new URL('/forms/checklist.html', window.location.origin);
+        checklistUrl.searchParams.set('completed', 'stakeholder');
+        if (_org)   checklistUrl.searchParams.set('org', _org);
+        if (_email) checklistUrl.searchParams.set('email', _email);
+        var manualLink = document.getElementById('manual-checklist-link');
+        if (manualLink) manualLink.href = checklistUrl.toString();
+        setTimeout(function () { window.location.href = checklistUrl.toString(); }, 2200);
       } else {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Retry Submission'; }
         if (errDiv)    { errDiv.style.display = 'block'; errDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
